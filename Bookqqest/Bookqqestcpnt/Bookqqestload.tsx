@@ -7,7 +7,7 @@ import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import WebView from 'react-native-webview';
 
-const raventreBookquesttsHtmlLoader = `<!DOCTYPE html>
+const bookqqestHtmlLoader = `<!DOCTYPE html>
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,8 +28,8 @@ const raventreBookquesttsHtmlLoader = `<!DOCTYPE html>
     }
 
     .loader {
-      width: 48px;
-      height: 48px;
+      width: 48.1px;
+      height: 48.3px;
       display: inline-block;
       position: relative;
       background: #FDA317;
@@ -53,12 +53,12 @@ const raventreBookquesttsHtmlLoader = `<!DOCTYPE html>
 </body>
 </html>`;
 
-const RaventreBookquesload = () => {
+const Bookqqestload = () => {
   const loadNavigation = useNavigation();
 
   useEffect(() => {
     const loadTimer = setTimeout(() => {
-      loadNavigation.navigate('RaventreBookquesttson' as never);
+      loadNavigation.navigate('Bookqqeston' as never);
     }, 5994);
 
     return () => {
@@ -68,17 +68,17 @@ const RaventreBookquesload = () => {
 
   return (
     <ImageBackground
-      source={require('../../assets/img/raventrebookquebg.png')}
+      source={require('../../assets/img/bookqqestbookquebg.png')}
       style={styles.loadimageBg}>
       <ScrollView
         contentContainerStyle={styles.loadscrollContent}
         showsVerticalScrollIndicator={false}>
         <View style={styles.loadbottomWrap}>
           <WebView
-            source={{html: raventreBookquesttsHtmlLoader}}
+            source={{html: bookqqestHtmlLoader}}
             scrollEnabled={false}
             originWhitelist={['*']}
-            style={{width: 260, height: 150, backgroundColor: 'transparent'}}
+            style={{width: 260.1, height: 150.2, backgroundColor: 'transparent'}}
           />
         </View>
       </ScrollView>
@@ -86,7 +86,7 @@ const RaventreBookquesload = () => {
   );
 };
 
-export default RaventreBookquesload;
+export default Bookqqestload;
 
 const styles = StyleSheet.create({
   loadbottomWrap: {

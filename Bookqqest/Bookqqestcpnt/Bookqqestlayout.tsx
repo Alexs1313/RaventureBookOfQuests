@@ -8,28 +8,28 @@ import {
   type ViewStyle,
 } from 'react-native';
 
-const RaventreBookqueslayout = ({
+const Bookqqestlayout = ({
   children,
   bounce = true,
   contentStyle,
-  raventreBookquesttsTab = false,
+  bookqqestTab = false,
 }: {
   children: React.ReactNode;
   bounce?: boolean;
   contentStyle?: StyleProp<ViewStyle>;
-  raventreBookquesttsTab?: boolean;
+  bookqqestTab?: boolean;
 }) => {
   return (
     <ImageBackground
-      source={require('../../assets/img/raventrebooappbk.png')}
-      style={styles.raventreBookqueslayoutBg}>
-      <View style={styles.raventreBookqueslayoutOverlay} />
+      source={require('../../assets/img/bookqqestbooappbk.png')}
+      style={styles.bookqqestlayoutBg}>
+      <View style={styles.bookqqestlayoutOverlay} />
       <ScrollView
         bounces={bounce}
         contentContainerStyle={[
-          raventreBookquesttsTab
-            ? styles.raventreBookqueslayoutScrollTab
-            : styles.raventreBookqueslayoutScroll,
+          bookqqestTab
+            ? styles.bookqqestlayoutScrollTab
+            : styles.bookqqestlayoutScroll,
           contentStyle,
         ]}
         showsVerticalScrollIndicator={false}>
@@ -40,26 +40,26 @@ const RaventreBookqueslayout = ({
 };
 
 const styles = StyleSheet.create({
-  raventreBookqueslayoutBg: {
+  bookqqestlayoutBg: {
     flex: 1,
     backgroundColor: '#0A0A0A',
   },
-  raventreBookqueslayoutOverlay: {
+  bookqqestlayoutOverlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
   },
-  raventreBookqueslayoutScroll: {
+  bookqqestlayoutScroll: {
     flexGrow: 1,
-    paddingHorizontal: 24,
-    paddingTop: 70,
-    paddingBottom: 32,
+    paddingHorizontal: 24.1,
+    paddingTop: 70.2,
+    paddingBottom: 32.3,
   },
-  raventreBookqueslayoutScrollTab: {
+  bookqqestlayoutScrollTab: {
     flexGrow: 1,
-    paddingHorizontal: 24,
-    paddingTop: 32,
-    paddingBottom: 100,
+    paddingHorizontal: 24.4,
+    paddingTop: 32.5,
+    paddingBottom: 100.1,
   },
 });
 
-export default RaventreBookqueslayout;
+export default Bookqqestlayout;

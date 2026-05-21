@@ -1,376 +1,376 @@
 import type {ImageSourcePropType} from 'react-native';
 
-export type RaventreBookquesttsQuizQuestion = {
-  raventreBookquesttsId: string;
-  raventreBookquesttsQuestion: string;
-  raventreBookquesttsOptions: string[];
-  raventreBookquesttsCorrect: string;
-  raventreBookquesttsImage: ImageSourcePropType;
+export type BookqqestQuizQuestion = {
+  bookqqestId: string;
+  bookqqestQuestion: string;
+  bookqqestOptions: string[];
+  bookqqestCorrect: string;
+  bookqqestImage: ImageSourcePropType;
 };
 
-export const raventreBookquesttsQuizTotal = 10;
+export const bookqqestQuizTotal = 10;
 
-const raventreBookquesttsQuizImages: ImageSourcePropType[] = [
-  require('../../assets/img/raventreboloc1.png'),
-  require('../../assets/img/raventreboloc2.png'),
-  require('../../assets/img/raventreboloc3.png'),
-  require('../../assets/img/raventreboloc4.png'),
-  require('../../assets/img/raventreboloc5.png'),
-  require('../../assets/img/raventreboloc6.png'),
-  require('../../assets/img/raventreboloc7.png'),
-  require('../../assets/img/raventreboloc8.png'),
-  require('../../assets/img/raventreboloc9.png'),
-  require('../../assets/img/raventreboloc10.png'),
-  require('../../assets/img/raventreboloc11.png'),
-  require('../../assets/img/raventreboloc12.png'),
+const bookqqestQuizImages: ImageSourcePropType[] = [
+  require('../../assets/img/bookqqestboloc1.png'),
+  require('../../assets/img/bookqqestboloc2.png'),
+  require('../../assets/img/bookqqestboloc3.png'),
+  require('../../assets/img/bookqqestboloc4.png'),
+  require('../../assets/img/bookqqestboloc5.png'),
+  require('../../assets/img/bookqqestboloc6.png'),
+  require('../../assets/img/bookqqestboloc7.png'),
+  require('../../assets/img/bookqqestboloc8.png'),
+  require('../../assets/img/bookqqestboloc9.png'),
+  require('../../assets/img/bookqqestboloc10.png'),
+  require('../../assets/img/bookqqestboloc11.png'),
+  require('../../assets/img/bookqqestboloc12.png'),
 ];
 
-const raventreBookquesttsMakeQuestion = (
-  raventreBookquesttsId: string,
-  raventreBookquesttsImageIndex: number,
-  raventreBookquesttsQuestion: string,
-  raventreBookquesttsOptions: string[],
-  raventreBookquesttsCorrect: string,
-): RaventreBookquesttsQuizQuestion => ({
-  raventreBookquesttsId,
-  raventreBookquesttsQuestion,
-  raventreBookquesttsOptions,
-  raventreBookquesttsCorrect,
-  raventreBookquesttsImage:
-    raventreBookquesttsQuizImages[raventreBookquesttsImageIndex],
+const bookqqestMakeQuestion = (
+  bookqqestId: string,
+  bookqqestImageIndex: number,
+  bookqqestQuestion: string,
+  bookqqestOptions: string[],
+  bookqqestCorrect: string,
+): BookqqestQuizQuestion => ({
+  bookqqestId,
+  bookqqestQuestion,
+  bookqqestOptions,
+  bookqqestCorrect,
+  bookqqestImage:
+    bookqqestQuizImages[bookqqestImageIndex],
 });
 
-const raventreBookquesttsAllQuizQuestions: RaventreBookquesttsQuizQuestion[] = [
-  raventreBookquesttsMakeQuestion(
+const bookqqestAllQuizQuestions: BookqqestQuizQuestion[] = [
+  bookqqestMakeQuestion(
     'delphi-1',
     0,
     'Which civilization is connected to the Temple Beneath Delphi?',
     ['Greece', 'Egypt', 'India', 'Aztecs'],
     'Greece',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'delphi-2',
     0,
     'Which culture used the oracle temples from the story?',
     ['Greece', 'India', 'Egypt', 'Aztecs'],
     'Greece',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'delphi-3',
     0,
     'Which civilization inspired the underground library beneath the mountain?',
     ['Greece', 'Aztecs', 'Egypt', 'India'],
     'Greece',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'delphi-4',
     0,
     'Which culture is connected to the laurel crown artifact?',
     ['Greece', 'Egypt', 'India', 'Aztecs'],
     'Greece',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'falcon-1',
     1,
     'Which civilization appears in Chamber of the Sun Falcon?',
     ['Egypt', 'Greece', 'India', 'Aztecs'],
     'Egypt',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'falcon-2',
     1,
     'Which culture built chambers beneath desert sands?',
     ['Egypt', 'India', 'Greece', 'Aztecs'],
     'Egypt',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'falcon-3',
     1,
     'Which civilization used falcon symbolism in the story?',
     ['Egypt', 'Aztecs', 'Greece', 'India'],
     'Egypt',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'falcon-4',
     1,
     'Which culture inspired the royal burial chamber?',
     ['Egypt', 'Greece', 'India', 'Aztecs'],
     'Egypt',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'moon-river-1',
     2,
     'Which civilization appears in Palace of the Moon River?',
     ['India', 'Greece', 'Egypt', 'Aztecs'],
     'India',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'moon-river-2',
     2,
     'Which culture inspired the glowing jungle palace?',
     ['India', 'Egypt', 'Greece', 'Aztecs'],
     'India',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'moon-river-3',
     2,
     'Which civilization is connected to sacred rivers and moon ceremonies?',
     ['India', 'Aztecs', 'Greece', 'Egypt'],
     'India',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'moon-river-4',
     2,
     'Which culture inspired the submerged temple behind waterfalls?',
     ['India', 'Egypt', 'Greece', 'Aztecs'],
     'India',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'red-sky-1',
     3,
     'Which civilization built the Pyramid of the Red Sky?',
     ['Aztecs', 'Greece', 'Egypt', 'India'],
     'Aztecs',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'red-sky-2',
     3,
     'Which culture inspired the giant calendar stone?',
     ['Aztecs', 'India', 'Greece', 'Egypt'],
     'Aztecs',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'red-sky-3',
     3,
     'Which civilization appears in the jungle pyramid story?',
     ['Aztecs', 'Egypt', 'Greece', 'India'],
     'Aztecs',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'red-sky-4',
     3,
     'Which culture is connected to the crimson sky prophecy?',
     ['Aztecs', 'Greece', 'Egypt', 'India'],
     'Aztecs',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'poseidon-1',
     4,
     'Which mythology inspired Shipwreck of Poseidon?',
     ['Greece', 'Egypt', 'India', 'Aztecs'],
     'Greece',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'poseidon-2',
     4,
     'Which civilization is connected to Poseidon?',
     ['Greece', 'Aztecs', 'India', 'Egypt'],
     'Greece',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'poseidon-3',
     4,
     'Which culture inspired the sea cave ruins?',
     ['Greece', 'Egypt', 'India', 'Aztecs'],
     'Greece',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'poseidon-4',
     4,
     'Which civilization used trident symbolism in the story?',
     ['Greece', 'India', 'Egypt', 'Aztecs'],
     'Greece',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'obsidian-1',
     5,
     'Which civilization appears in Obsidian Gate?',
     ['Egypt', 'Greece', 'India', 'Aztecs'],
     'Egypt',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'obsidian-2',
     5,
     'Which culture inspired the buried desert city?',
     ['Egypt', 'India', 'Greece', 'Aztecs'],
     'Egypt',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'obsidian-3',
     5,
     'Which civilization used giant stone tomb entrances in the story?',
     ['Egypt', 'Greece', 'India', 'Aztecs'],
     'Egypt',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'obsidian-4',
     5,
     'Which culture inspired the underground oasis temples?',
     ['Egypt', 'Aztecs', 'Greece', 'India'],
     'Egypt',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'tiger-1',
     6,
     'Which civilization inspired Tiger Temple of Jaipur?',
     ['India', 'Egypt', 'Greece', 'Aztecs'],
     'India',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'tiger-2',
     6,
     'Which culture is connected to tiger guardian legends?',
     ['India', 'Greece', 'Egypt', 'Aztecs'],
     'India',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'tiger-3',
     6,
     'Which civilization appears in the desert temple story?',
     ['India', 'Egypt', 'Greece', 'Aztecs'],
     'India',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'tiger-4',
     6,
     'Which culture inspired the royal festival murals?',
     ['India', 'Greece', 'Egypt', 'Aztecs'],
     'India',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'jungle-1',
     7,
     'Which civilization appears in City Beneath the Jungle?',
     ['Aztecs', 'Greece', 'Egypt', 'India'],
     'Aztecs',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'jungle-2',
     7,
     'Which culture inspired the underground jungle city?',
     ['Aztecs', 'Egypt', 'Greece', 'India'],
     'Aztecs',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'jungle-3',
     7,
     'Which civilization used giant ceremonial sun discs in the story?',
     ['Aztecs', 'Greece', 'India', 'Egypt'],
     'Aztecs',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'jungle-4',
     7,
     'Which culture inspired the concealed jungle arena?',
     ['Aztecs', 'Egypt', 'Greece', 'India'],
     'Aztecs',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'harp-1',
     8,
     'Which mythology inspired Cave of the Silver Harp?',
     ['Greece', 'Egypt', 'India', 'Aztecs'],
     'Greece',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'harp-2',
     8,
     'Which civilization appears in the island cave story?',
     ['Greece', 'Aztecs', 'India', 'Egypt'],
     'Greece',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'harp-3',
     8,
     'Which culture inspired the underground musical chamber?',
     ['Greece', 'India', 'Egypt', 'Aztecs'],
     'Greece',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'harp-4',
     8,
     'Which civilization is connected to the silver harp artifact?',
     ['Greece', 'Egypt', 'India', 'Aztecs'],
     'Greece',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'alexandria-1',
     9,
     'Which civilization appears in Moon Tomb of Alexandria?',
     ['Egypt', 'Greece', 'India', 'Aztecs'],
     'Egypt',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'alexandria-2',
     9,
     'Which culture inspired the moon observatory beneath the ruins?',
     ['Egypt', 'Greece', 'India', 'Aztecs'],
     'Egypt',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'alexandria-3',
     9,
     'Which civilization used star and moon symbolism in the story?',
     ['Egypt', 'India', 'Greece', 'Aztecs'],
     'Egypt',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'alexandria-4',
     9,
     'Which culture inspired the underground harbor tunnels?',
     ['Egypt', 'Greece', 'India', 'Aztecs'],
     'Egypt',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'elephant-1',
     10,
     'Which civilization inspired Emerald Elephant Palace?',
     ['India', 'Greece', 'Egypt', 'Aztecs'],
     'India',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'elephant-2',
     10,
     'Which culture is connected to giant elephant statues?',
     ['India', 'Egypt', 'Greece', 'Aztecs'],
     'India',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'elephant-3',
     10,
     'Which civilization appears in the flooded palace story?',
     ['India', 'Aztecs', 'Egypt', 'Greece'],
     'India',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'elephant-4',
     10,
     'Which culture inspired the concealed jungle sanctuary?',
     ['India', 'Greece', 'Egypt', 'Aztecs'],
     'India',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'eclipse-1',
     11,
     'Which civilization inspired Temple of the Golden Eclipse?',
     ['Aztecs', 'Greece', 'Egypt', 'India'],
     'Aztecs',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'eclipse-2',
     11,
     'Which culture appears in the mountain eclipse temple story?',
     ['Aztecs', 'Egypt', 'Greece', 'India'],
     'Aztecs',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'eclipse-3',
     11,
     'Which civilization used giant eclipse symbols in the story?',
     ['Aztecs', 'Greece', 'India', 'Egypt'],
     'Aztecs',
   ),
-  raventreBookquesttsMakeQuestion(
+  bookqqestMakeQuestion(
     'eclipse-4',
     11,
     'Which culture inspired the concealed observatory chamber?',
@@ -379,9 +379,9 @@ const raventreBookquesttsAllQuizQuestions: RaventreBookquesttsQuizQuestion[] = [
   ),
 ];
 
-export const raventreBookquesttsPickQuizQuestions = () => {
-  const raventreBookquesttsShuffled = [
-    ...raventreBookquesttsAllQuizQuestions,
+export const bookqqestPickQuizQuestions = () => {
+  const bookqqestShuffled = [
+    ...bookqqestAllQuizQuestions,
   ].sort(() => Math.random() - 0.5);
-  return raventreBookquesttsShuffled.slice(0, raventreBookquesttsQuizTotal);
+  return bookqqestShuffled.slice(0, bookqqestQuizTotal);
 };
