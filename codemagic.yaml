@@ -1,20 +1,20 @@
 workflows:
   ios-workflow:
-    name: 'Book Quest Raventure'
+    name: 'Book Legends Raventure'
     max_build_duration: 120
     instance_type: mac_mini_m2
     integrations:
-      app_store_connect: BookQuestAPIKey
+      app_store_connect: BookLegendsAPIKey
     environment:
       xcode: '26.0'
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.fhpqqdl.alskmag
+        bundle_identifier: com.kjds.kjdsd.dlkae
       vars:
-        BUNDLE_ID: com.fhpqqdl.alskmag
+        BUNDLE_ID: com.kjds.kjdsd.dlkae
         XCODE_WORKSPACE: RaventureBookOfQuests.xcworkspace
         XCODE_SCHEME: RaventureBookOfQuests
-        APP_STORE_APPLE_ID: 6771641279
+        APP_STORE_APPLE_ID: 6771696099
     scripts:
       - name: Install npm dependencies
         script: |
@@ -49,4 +49,4 @@ workflows:
       app_store_connect:
         auth: integration
         submit_to_app_store: true
-        copyright: 'Kato Benali'
+        copyright: 'Kato Benali 2026'
