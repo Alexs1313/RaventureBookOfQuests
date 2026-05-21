@@ -281,7 +281,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjds.kjdsd.dlkae;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sdjds.wigjet.ewprok;
 				PRODUCT_NAME = RaventureBookOfQuests;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -308,7 +308,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.kjds.kjdsd.dlkae;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sdjds.wigjet.ewprok;
 				PRODUCT_NAME = RaventureBookOfQuests;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

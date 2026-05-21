@@ -1,11 +1,12 @@
 import {NavigationContainer} from '@react-navigation/native';
-import StackkNavigator from './Legendsaventurebkk/navigation/RootNavigator';
-const App = () => {
-  return (
-    <NavigationContainer>
-      <StackkNavigator />
-    </NavigationContainer>
-  );
-};
+import React from 'react';
+
+import RootNavigator from './src/app/navigation/RootNavigator';
+
+const App = () => (
+  <NavigationContainer>
+    <RootNavigator />
+  </NavigationContainer>
+);
 
 export default App;
