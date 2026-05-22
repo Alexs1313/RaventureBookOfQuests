@@ -1,26 +1,26 @@
-import type {LegendsaventurebkkCharacter} from '../types';
+import type {RavenQuestCharacter} from '../types';
 
-const legendsaventurebkkAppName = 'Raventure: Book of Quests';
+const ravenQuestAppName = 'Raventure: Book of Quests';
 
-export const legendsaventurebkkPreviewText = (
-  legendsaventurebkkHistory: string[],
-  legendsaventurebkkMax = 120,
+export const ravenQuestPreviewText = (
+  ravenQuestHistory: string[],
+  ravenQuestMax = 120,
 ) => {
-  const legendsaventurebkkText =
-    legendsaventurebkkHistory[legendsaventurebkkHistory.length - 1] ?? '';
-  if (legendsaventurebkkText.length <= legendsaventurebkkMax) {
-    return legendsaventurebkkText;
+  const ravenQuestText =
+    ravenQuestHistory[ravenQuestHistory.length - 1] ?? '';
+  if (ravenQuestText.length <= ravenQuestMax) {
+    return ravenQuestText;
   }
-  return `${legendsaventurebkkText.slice(0, legendsaventurebkkMax).trim()}...`;
+  return `${ravenQuestText.slice(0, ravenQuestMax).trim()}...`;
 };
 
-export const legendsaventurebkkShareMessage = (
-  legendsaventurebkkTitle: string,
-  legendsaventurebkkHistory: string[],
+export const ravenQuestShareMessage = (
+  ravenQuestTitle: string,
+  ravenQuestHistory: string[],
 ) =>
-  `${legendsaventurebkkTitle}\n\n${legendsaventurebkkHistory.join('\n\n')}\n\n— ${legendsaventurebkkAppName}`;
+  `${ravenQuestTitle}\n\n${ravenQuestHistory.join('\n\n')}\n\n— ${ravenQuestAppName}`;
 
-export const legendsaventurebkkCharacterShareMessage = (
-  legendsaventurebkkCharacter: LegendsaventurebkkCharacter,
+export const ravenQuestCharacterShareMessage = (
+  ravenQuestCharacter: RavenQuestCharacter,
 ) =>
-  `${legendsaventurebkkCharacter.legendsaventurebkkName} (${legendsaventurebkkCharacter.legendsaventurebkkRegion})\n\n${legendsaventurebkkCharacter.legendsaventurebkkDescription}\n\n— ${legendsaventurebkkAppName}`;
+  `${ravenQuestCharacter.ravenQuestName} (${ravenQuestCharacter.ravenQuestRegion})\n\n${ravenQuestCharacter.ravenQuestDescription}\n\n— ${ravenQuestAppName}`;

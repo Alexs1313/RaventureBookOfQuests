@@ -1,8 +1,8 @@
-export const legendsaventurebkkCountLabel = (
-  legendsaventurebkkCount: number,
-  legendsaventurebkkSingular: string,
-  legendsaventurebkkPlural: string,
+export const ravenQuestCountLabel = (
+  ravenQuestCount: number,
+  ravenQuestSingular: string,
+  ravenQuestPlural: string,
 ) =>
-  legendsaventurebkkCount === 1
-    ? `1 ${legendsaventurebkkSingular}`
-    : `${legendsaventurebkkCount} ${legendsaventurebkkPlural}`;
+  ravenQuestCount === 1
+    ? `1 ${ravenQuestSingular}`
+    : `${ravenQuestCount} ${ravenQuestPlural}`;

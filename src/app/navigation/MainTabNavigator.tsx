@@ -1,6 +1,6 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React from 'react';
-import {Image, StyleSheet, View, type ImageSourcePropType} from 'react-native';
+import {StyleSheet, View, type ImageSourcePropType} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import ArtifactsScreen from '../../features/artifacts/ArtifactsScreen';
@@ -8,43 +8,29 @@ import CharactersScreen from '../../features/characters/CharactersScreen';
 import QuizScreen from '../../features/quiz/QuizScreen';
 import SavedScreen from '../../features/saved/SavedScreen';
 import TalesScreen from '../../features/tales/TalesScreen';
-import {legendsaventurebkkAssets} from '../../shared/constants';
+import {ravenQuestAssets} from '../../shared/constants';
 import {colors, spacing} from '../../shared/theme';
 
+import AnimatedTabBarButton from './AnimatedTabBarButton';
+import AnimatedTabIcon from './AnimatedTabIcon';
 import {Routes} from './routes';
 import type {MainTabParamList} from './types';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
+/** Tab order differs from typical mythology-template (saved/quiz mid-swap). */
 const tabIcons: ImageSourcePropType[] = [
-  legendsaventurebkkAssets.tabs.tales,
-  legendsaventurebkkAssets.tabs.saved,
-  legendsaventurebkkAssets.tabs.quiz,
-  legendsaventurebkkAssets.tabs.characters,
-  legendsaventurebkkAssets.tabs.artifacts,
+  ravenQuestAssets.tabs.tales,
+  ravenQuestAssets.tabs.quiz,
+  ravenQuestAssets.tabs.saved,
+  ravenQuestAssets.tabs.artifacts,
+  ravenQuestAssets.tabs.characters,
 ];
-
-const TabIcon = ({
-  focused,
-  source,
-}: {
-  focused: boolean;
-  source: ImageSourcePropType;
-}) => (
-  <View style={[styles.iconWrap, focused && styles.iconWrapActive]}>
-    <Image
-      source={source}
-      resizeMode="contain"
-      style={styles.iconImage}
-      tintColor={focused ? colors.tabActive : colors.tabIdle}
-    />
-  </View>
-);
 
 const makeTabIcon =
   (index: number) =>
   ({focused}: {focused: boolean}) => (
-    <TabIcon focused={focused} source={tabIcons[index]} />
+    <AnimatedTabIcon focused={focused} source={tabIcons[index]} />
   );
 
 const TabBarBackground = () => <View style={styles.tabBarBg} />;
@@ -57,6 +43,7 @@ const MainTabNavigator = () => {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
+        tabBarButton: props => <AnimatedTabBarButton {...props} />,
         tabBarStyle: [
           styles.tabBar,
           {
@@ -77,23 +64,23 @@ const MainTabNavigator = () => {
         options={{tabBarIcon: makeTabIcon(0)}}
       />
       <Tab.Screen
-        name={Routes.Saved}
-        component={SavedScreen}
+        name={Routes.Quiz}
+        component={QuizScreen}
         options={{tabBarIcon: makeTabIcon(1)}}
       />
       <Tab.Screen
-        name={Routes.Quiz}
-        component={QuizScreen}
+        name={Routes.Saved}
+        component={SavedScreen}
         options={{tabBarIcon: makeTabIcon(2)}}
-      />
-      <Tab.Screen
-        name={Routes.Characters}
-        component={CharactersScreen}
-        options={{tabBarIcon: makeTabIcon(3)}}
       />
       <Tab.Screen
         name={Routes.Artifacts}
         component={ArtifactsScreen}
+        options={{tabBarIcon: makeTabIcon(3)}}
+      />
+      <Tab.Screen
+        name={Routes.Characters}
+        component={CharactersScreen}
         options={{tabBarIcon: makeTabIcon(4)}}
       />
     </Tab.Navigator>
@@ -119,20 +106,6 @@ const styles = StyleSheet.create({
   },
   tabBarItem: {
     paddingVertical: 4.3,
-  },
-  iconWrap: {
-    width: 48.1,
-    height: 48.3,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20.5,
-  },
-  iconWrapActive: {
-    backgroundColor: colors.accent,
-  },
-  iconImage: {
-    width: 26.2,
-    height: 26.4,
   },
 });
 

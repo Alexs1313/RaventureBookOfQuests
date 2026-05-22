@@ -1,35 +1,35 @@
 import React, {useCallback, useMemo, useState} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 
-import {AppLayout, ScreenHeader} from '../../shared/components';
+import {AppLayout, FadeInView, ScreenHeader} from '../../shared/components';
 import {ArtifactGrid} from './components';
-import {legendsaventurebkkArtifacts} from '../../content/artifacts';
-import type {LegendsaventurebkkArtifact} from '../../shared/types';
+import {ravenQuestArtifacts} from '../../../content/artifacts';
+import type {RavenQuestArtifact} from '../../shared/types';
 import {
-  legendsaventurebkkCountLabel,
-  legendsaventurebkkGetQuizPoints,
-  legendsaventurebkkIsArtifactUnlocked,
+  ravenQuestCountLabel,
+  ravenQuestGetQuizPoints,
+  ravenQuestIsArtifactUnlocked,
 } from '../../shared/lib';
 
 const ArtifactsScreen = () => {
-  const [legendsaventurebkkPoints, setLegendsaventurebkkPoints] = useState(0);
+  const [ravenQuestPoints, setRavenQuestPoints] = useState(0);
 
-  const legendsaventurebkkReload = useCallback(async () => {
-    setLegendsaventurebkkPoints(await legendsaventurebkkGetQuizPoints());
+  const ravenQuestReload = useCallback(async () => {
+    setRavenQuestPoints(await ravenQuestGetQuizPoints());
   }, []);
 
   useFocusEffect(
     useCallback(() => {
-      legendsaventurebkkReload();
-    }, [legendsaventurebkkReload]),
+      ravenQuestReload();
+    }, [ravenQuestReload]),
   );
 
   const {unlocked, locked} = useMemo(() => {
-    const unlockedList: LegendsaventurebkkArtifact[] = [];
-    const lockedList: LegendsaventurebkkArtifact[] = [];
+    const unlockedList: RavenQuestArtifact[] = [];
+    const lockedList: RavenQuestArtifact[] = [];
 
-    legendsaventurebkkArtifacts.forEach(artifact => {
-      if (legendsaventurebkkIsArtifactUnlocked(artifact, legendsaventurebkkPoints)) {
+    ravenQuestArtifacts.forEach(artifact => {
+      if (ravenQuestIsArtifactUnlocked(artifact, ravenQuestPoints)) {
         unlockedList.push(artifact);
       } else {
         lockedList.push(artifact);
@@ -37,20 +37,22 @@ const ArtifactsScreen = () => {
     });
 
     return {unlocked: unlockedList, locked: lockedList};
-  }, [legendsaventurebkkPoints]);
+  }, [ravenQuestPoints]);
 
   return (
     <AppLayout tab>
       <ScreenHeader
         title="Artifacts"
         subtitle="Your collected treasures"
-        progress={legendsaventurebkkCountLabel(
-          legendsaventurebkkPoints,
+        progress={ravenQuestCountLabel(
+          ravenQuestPoints,
           'Point Obtained',
           'Insights Collected',
         )}
       />
-      <ArtifactGrid unlocked={unlocked} locked={locked} />
+      <FadeInView triggerKey={ravenQuestPoints}>
+        <ArtifactGrid unlocked={unlocked} locked={locked} />
+      </FadeInView>
     </AppLayout>
   );
 };

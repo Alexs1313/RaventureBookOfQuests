@@ -3,189 +3,197 @@ import {Image, Pressable, Share, StyleSheet, Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import React, {useCallback, useMemo, useState} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
-import {AppLayout} from '../../shared/components';
+import {AppLayout, FadeInView, StaggerItem} from '../../shared/components';
 import {colors, gradients, gradientAxis} from '../../shared/theme';
 
-import {legendsaventurebkkCharacters} from '../../content/characters';
-import type {LegendsaventurebkkCharacter} from '../../shared/types';
+import {ravenQuestCharacters} from '../../../content/characters';
+import type {RavenQuestCharacter} from '../../shared/types';
 import {
-  legendsaventurebkkCharacterShareMessage,
-  legendsaventurebkkCountLabel,
-  legendsaventurebkkGetTalesReadCount,
-  legendsaventurebkkIsCharacterUnlocked,
+  ravenQuestCharacterShareMessage,
+  ravenQuestCountLabel,
+  ravenQuestGetTalesReadCount,
+  ravenQuestIsCharacterUnlocked,
 } from '../../shared/lib';
 
-const LegendsaventurebkkShareBtn = ({
-  legendsaventurebkkOnPress,
+const RavenQuestShareBtn = ({
+  ravenQuestOnPress,
 }: {
-  legendsaventurebkkOnPress: () => void;
+  ravenQuestOnPress: () => void;
 }) => (
   <Pressable
-    onPress={legendsaventurebkkOnPress}
+    onPress={ravenQuestOnPress}
     style={({pressed}) => [
-      styles.legendsaventurebkkSharePress,
-      pressed && styles.legendsaventurebkkPressed,
+      styles.ravenQuestSharePress,
+      pressed && styles.ravenQuestPressed,
     ]}>
     <LinearGradient
       colors={gradients.primary}
       start={gradientAxis.horizontal.start}
       end={gradientAxis.horizontal.end}
-      style={styles.legendsaventurebkkShareBtn}>
+      style={styles.ravenQuestShareBtn}>
       <Image
         source={require('../../../assets/imgs/icons/shareIcon.png')}
-        style={styles.legendsaventurebkkShareIcon}
+        style={styles.ravenQuestShareIcon}
         resizeMode="contain"
       />
-      <Text style={styles.legendsaventurebkkShareText}>Share</Text>
+      <Text style={styles.ravenQuestShareText}>Share</Text>
     </LinearGradient>
   </Pressable>
 );
 
-const LegendsaventurebkkUnlockedCard = ({
-  legendsaventurebkkCharacter,
-  legendsaventurebkkOnShare,
+const RavenQuestUnlockedCard = ({
+  ravenQuestCharacter,
+  ravenQuestOnShare,
 }: {
-  legendsaventurebkkCharacter: LegendsaventurebkkCharacter;
-  legendsaventurebkkOnShare: () => void;
+  ravenQuestCharacter: RavenQuestCharacter;
+  ravenQuestOnShare: () => void;
 }) => (
-  <View style={styles.legendsaventurebkkUnlockedCard}>
-    <View style={styles.legendsaventurebkkCardImageWrap}>
+  <View style={styles.ravenQuestUnlockedCard}>
+    <View style={styles.ravenQuestCardImageWrap}>
       <Image
-        source={legendsaventurebkkCharacter.legendsaventurebkkImage}
-        style={styles.legendsaventurebkkCardImage}
+        source={ravenQuestCharacter.ravenQuestImage}
+        style={styles.ravenQuestCardImage}
       />
-      <View style={styles.legendsaventurebkkBadge}>
-        <Text style={styles.legendsaventurebkkBadgeText}>
-          {legendsaventurebkkCharacter.legendsaventurebkkRegion}
+      <View style={styles.ravenQuestBadge}>
+        <Text style={styles.ravenQuestBadgeText}>
+          {ravenQuestCharacter.ravenQuestRegion}
         </Text>
       </View>
     </View>
-    <View style={styles.legendsaventurebkkCardBody}>
-      <Text style={styles.legendsaventurebkkCardName}>
-        {legendsaventurebkkCharacter.legendsaventurebkkName}
+    <View style={styles.ravenQuestCardBody}>
+      <Text style={styles.ravenQuestCardName}>
+        {ravenQuestCharacter.ravenQuestName}
       </Text>
-      <Text style={styles.legendsaventurebkkCardDesc}>
-        {legendsaventurebkkCharacter.legendsaventurebkkDescription}
+      <Text style={styles.ravenQuestCardDesc}>
+        {ravenQuestCharacter.ravenQuestDescription}
       </Text>
-      <LegendsaventurebkkShareBtn
-        legendsaventurebkkOnPress={legendsaventurebkkOnShare}
+      <RavenQuestShareBtn
+        ravenQuestOnPress={ravenQuestOnShare}
       />
     </View>
   </View>
 );
 
-const LegendsaventurebkkLockedCard = ({
-  legendsaventurebkkCharacter,
+const RavenQuestLockedCard = ({
+  ravenQuestCharacter,
 }: {
-  legendsaventurebkkCharacter: LegendsaventurebkkCharacter;
+  ravenQuestCharacter: RavenQuestCharacter;
 }) => (
-  <View style={styles.legendsaventurebkkLockedCard}>
-    <View style={styles.legendsaventurebkkLockedImageWrap}>
+  <View style={styles.ravenQuestLockedCard}>
+    <View style={styles.ravenQuestLockedImageWrap}>
       <Image
-        source={legendsaventurebkkCharacter.legendsaventurebkkImage}
-        style={styles.legendsaventurebkkLockedImage}
+        source={ravenQuestCharacter.ravenQuestImage}
+        style={styles.ravenQuestLockedImage}
         resizeMode="cover"
       />
-      <View style={styles.legendsaventurebkkLockedOverlay}>
+      <View style={styles.ravenQuestLockedOverlay}>
         <Image source={require('../../../assets/imgs/icons/lockIcon.png')} />
-        <Text style={styles.legendsaventurebkkLockHint}>
-          Read {legendsaventurebkkCharacter.legendsaventurebkkTalesRequired}{' '}
+        <Text style={styles.ravenQuestLockHint}>
+          Read {ravenQuestCharacter.ravenQuestTalesRequired}{' '}
           tales to unlock
         </Text>
       </View>
-      <View style={styles.legendsaventurebkkLockedBadge}>
-        <Text style={styles.legendsaventurebkkLockedBadgeText}>
-          {legendsaventurebkkCharacter.legendsaventurebkkRegion}
+      <View style={styles.ravenQuestLockedBadge}>
+        <Text style={styles.ravenQuestLockedBadgeText}>
+          {ravenQuestCharacter.ravenQuestRegion}
         </Text>
       </View>
     </View>
-    <View style={styles.legendsaventurebkkLockedNameWrap}>
-      <Text style={styles.legendsaventurebkkLockedName}>???</Text>
+    <View style={styles.ravenQuestLockedNameWrap}>
+      <Text style={styles.ravenQuestLockedName}>???</Text>
     </View>
   </View>
 );
 
 const CharactersScreen = () => {
-  const [legendsaventurebkkTalesRead, setLegendsaventurebkkTalesRead] =
+  const [ravenQuestTalesRead, setRavenQuestTalesRead] =
     useState(0);
 
-  const legendsaventurebkkReload = useCallback(async () => {
-    setLegendsaventurebkkTalesRead(await legendsaventurebkkGetTalesReadCount());
+  const ravenQuestReload = useCallback(async () => {
+    setRavenQuestTalesRead(await ravenQuestGetTalesReadCount());
   }, []);
 
   useFocusEffect(
     useCallback(() => {
-      legendsaventurebkkReload();
-    }, [legendsaventurebkkReload]),
+      ravenQuestReload();
+    }, [ravenQuestReload]),
   );
 
-  const {legendsaventurebkkUnlocked, legendsaventurebkkLocked} = useMemo(() => {
-    const legendsaventurebkkUnlockedList: LegendsaventurebkkCharacter[] = [];
-    const legendsaventurebkkLockedList: LegendsaventurebkkCharacter[] = [];
+  const {ravenQuestUnlocked, ravenQuestLocked} = useMemo(() => {
+    const ravenQuestUnlockedList: RavenQuestCharacter[] = [];
+    const ravenQuestLockedList: RavenQuestCharacter[] = [];
 
-    legendsaventurebkkCharacters.forEach(legendsaventurebkkCharacter => {
+    ravenQuestCharacters.forEach(ravenQuestCharacter => {
       if (
-        legendsaventurebkkIsCharacterUnlocked(
-          legendsaventurebkkCharacter,
-          legendsaventurebkkTalesRead,
+        ravenQuestIsCharacterUnlocked(
+          ravenQuestCharacter,
+          ravenQuestTalesRead,
         )
       ) {
-        legendsaventurebkkUnlockedList.push(legendsaventurebkkCharacter);
+        ravenQuestUnlockedList.push(ravenQuestCharacter);
       } else {
-        legendsaventurebkkLockedList.push(legendsaventurebkkCharacter);
+        ravenQuestLockedList.push(ravenQuestCharacter);
       }
     });
 
     return {
-      legendsaventurebkkUnlocked: legendsaventurebkkUnlockedList,
-      legendsaventurebkkLocked: legendsaventurebkkLockedList,
+      ravenQuestUnlocked: ravenQuestUnlockedList,
+      ravenQuestLocked: ravenQuestLockedList,
     };
-  }, [legendsaventurebkkTalesRead]);
+  }, [ravenQuestTalesRead]);
 
-  const legendsaventurebkkTalesLabel = legendsaventurebkkCountLabel(
-    legendsaventurebkkTalesRead,
+  const ravenQuestTalesLabel = ravenQuestCountLabel(
+    ravenQuestTalesRead,
     'Tale Read',
     'Tales Read',
   );
 
   return (
     <AppLayout tab>
-      <Text style={styles.legendsaventurebkkTitle}>Characters</Text>
-      <Text style={styles.legendsaventurebkkSubtitle}>
-        Mythology heroes and gods
-      </Text>
-      <Text style={styles.legendsaventurebkkProgress}>
-        {legendsaventurebkkTalesLabel}
-      </Text>
+      <FadeInView>
+        <Text style={styles.ravenQuestTitle}>Characters</Text>
+        <Text style={styles.ravenQuestSubtitle}>
+          Mythology heroes and gods
+        </Text>
+        <Text style={styles.ravenQuestProgress}>
+          {ravenQuestTalesLabel}
+        </Text>
+      </FadeInView>
 
-      {legendsaventurebkkUnlocked.length > 0 && (
-        <View style={styles.legendsaventurebkkSection}>
-          {legendsaventurebkkUnlocked.map(legendsaventurebkkCharacter => (
-            <LegendsaventurebkkUnlockedCard
-              key={legendsaventurebkkCharacter.legendsaventurebkkId}
-              legendsaventurebkkCharacter={legendsaventurebkkCharacter}
-              legendsaventurebkkOnShare={() =>
-                Share.share({
-                  message: legendsaventurebkkCharacterShareMessage(
-                    legendsaventurebkkCharacter,
-                  ),
-                })
-              }
-            />
+      {ravenQuestUnlocked.length > 0 && (
+        <View style={styles.ravenQuestSection}>
+          {ravenQuestUnlocked.map((ravenQuestCharacter, index) => (
+            <StaggerItem
+              key={ravenQuestCharacter.ravenQuestId}
+              index={index}>
+              <RavenQuestUnlockedCard
+                ravenQuestCharacter={ravenQuestCharacter}
+                ravenQuestOnShare={() =>
+                  Share.share({
+                    message: ravenQuestCharacterShareMessage(
+                      ravenQuestCharacter,
+                    ),
+                  })
+                }
+              />
+            </StaggerItem>
           ))}
         </View>
       )}
 
-      {legendsaventurebkkLocked.length > 0 && (
-        <View style={styles.legendsaventurebkkSection}>
-          <Text style={styles.legendsaventurebkkSectionTitleLocked}>
+      {ravenQuestLocked.length > 0 && (
+        <View style={styles.ravenQuestSection}>
+          <Text style={styles.ravenQuestSectionTitleLocked}>
             Locked
           </Text>
-          {legendsaventurebkkLocked.map(legendsaventurebkkCharacter => (
-            <LegendsaventurebkkLockedCard
-              key={legendsaventurebkkCharacter.legendsaventurebkkId}
-              legendsaventurebkkCharacter={legendsaventurebkkCharacter}
-            />
+          {ravenQuestLocked.map((ravenQuestCharacter, index) => (
+            <StaggerItem
+              key={ravenQuestCharacter.ravenQuestId}
+              index={ravenQuestUnlocked.length + index}>
+              <RavenQuestLockedCard
+                ravenQuestCharacter={ravenQuestCharacter}
+              />
+            </StaggerItem>
           ))}
         </View>
       )}
@@ -194,7 +202,7 @@ const CharactersScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  legendsaventurebkkTitle: {
+  ravenQuestTitle: {
     color: colors.gold,
     fontSize: 48.1,
     fontWeight: '500',
@@ -202,37 +210,37 @@ const styles = StyleSheet.create({
     marginBottom: 8.3,
     marginTop: 25.4,
   },
-  legendsaventurebkkSubtitle: {
+  ravenQuestSubtitle: {
     color: colors.textMuted,
     fontSize: 16.5,
     lineHeight: 24.1,
     marginBottom: 8.2,
   },
-  legendsaventurebkkProgress: {
+  ravenQuestProgress: {
     color: colors.accent,
     fontSize: 16.3,
     lineHeight: 24.4,
     marginBottom: 24.5,
   },
-  legendsaventurebkkSection: {
+  ravenQuestSection: {
     gap: 16.1,
     marginBottom: 24.2,
   },
-  legendsaventurebkkSectionTitle: {
+  ravenQuestSectionTitle: {
     color: colors.gold,
     fontSize: 24.3,
     fontWeight: '500',
     lineHeight: 32.4,
     marginBottom: 4.5,
   },
-  legendsaventurebkkSectionTitleLocked: {
+  ravenQuestSectionTitleLocked: {
     color: colors.textMutedFaint,
     fontSize: 24.1,
     fontWeight: '500',
     lineHeight: 32.2,
     marginBottom: 4.3,
   },
-  legendsaventurebkkUnlockedCard: {
+  ravenQuestUnlockedCard: {
     borderRadius: 16.4,
     overflow: 'hidden',
     borderWidth: 1.5,
@@ -240,14 +248,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(90, 58, 36, 0.31)',
     marginBottom: 16.1,
   },
-  legendsaventurebkkCardImageWrap: {
+  ravenQuestCardImageWrap: {
     position: 'relative',
     marginTop: 20.2,
   },
-  legendsaventurebkkCardImage: {
+  ravenQuestCardImage: {
     alignSelf: 'center',
   },
-  legendsaventurebkkBadge: {
+  ravenQuestBadge: {
     position: 'absolute',
     top: 16.3,
     right: 16.4,
@@ -256,31 +264,31 @@ const styles = StyleSheet.create({
     paddingVertical: 4.1,
     borderRadius: 20.2,
   },
-  legendsaventurebkkBadgeText: {
+  ravenQuestBadgeText: {
     color: colors.textDark,
     fontSize: 14.3,
   },
-  legendsaventurebkkCardBody: {
+  ravenQuestCardBody: {
     padding: 24.4,
     gap: 12.5,
   },
-  legendsaventurebkkCardName: {
+  ravenQuestCardName: {
     color: colors.gold,
     fontSize: 24.1,
     fontWeight: '500',
     lineHeight: 32.2,
   },
-  legendsaventurebkkCardDesc: {
+  ravenQuestCardDesc: {
     color: colors.textMutedLight,
     fontSize: 16.3,
     lineHeight: 26.4,
   },
-  legendsaventurebkkSharePress: {
+  ravenQuestSharePress: {
     borderRadius: 20.5,
     overflow: 'hidden',
     marginTop: 4.1,
   },
-  legendsaventurebkkShareBtn: {
+  ravenQuestShareBtn: {
     minHeight: 48.2,
     borderRadius: 20.3,
     flexDirection: 'row',
@@ -288,16 +296,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 8.4,
   },
-  legendsaventurebkkShareIcon: {
+  ravenQuestShareIcon: {
     width: 20.5,
     height: 20.1,
   },
-  legendsaventurebkkShareText: {
+  ravenQuestShareText: {
     color: colors.textDark,
     fontSize: 16.2,
     fontWeight: '500',
   },
-  legendsaventurebkkLockedCard: {
+  ravenQuestLockedCard: {
     borderRadius: 16.3,
     overflow: 'hidden',
     borderWidth: 1.4,
@@ -306,16 +314,16 @@ const styles = StyleSheet.create({
     opacity: 0.6,
     marginBottom: 16.5,
   },
-  legendsaventurebkkLockedImageWrap: {
+  ravenQuestLockedImageWrap: {
     height: 192.1,
     position: 'relative',
   },
-  legendsaventurebkkLockedImage: {
+  ravenQuestLockedImage: {
     width: '100%',
     height: '100%',
     opacity: 0.5,
   },
-  legendsaventurebkkLockedOverlay: {
+  ravenQuestLockedOverlay: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(26, 15, 10, 0.7)',
     alignItems: 'center',
@@ -323,16 +331,16 @@ const styles = StyleSheet.create({
     gap: 8.2,
     paddingHorizontal: 24.3,
   },
-  legendsaventurebkkLockIcon: {
+  ravenQuestLockIcon: {
     fontSize: 40.4,
   },
-  legendsaventurebkkLockHint: {
+  ravenQuestLockHint: {
     color: colors.textMutedSoft,
     fontSize: 14.5,
     lineHeight: 20.1,
     textAlign: 'center',
   },
-  legendsaventurebkkLockedBadge: {
+  ravenQuestLockedBadge: {
     position: 'absolute',
     top: 16.2,
     right: 16.3,
@@ -341,21 +349,21 @@ const styles = StyleSheet.create({
     paddingVertical: 4.5,
     borderRadius: 20.1,
   },
-  legendsaventurebkkLockedBadgeText: {
+  ravenQuestLockedBadgeText: {
     color: colors.textMutedSoft,
     fontSize: 14.2,
   },
-  legendsaventurebkkLockedNameWrap: {
+  ravenQuestLockedNameWrap: {
     paddingHorizontal: 24.3,
     paddingVertical: 24.4,
   },
-  legendsaventurebkkLockedName: {
+  ravenQuestLockedName: {
     color: colors.textMutedDim,
     fontSize: 20.5,
     fontWeight: '500',
     lineHeight: 28.1,
   },
-  legendsaventurebkkPressed: {
+  ravenQuestPressed: {
     opacity: 0.85,
   },
 });

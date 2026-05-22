@@ -9,125 +9,132 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {
-  legendsaventurebkkGetStoryById,
-  legendsaventurebkkStoriesByRegion,
-} from '../../content/stories';
-import type {LegendsaventurebkkStoriesView} from '../../shared/types';
+  ravenQuestGetStoryById,
+  ravenQuestStoriesByRegion,
+} from '../../../content/stories';
+import type {RavenQuestChroniclePhase} from '../../shared/types';
 import {
-  legendsaventurebkkIsStorySaved,
-  legendsaventurebkkMarkTaleRead,
-  legendsaventurebkkSaveTale,
+  ravenQuestIsStorySaved,
+  ravenQuestMarkTaleRead,
+  ravenQuestSaveTale,
 } from '../../shared/lib';
 import {StoryListCard} from './components';
-import {AppLayout, GradientButton, ScreenHeader} from '../../shared/components';
+import {
+  AppLayout,
+  FadeInView,
+  GradientButton,
+  ScreenHeader,
+  StaggerItem,
+  TypewriterText,
+} from '../../shared/components';
 import {colors, gradients, gradientAxis} from '../../shared/theme';
 
 const TalesScreen = () => {
-  const [legendsaventurebkkView, setLegendsaventurebkkView] =
-    useState<LegendsaventurebkkStoriesView>('list');
-  const [legendsaventurebkkActiveId, setLegendsaventurebkkActiveId] = useState<
+  const [ravenQuestView, setRavenQuestView] =
+    useState<RavenQuestChroniclePhase>('catalog');
+  const [ravenQuestActiveId, setRavenQuestActiveId] = useState<
     string | null
   >(null);
-  const [legendsaventurebkkNodeId, setLegendsaventurebkkNodeId] =
+  const [ravenQuestNodeId, setRavenQuestNodeId] =
     useState('start');
-  const [legendsaventurebkkHistory, setLegendsaventurebkkHistory] = useState<
+  const [ravenQuestHistory, setRavenQuestHistory] = useState<
     string[]
   >([]);
-  const [legendsaventurebkkSaved, setLegendsaventurebkkSaved] = useState(false);
+  const [ravenQuestSaved, setRavenQuestSaved] = useState(false);
 
-  const legendsaventurebkkStory = useMemo(
+  const ravenQuestStory = useMemo(
     () =>
-      legendsaventurebkkActiveId
-        ? legendsaventurebkkGetStoryById(legendsaventurebkkActiveId)
+      ravenQuestActiveId
+        ? ravenQuestGetStoryById(ravenQuestActiveId)
         : undefined,
-    [legendsaventurebkkActiveId],
+    [ravenQuestActiveId],
   );
 
-  const legendsaventurebkkNode =
-    legendsaventurebkkStory?.legendsaventurebkkNodes[legendsaventurebkkNodeId];
+  const ravenQuestNode =
+    ravenQuestStory?.ravenQuestNodes[ravenQuestNodeId];
 
-  const legendsaventurebkkIsComplete =
-    legendsaventurebkkNode?.legendsaventurebkkEnding === true;
+  const ravenQuestIsComplete =
+    ravenQuestNode?.ravenQuestEnding === true;
 
   useEffect(() => {
-    if (legendsaventurebkkIsComplete && legendsaventurebkkActiveId) {
-      legendsaventurebkkMarkTaleRead(legendsaventurebkkActiveId);
+    if (ravenQuestIsComplete && ravenQuestActiveId) {
+      ravenQuestMarkTaleRead(ravenQuestActiveId);
     }
-  }, [legendsaventurebkkActiveId, legendsaventurebkkIsComplete]);
+  }, [ravenQuestActiveId, ravenQuestIsComplete]);
 
-  const legendsaventurebkkOpenStory = useCallback(
-    async (legendsaventurebkkId: string) => {
-      const legendsaventurebkkItem =
-        legendsaventurebkkGetStoryById(legendsaventurebkkId);
-      if (!legendsaventurebkkItem) {
+  const ravenQuestOpenStory = useCallback(
+    async (ravenQuestId: string) => {
+      const ravenQuestItem =
+        ravenQuestGetStoryById(ravenQuestId);
+      if (!ravenQuestItem) {
         return;
       }
-      const legendsaventurebkkWasSaved = await legendsaventurebkkIsStorySaved(
-        legendsaventurebkkId,
+      const ravenQuestWasSaved = await ravenQuestIsStorySaved(
+        ravenQuestId,
       );
-      setLegendsaventurebkkActiveId(legendsaventurebkkId);
-      setLegendsaventurebkkNodeId('start');
-      setLegendsaventurebkkHistory([
-        legendsaventurebkkItem.legendsaventurebkkIntro,
+      setRavenQuestActiveId(ravenQuestId);
+      setRavenQuestNodeId('start');
+      setRavenQuestHistory([
+        ravenQuestItem.ravenQuestIntro,
       ]);
-      setLegendsaventurebkkSaved(legendsaventurebkkWasSaved);
-      setLegendsaventurebkkView('reader');
+      setRavenQuestSaved(ravenQuestWasSaved);
+      setRavenQuestView('reading');
     },
     [],
   );
 
-  const legendsaventurebkkBackToList = useCallback(() => {
-    setLegendsaventurebkkView('list');
-    setLegendsaventurebkkActiveId(null);
-    setLegendsaventurebkkNodeId('start');
-    setLegendsaventurebkkHistory([]);
-    setLegendsaventurebkkSaved(false);
+  const ravenQuestBackToList = useCallback(() => {
+    setRavenQuestView('catalog');
+    setRavenQuestActiveId(null);
+    setRavenQuestNodeId('start');
+    setRavenQuestHistory([]);
+    setRavenQuestSaved(false);
   }, []);
 
-  const legendsaventurebkkPickChoice = useCallback(
-    (legendsaventurebkkNext: string) => {
-      if (!legendsaventurebkkStory) {
+  const ravenQuestPickChoice = useCallback(
+    (ravenQuestNext: string) => {
+      if (!ravenQuestStory) {
         return;
       }
-      const legendsaventurebkkNextNode =
-        legendsaventurebkkStory.legendsaventurebkkNodes[legendsaventurebkkNext];
-      if (!legendsaventurebkkNextNode) {
+      const ravenQuestNextNode =
+        ravenQuestStory.ravenQuestNodes[ravenQuestNext];
+      if (!ravenQuestNextNode) {
         return;
       }
-      const legendsaventurebkkNewHistory = [
-        ...legendsaventurebkkHistory,
-        ...(legendsaventurebkkNextNode.legendsaventurebkkAddText
-          ? [legendsaventurebkkNextNode.legendsaventurebkkAddText]
+      const ravenQuestNewHistory = [
+        ...ravenQuestHistory,
+        ...(ravenQuestNextNode.ravenQuestAddText
+          ? [ravenQuestNextNode.ravenQuestAddText]
           : []),
       ];
-      setLegendsaventurebkkHistory(legendsaventurebkkNewHistory);
-      setLegendsaventurebkkNodeId(legendsaventurebkkNext);
+      setRavenQuestHistory(ravenQuestNewHistory);
+      setRavenQuestNodeId(ravenQuestNext);
     },
-    [legendsaventurebkkHistory, legendsaventurebkkStory],
+    [ravenQuestHistory, ravenQuestStory],
   );
 
-  const legendsaventurebkkSaveStory = useCallback(async () => {
+  const ravenQuestSaveStory = useCallback(async () => {
     if (
-      !legendsaventurebkkActiveId ||
-      legendsaventurebkkSaved ||
-      !legendsaventurebkkStory
+      !ravenQuestActiveId ||
+      ravenQuestSaved ||
+      !ravenQuestStory
     ) {
       return;
     }
-    await legendsaventurebkkSaveTale({
-      legendsaventurebkkId: legendsaventurebkkActiveId,
-      legendsaventurebkkHistory: legendsaventurebkkHistory,
-      legendsaventurebkkSavedAt: Date.now(),
+    await ravenQuestSaveTale({
+      ravenQuestId: ravenQuestActiveId,
+      ravenQuestHistory: ravenQuestHistory,
+      ravenQuestSavedAt: Date.now(),
     });
-    setLegendsaventurebkkSaved(true);
+    setRavenQuestSaved(true);
   }, [
-    legendsaventurebkkActiveId,
-    legendsaventurebkkHistory,
-    legendsaventurebkkSaved,
-    legendsaventurebkkStory,
+    ravenQuestActiveId,
+    ravenQuestHistory,
+    ravenQuestSaved,
+    ravenQuestStory,
   ]);
 
-  if (legendsaventurebkkView === 'list') {
+  if (ravenQuestView === 'catalog') {
     return (
       <AppLayout tab>
         <ScreenHeader
@@ -135,56 +142,68 @@ const TalesScreen = () => {
           subtitle="Choose your mythology adventure"
           compact
         />
-        {legendsaventurebkkStoriesByRegion.map(
-          ({legendsaventurebkkRegion, legendsaventurebkkItems}) => (
-            <View
-              key={legendsaventurebkkRegion}
-              style={styles.legendsaventurebkkRegionBlock}>
-              <Text style={styles.legendsaventurebkkRegionTitle}>
-                {legendsaventurebkkRegion}
-              </Text>
-              {legendsaventurebkkItems.map(legendsaventurebkkItem => (
-                <StoryListCard
-                  key={legendsaventurebkkItem.legendsaventurebkkId}
-                  story={legendsaventurebkkItem}
-                  onOpen={() =>
-                    legendsaventurebkkOpenStory(
-                      legendsaventurebkkItem.legendsaventurebkkId,
-                    )
-                  }
-                />
-              ))}
-            </View>
-          ),
-        )}
+        {(() => {
+          let cardIndex = 0;
+          return ravenQuestStoriesByRegion.map(
+            ({ravenQuestRegion, ravenQuestItems}, regionIndex) => (
+              <FadeInView
+                key={ravenQuestRegion}
+                delay={regionIndex * 80}
+                style={styles.ravenQuestRegionBlock}>
+                <Text style={styles.ravenQuestRegionTitle}>
+                  {ravenQuestRegion}
+                </Text>
+                {ravenQuestItems.map(ravenQuestItem => {
+                  const item = (
+                    <StaggerItem
+                      key={ravenQuestItem.ravenQuestId}
+                      index={cardIndex}>
+                      <StoryListCard
+                        story={ravenQuestItem}
+                        onOpen={() =>
+                          ravenQuestOpenStory(
+                            ravenQuestItem.ravenQuestId,
+                          )
+                        }
+                      />
+                    </StaggerItem>
+                  );
+                  cardIndex += 1;
+                  return item;
+                })}
+              </FadeInView>
+            ),
+          );
+        })()}
       </AppLayout>
     );
   }
 
-  if (!legendsaventurebkkStory || !legendsaventurebkkNode) {
+  if (!ravenQuestStory || !ravenQuestNode) {
     return null;
   }
 
-  const legendsaventurebkkShowHero =
-    legendsaventurebkkHistory.length === 1 &&
-    legendsaventurebkkNodeId === 'start';
+  const ravenQuestShowHero =
+    ravenQuestHistory.length === 1 &&
+    ravenQuestNodeId === 'start';
 
   return (
-    <AppLayout tab contentStyle={styles.legendsaventurebkkReaderScroll}>
+    <AppLayout tab contentStyle={styles.ravenQuestReaderScroll}>
+      <FadeInView triggerKey={ravenQuestActiveId ?? 'reading'}>
       <Pressable
-        onPress={legendsaventurebkkBackToList}
+        onPress={ravenQuestBackToList}
         style={({pressed}) => [
-          styles.legendsaventurebkkBackBtn,
-          pressed && styles.legendsaventurebkkPressed,
+          styles.ravenQuestBackBtn,
+          pressed && styles.ravenQuestPressed,
         ]}>
         <Image source={require('../../../assets/imgs/icons/backIcon.png')} />
       </Pressable>
 
-      {legendsaventurebkkShowHero && (
-        <View style={styles.legendsaventurebkkHero}>
-          <View style={styles.legendsaventurebkkHeroImageWrap}>
+      {ravenQuestShowHero && (
+        <View style={styles.ravenQuestHero}>
+          <View style={styles.ravenQuestHeroImageWrap}>
             <ImageBackground
-              source={legendsaventurebkkStory.legendsaventurebkkImage}
+              source={ravenQuestStory.ravenQuestImage}
               style={StyleSheet.absoluteFill}
               resizeMode="cover"
             />
@@ -193,101 +212,126 @@ const TalesScreen = () => {
               locations={[0.42, 0.72, 1]}
               style={StyleSheet.absoluteFill}
             />
-            <View style={styles.legendsaventurebkkHeroBadge}>
-              <Text style={styles.legendsaventurebkkListBadgeText}>
-                {legendsaventurebkkStory.legendsaventurebkkRegion}
+            <View style={styles.ravenQuestHeroBadge}>
+              <Text style={styles.ravenQuestListBadgeText}>
+                {ravenQuestStory.ravenQuestRegion}
               </Text>
             </View>
-            <Text style={styles.legendsaventurebkkHeroTitle}>
-              {legendsaventurebkkStory.legendsaventurebkkTitle}
+            <Text style={styles.ravenQuestHeroTitle}>
+              {ravenQuestStory.ravenQuestTitle}
             </Text>
           </View>
         </View>
       )}
 
-      {!legendsaventurebkkShowHero && (
-        <View style={styles.legendsaventurebkkReaderThumb}>
+      {!ravenQuestShowHero && (
+        <View style={styles.ravenQuestReaderThumb}>
           <ImageBackground
-            source={legendsaventurebkkStory.legendsaventurebkkImage}
+            source={ravenQuestStory.ravenQuestImage}
             style={StyleSheet.absoluteFill}
             resizeMode="cover"
           />
         </View>
       )}
 
-      <View style={styles.legendsaventurebkkTextBlocks}>
-        {legendsaventurebkkHistory.map((legendsaventurebkkBlock, i) => (
-          <View
-            key={`${i}-${legendsaventurebkkBlock.slice(0, 12)}`}
-            style={styles.legendsaventurebkkTextCard}>
-            <Text style={styles.legendsaventurebkkTextCardBody}>
-              {legendsaventurebkkBlock}
-            </Text>
-          </View>
-        ))}
+      <View style={styles.ravenQuestTextBlocks}>
+        {ravenQuestHistory.map((ravenQuestBlock, i) => {
+          const isLatest = i === ravenQuestHistory.length - 1;
+          const blockKey = `${ravenQuestNodeId}-${i}`;
+          const card = (
+            <View style={styles.ravenQuestTextCard}>
+              {isLatest ? (
+                <TypewriterText
+                  text={ravenQuestBlock}
+                  style={styles.ravenQuestTextCardBody}
+                  triggerKey={blockKey}
+                />
+              ) : (
+                <Text style={styles.ravenQuestTextCardBody}>
+                  {ravenQuestBlock}
+                </Text>
+              )}
+            </View>
+          );
+          return isLatest ? (
+            <FadeInView key={blockKey} triggerKey={blockKey}>
+              {card}
+            </FadeInView>
+          ) : (
+            <View key={`${i}-static`}>{card}</View>
+          );
+        })}
       </View>
 
-      {legendsaventurebkkIsComplete ? (
-        <View style={styles.legendsaventurebkkCompleteBlock}>
-          <View style={styles.legendsaventurebkkJourneyBadge}>
-            <Text style={styles.legendsaventurebkkJourneyText}>
+      {ravenQuestIsComplete ? (
+        <FadeInView style={styles.ravenQuestCompleteBlock} triggerKey="complete">
+          <View style={styles.ravenQuestJourneyBadge}>
+            <Text style={styles.ravenQuestJourneyText}>
               Journey Complete
             </Text>
           </View>
           <Pressable
-            disabled={legendsaventurebkkSaved}
-            onPress={legendsaventurebkkSaveStory}
+            disabled={ravenQuestSaved}
+            onPress={ravenQuestSaveStory}
             style={({pressed}) => [
-              styles.legendsaventurebkkSavePress,
-              legendsaventurebkkSaved && styles.legendsaventurebkkSaveDisabled,
+              styles.ravenQuestSavePress,
+              ravenQuestSaved && styles.ravenQuestSaveDisabled,
               pressed &&
-                !legendsaventurebkkSaved &&
-                styles.legendsaventurebkkPressed,
+                !ravenQuestSaved &&
+                styles.ravenQuestPressed,
             ]}>
             <LinearGradient
               colors={gradients.primary}
               start={gradientAxis.horizontal.start}
               end={gradientAxis.horizontal.end}
-              style={styles.legendsaventurebkkSaveBtn}>
-              <Text style={styles.legendsaventurebkkChoiceText}>
-                {legendsaventurebkkSaved
+              style={styles.ravenQuestSaveBtn}>
+              <Text style={styles.ravenQuestChoiceText}>
+                {ravenQuestSaved
                   ? 'Your Story Saved'
                   : 'Save This Version'}
               </Text>
             </LinearGradient>
           </Pressable>
-        </View>
+        </FadeInView>
       ) : (
-        <View style={styles.legendsaventurebkkChoicesBlock}>
-          {legendsaventurebkkNode.legendsaventurebkkQuestion && (
-            <Text style={styles.legendsaventurebkkQuestion}>
-              {legendsaventurebkkNode.legendsaventurebkkQuestion}
-            </Text>
+        <FadeInView
+          style={styles.ravenQuestChoicesBlock}
+          triggerKey={ravenQuestNodeId}>
+          {ravenQuestNode.ravenQuestQuestion && (
+            <TypewriterText
+              text={ravenQuestNode.ravenQuestQuestion}
+              style={styles.ravenQuestQuestion}
+              triggerKey={`q-${ravenQuestNodeId}`}
+            />
           )}
-          {legendsaventurebkkNode.legendsaventurebkkChoices?.map(
-            legendsaventurebkkChoice => (
-              <GradientButton
-                key={legendsaventurebkkChoice.legendsaventurebkkNext}
-                label={legendsaventurebkkChoice.legendsaventurebkkLabel}
-                tall={
-                  legendsaventurebkkChoice.legendsaventurebkkLabel.length > 42
-                }
-                onPress={() =>
-                  legendsaventurebkkPickChoice(
-                    legendsaventurebkkChoice.legendsaventurebkkNext,
-                  )
-                }
-              />
+          {ravenQuestNode.ravenQuestChoices?.map(
+            (ravenQuestChoice, choiceIndex) => (
+              <StaggerItem
+                key={ravenQuestChoice.ravenQuestNext}
+                index={choiceIndex}>
+                <GradientButton
+                  label={ravenQuestChoice.ravenQuestLabel}
+                  tall={
+                    ravenQuestChoice.ravenQuestLabel.length > 42
+                  }
+                  onPress={() =>
+                    ravenQuestPickChoice(
+                      ravenQuestChoice.ravenQuestNext,
+                    )
+                  }
+                />
+              </StaggerItem>
             ),
           )}
-        </View>
+        </FadeInView>
       )}
+      </FadeInView>
     </AppLayout>
   );
 };
 
 const styles = StyleSheet.create({
-  legendsaventurebkkListTitle: {
+  ravenQuestListTitle: {
     color: colors.gold,
     fontSize: 46.1,
     fontWeight: '500',
@@ -295,23 +339,23 @@ const styles = StyleSheet.create({
     marginBottom: 8.3,
     marginTop: 25.4,
   },
-  legendsaventurebkkListSubtitle: {
+  ravenQuestListSubtitle: {
     color: colors.textMuted,
     fontSize: 16.5,
     lineHeight: 24.1,
     marginBottom: 24.2,
   },
-  legendsaventurebkkRegionBlock: {
+  ravenQuestRegionBlock: {
     marginBottom: 24.3,
     gap: 16.4,
   },
-  legendsaventurebkkRegionTitle: {
+  ravenQuestRegionTitle: {
     color: colors.accent,
     fontSize: 24.5,
     fontWeight: '500',
     lineHeight: 32.1,
   },
-  legendsaventurebkkListCard: {
+  ravenQuestListCard: {
     borderRadius: 16.2,
     overflow: 'hidden',
     borderWidth: 1.3,
@@ -319,11 +363,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.cardStrong,
     marginBottom: 16.4,
   },
-  legendsaventurebkkListCardImageWrap: {
+  ravenQuestListCardImageWrap: {
     height: 192.5,
     position: 'relative',
   },
-  legendsaventurebkkListBadge: {
+  ravenQuestListBadge: {
     position: 'absolute',
     top: 16.1,
     right: 16.2,
@@ -332,30 +376,30 @@ const styles = StyleSheet.create({
     paddingVertical: 4.4,
     borderRadius: 20.5,
   },
-  legendsaventurebkkListBadgeText: {
+  ravenQuestListBadgeText: {
     color: colors.textDark,
     fontSize: 14.1,
   },
-  legendsaventurebkkListCardBody: {
+  ravenQuestListCardBody: {
     padding: 24.2,
     gap: 12.3,
   },
-  legendsaventurebkkListCardTitle: {
+  ravenQuestListCardTitle: {
     color: colors.gold,
     fontSize: 20.4,
     fontWeight: '500',
     lineHeight: 28.5,
   },
-  legendsaventurebkkListCardDesc: {
+  ravenQuestListCardDesc: {
     color: colors.textMutedLight,
     fontSize: 16.1,
     lineHeight: 26.2,
     marginBottom: 4.3,
   },
-  legendsaventurebkkReaderScroll: {
+  ravenQuestReaderScroll: {
     paddingTop: 8.4,
   },
-  legendsaventurebkkBackBtn: {
+  ravenQuestBackBtn: {
     width: 40.5,
     height: 40.1,
     borderRadius: 20.2,
@@ -367,22 +411,22 @@ const styles = StyleSheet.create({
     marginBottom: 16.4,
     marginTop: 50.5,
   },
-  legendsaventurebkkBackIcon: {
+  ravenQuestBackIcon: {
     color: colors.text,
     fontSize: 20.1,
     fontWeight: '600',
   },
-  legendsaventurebkkHero: {
+  ravenQuestHero: {
     marginBottom: 24.2,
   },
-  legendsaventurebkkHeroImageWrap: {
+  ravenQuestHeroImageWrap: {
     height: 256.3,
     borderRadius: 16.4,
     overflow: 'hidden',
     justifyContent: 'flex-end',
     padding: 24.5,
   },
-  legendsaventurebkkHeroBadge: {
+  ravenQuestHeroBadge: {
     alignSelf: 'flex-start',
     backgroundColor: colors.badge,
     paddingHorizontal: 12.1,
@@ -390,23 +434,23 @@ const styles = StyleSheet.create({
     borderRadius: 20.3,
     marginBottom: 12.4,
   },
-  legendsaventurebkkHeroTitle: {
+  ravenQuestHeroTitle: {
     color: colors.gold,
     fontSize: 30.5,
     fontWeight: '500',
     lineHeight: 36.1,
   },
-  legendsaventurebkkReaderThumb: {
+  ravenQuestReaderThumb: {
     height: 256.2,
     borderRadius: 16.3,
     overflow: 'hidden',
     marginBottom: 24.4,
   },
-  legendsaventurebkkTextBlocks: {
+  ravenQuestTextBlocks: {
     gap: 24.5,
     marginBottom: 24.1,
   },
-  legendsaventurebkkTextCard: {
+  ravenQuestTextCard: {
     borderRadius: 20.2,
     borderWidth: 1.3,
     borderColor: colors.borderStrong,
@@ -414,47 +458,47 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24.4,
     paddingVertical: 24.5,
   },
-  legendsaventurebkkTextCardBody: {
+  ravenQuestTextCardBody: {
     color: colors.text,
     fontSize: 16.1,
     lineHeight: 26.2,
   },
-  legendsaventurebkkQuestion: {
+  ravenQuestQuestion: {
     color: colors.gold,
     fontSize: 16.3,
     lineHeight: 24.4,
     textAlign: 'center',
     marginBottom: 16.5,
   },
-  legendsaventurebkkChoicesBlock: {
+  ravenQuestChoicesBlock: {
     gap: 12.1,
     marginBottom: 16.2,
   },
-  legendsaventurebkkChoicePress: {
+  ravenQuestChoicePress: {
     borderRadius: 20.3,
     overflow: 'hidden',
     width: '100%',
   },
-  legendsaventurebkkChoiceBtn: {
+  ravenQuestChoiceBtn: {
     minHeight: 47.4,
     borderRadius: 20.5,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  legendsaventurebkkChoiceBtnTall: {
+  ravenQuestChoiceBtnTall: {
     minHeight: 80.1,
   },
-  legendsaventurebkkChoiceText: {
+  ravenQuestChoiceText: {
     color: colors.textDark,
     fontSize: 16.2,
     fontWeight: '500',
     textAlign: 'center',
   },
-  legendsaventurebkkCompleteBlock: {
+  ravenQuestCompleteBlock: {
     gap: 16.3,
     marginBottom: 16.4,
   },
-  legendsaventurebkkJourneyBadge: {
+  ravenQuestJourneyBadge: {
     borderRadius: 20.5,
     borderWidth: 1.1,
     borderColor: colors.journeyBorder,
@@ -462,25 +506,25 @@ const styles = StyleSheet.create({
     paddingVertical: 24.2,
     alignItems: 'center',
   },
-  legendsaventurebkkJourneyText: {
+  ravenQuestJourneyText: {
     color: colors.gold,
     fontSize: 18.3,
     lineHeight: 28.4,
   },
-  legendsaventurebkkSavePress: {
+  ravenQuestSavePress: {
     borderRadius: 20.5,
     overflow: 'hidden',
   },
-  legendsaventurebkkSaveDisabled: {
+  ravenQuestSaveDisabled: {
     opacity: 0.5,
   },
-  legendsaventurebkkSaveBtn: {
+  ravenQuestSaveBtn: {
     height: 56.1,
     borderRadius: 20.2,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  legendsaventurebkkPressed: {
+  ravenQuestPressed: {
     opacity: 0.85,
   },
 });

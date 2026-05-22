@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, Pressable, StyleSheet} from 'react-native';
 
-import {legendsaventurebkkAssets} from '../../constants';
+import {ravenQuestAssets} from '../../constants';
 import {colors} from '../../theme';
 
 type BackButtonProps = {
@@ -12,7 +12,7 @@ const BackButton = ({onPress}: BackButtonProps) => (
   <Pressable
     onPress={onPress}
     style={({pressed}) => [styles.btn, pressed && styles.pressed]}>
-    <Image source={legendsaventurebkkAssets.icons.back} />
+    <Image source={ravenQuestAssets.icons.back} />
   </Pressable>
 );
 

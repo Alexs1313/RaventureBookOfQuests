@@ -1,22 +1,23 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const legendsaventurebkkQuizPointsKey = 'legendsaventurebkk_quiz_points';
+const ravenQuestQuizPointsKey =
+  '@book_explorer_raventure/insight_ledger';
 
-export const legendsaventurebkkPointsPerCorrect = 50;
+export const ravenQuestPointsPerCorrect = 50;
 
-export const legendsaventurebkkGetQuizPoints = async () => {
-  const legendsaventurebkkRaw = await AsyncStorage.getItem(
-    legendsaventurebkkQuizPointsKey,
+export const ravenQuestGetQuizPoints = async () => {
+  const ravenQuestRaw = await AsyncStorage.getItem(
+    ravenQuestQuizPointsKey,
   );
-  return legendsaventurebkkRaw ? parseInt(legendsaventurebkkRaw, 10) : 0;
+  return ravenQuestRaw ? parseInt(ravenQuestRaw, 10) : 0;
 };
 
-export const legendsaventurebkkAddQuizPoints = async (
-  legendsaventurebkkPoints: number,
+export const ravenQuestAddQuizPoints = async (
+  ravenQuestPoints: number,
 ) => {
-  const legendsaventurebkkCurrent = await legendsaventurebkkGetQuizPoints();
+  const ravenQuestCurrent = await ravenQuestGetQuizPoints();
   await AsyncStorage.setItem(
-    legendsaventurebkkQuizPointsKey,
-    String(legendsaventurebkkCurrent + legendsaventurebkkPoints),
+    ravenQuestQuizPointsKey,
+    String(ravenQuestCurrent + ravenQuestPoints),
   );
 };

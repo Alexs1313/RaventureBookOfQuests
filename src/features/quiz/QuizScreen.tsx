@@ -14,119 +14,124 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {Routes} from '../../app/navigation/routes';
 import type {MainTabParamList} from '../../app/navigation/types';
-import {AppLayout} from '../../shared/components';
+import {
+  AnimatedProgressBar,
+  AppLayout,
+  FadeInView,
+  TypewriterText,
+} from '../../shared/components';
 import {colors, gradients, gradientAxis} from '../../shared/theme';
 
 import {
-  legendsaventurebkkPickQuizQuestions,
-  legendsaventurebkkQuizTotal,
-} from '../../content/quiz';
+  ravenQuestPickQuizQuestions,
+  ravenQuestQuizTotal,
+} from '../../../content/quiz';
 import type {
-  LegendsaventurebkkQuizQuestion,
-  LegendsaventurebkkQuizView,
+  RavenQuestQuizQuestion,
+  RavenQuestTrialPhase,
 } from '../../shared/types';
 import {
-  legendsaventurebkkAddQuizPoints,
-  legendsaventurebkkPointsPerCorrect,
+  ravenQuestAddQuizPoints,
+  ravenQuestPointsPerCorrect,
 } from '../../shared/lib';
 
-const LegendsaventurebkkGradientBtn = ({
-  legendsaventurebkkLabel,
-  legendsaventurebkkOnPress,
-  legendsaventurebkkStyle,
-  legendsaventurebkkDisabled,
+const RavenQuestGradientBtn = ({
+  ravenQuestLabel,
+  ravenQuestOnPress,
+  ravenQuestStyle,
+  ravenQuestDisabled,
 }: {
-  legendsaventurebkkLabel: string;
-  legendsaventurebkkOnPress: () => void;
-  legendsaventurebkkStyle?: object;
-  legendsaventurebkkDisabled?: boolean;
+  ravenQuestLabel: string;
+  ravenQuestOnPress: () => void;
+  ravenQuestStyle?: object;
+  ravenQuestDisabled?: boolean;
 }) => (
   <Pressable
-    disabled={legendsaventurebkkDisabled}
-    onPress={legendsaventurebkkOnPress}
+    disabled={ravenQuestDisabled}
+    onPress={ravenQuestOnPress}
     style={({pressed}) => [
-      styles.legendsaventurebkkGradientPress,
-      legendsaventurebkkDisabled && styles.legendsaventurebkkDisabled,
+      styles.ravenQuestGradientPress,
+      ravenQuestDisabled && styles.ravenQuestDisabled,
       pressed &&
-        !legendsaventurebkkDisabled &&
-        styles.legendsaventurebkkPressed,
+        !ravenQuestDisabled &&
+        styles.ravenQuestPressed,
     ]}>
     <LinearGradient
       colors={gradients.primary}
       start={gradientAxis.horizontal.start}
       end={gradientAxis.horizontal.end}
-      style={[styles.legendsaventurebkkGradientBtn, legendsaventurebkkStyle]}>
-      <Text style={styles.legendsaventurebkkGradientText}>
-        {legendsaventurebkkLabel}
+      style={[styles.ravenQuestGradientBtn, ravenQuestStyle]}>
+      <Text style={styles.ravenQuestGradientText}>
+        {ravenQuestLabel}
       </Text>
     </LinearGradient>
   </Pressable>
 );
 
-const LegendsaventurebkkOutlineBtn = ({
-  legendsaventurebkkLabel,
-  legendsaventurebkkOnPress,
+const RavenQuestOutlineBtn = ({
+  ravenQuestLabel,
+  ravenQuestOnPress,
 }: {
-  legendsaventurebkkLabel: string;
-  legendsaventurebkkOnPress: () => void;
+  ravenQuestLabel: string;
+  ravenQuestOnPress: () => void;
 }) => (
   <Pressable
-    onPress={legendsaventurebkkOnPress}
+    onPress={ravenQuestOnPress}
     style={({pressed}) => [
-      styles.legendsaventurebkkOutlineBtn,
-      pressed && styles.legendsaventurebkkPressed,
+      styles.ravenQuestOutlineBtn,
+      pressed && styles.ravenQuestPressed,
     ]}>
-    <Text style={styles.legendsaventurebkkOutlineText}>
-      {legendsaventurebkkLabel}
+    <Text style={styles.ravenQuestOutlineText}>
+      {ravenQuestLabel}
     </Text>
   </Pressable>
 );
 
-const LegendsaventurebkkExitModal = ({
-  legendsaventurebkkVisible,
-  legendsaventurebkkOnExit,
-  legendsaventurebkkOnCancel,
+const RavenQuestExitModal = ({
+  ravenQuestVisible,
+  ravenQuestOnExit,
+  ravenQuestOnCancel,
 }: {
-  legendsaventurebkkVisible: boolean;
-  legendsaventurebkkOnExit: () => void;
-  legendsaventurebkkOnCancel: () => void;
+  ravenQuestVisible: boolean;
+  ravenQuestOnExit: () => void;
+  ravenQuestOnCancel: () => void;
 }) => (
   <Modal
-    visible={legendsaventurebkkVisible}
+    visible={ravenQuestVisible}
     transparent
     animationType="fade"
-    onRequestClose={legendsaventurebkkOnCancel}>
+    onRequestClose={ravenQuestOnCancel}>
     <Pressable
-      style={styles.legendsaventurebkkModalOverlay}
-      onPress={legendsaventurebkkOnCancel}>
+      style={styles.ravenQuestModalOverlay}
+      onPress={ravenQuestOnCancel}>
       <Pressable
-        style={styles.legendsaventurebkkModal}
+        style={styles.ravenQuestModal}
         onPress={e => e.stopPropagation()}>
-        <Text style={styles.legendsaventurebkkModalTitle}>Exit Quiz?</Text>
-        <Text style={styles.legendsaventurebkkModalBody}>
+        <Text style={styles.ravenQuestModalTitle}>Exit Quiz?</Text>
+        <Text style={styles.ravenQuestModalBody}>
           Your progress will be lost!
         </Text>
         <Pressable
-          onPress={legendsaventurebkkOnExit}
+          onPress={ravenQuestOnExit}
           style={({pressed}) => [
-            styles.legendsaventurebkkModalDeletePress,
-            pressed && styles.legendsaventurebkkPressed,
+            styles.ravenQuestModalDeletePress,
+            pressed && styles.ravenQuestPressed,
           ]}>
           <LinearGradient
             colors={gradients.danger}
             start={gradientAxis.horizontal.start}
             end={gradientAxis.horizontal.end}
-            style={styles.legendsaventurebkkModalDeleteBtn}>
-            <Text style={styles.legendsaventurebkkModalDeleteText}>Exit</Text>
+            style={styles.ravenQuestModalDeleteBtn}>
+            <Text style={styles.ravenQuestModalDeleteText}>Exit</Text>
           </LinearGradient>
         </Pressable>
         <Pressable
-          onPress={legendsaventurebkkOnCancel}
+          onPress={ravenQuestOnCancel}
           style={({pressed}) => [
-            styles.legendsaventurebkkModalCancelBtn,
-            pressed && styles.legendsaventurebkkPressed,
+            styles.ravenQuestModalCancelBtn,
+            pressed && styles.ravenQuestPressed,
           ]}>
-          <Text style={styles.legendsaventurebkkModalCancelText}>Cancel</Text>
+          <Text style={styles.ravenQuestModalCancelText}>Cancel</Text>
         </Pressable>
       </Pressable>
     </Pressable>
@@ -134,338 +139,334 @@ const LegendsaventurebkkExitModal = ({
 );
 
 const QuizScreen = () => {
-  const legendsaventurebkkNavigation =
+  const ravenQuestNavigation =
     useNavigation<BottomTabNavigationProp<MainTabParamList, typeof Routes.Quiz>>();
-  const [legendsaventurebkkView, setLegendsaventurebkkView] =
-    useState<LegendsaventurebkkQuizView>('home');
-  const [legendsaventurebkkQuestions, setLegendsaventurebkkQuestions] =
-    useState<LegendsaventurebkkQuizQuestion[]>([]);
-  const [legendsaventurebkkIndex, setLegendsaventurebkkIndex] = useState(0);
-  const [legendsaventurebkkCorrect, setLegendsaventurebkkCorrect] = useState(0);
-  const [legendsaventurebkkSelected, setLegendsaventurebkkSelected] = useState<
+  const [ravenQuestView, setRavenQuestView] =
+    useState<RavenQuestTrialPhase>('intro');
+  const [ravenQuestQuestions, setRavenQuestQuestions] =
+    useState<RavenQuestQuizQuestion[]>([]);
+  const [ravenQuestIndex, setRavenQuestIndex] = useState(0);
+  const [ravenQuestCorrect, setRavenQuestCorrect] = useState(0);
+  const [ravenQuestSelected, setRavenQuestSelected] = useState<
     string | null
   >(null);
-  const [legendsaventurebkkRevealed, setLegendsaventurebkkRevealed] =
+  const [ravenQuestRevealed, setRavenQuestRevealed] =
     useState(false);
-  const [legendsaventurebkkExitOpen, setLegendsaventurebkkExitOpen] =
+  const [ravenQuestExitOpen, setRavenQuestExitOpen] =
     useState(false);
 
-  const legendsaventurebkkCurrent =
-    legendsaventurebkkQuestions[legendsaventurebkkIndex];
+  const ravenQuestCurrent =
+    ravenQuestQuestions[ravenQuestIndex];
 
-  const legendsaventurebkkProgress =
-    legendsaventurebkkQuestions.length > 0
-      ? (legendsaventurebkkIndex + (legendsaventurebkkRevealed ? 1 : 0)) /
-        legendsaventurebkkQuizTotal
+  const ravenQuestProgress =
+    ravenQuestQuestions.length > 0
+      ? (ravenQuestIndex + (ravenQuestRevealed ? 1 : 0)) /
+        ravenQuestQuizTotal
       : 0;
 
-  // const legendsaventurebkkResetPlay = useCallback(() => {
-  //   setLegendsaventurebkkIndex(0);
-  //   setLegendsaventurebkkCorrect(0);
-  //   setLegendsaventurebkkSelected(null);
-  //   setLegendsaventurebkkRevealed(false);
-  //   setLegendsaventurebkkExitOpen(false);
+  // const ravenQuestResetPlay = useCallback(() => {
+  //   setRavenQuestIndex(0);
+  //   setRavenQuestCorrect(0);
+  //   setRavenQuestSelected(null);
+  //   setRavenQuestRevealed(false);
+  //   setRavenQuestExitOpen(false);
   // }, []);
 
-  const legendsaventurebkkResetPlay = useCallback(() => {
-    setLegendsaventurebkkIndex(0);
-    setLegendsaventurebkkCorrect(0);
-    setLegendsaventurebkkSelected(null);
-    setLegendsaventurebkkRevealed(false);
-    setLegendsaventurebkkExitOpen(false);
+  const ravenQuestResetPlay = useCallback(() => {
+    setRavenQuestIndex(0);
+    setRavenQuestCorrect(0);
+    setRavenQuestSelected(null);
+    setRavenQuestRevealed(false);
+    setRavenQuestExitOpen(false);
   }, []);
 
-  const legendsaventurebkkStartQuiz = useCallback(() => {
-    setLegendsaventurebkkQuestions(legendsaventurebkkPickQuizQuestions());
-    legendsaventurebkkResetPlay();
-    setLegendsaventurebkkView('play');
-  }, [legendsaventurebkkResetPlay]);
+  const ravenQuestStartQuiz = useCallback(() => {
+    setRavenQuestQuestions(ravenQuestPickQuizQuestions());
+    ravenQuestResetPlay();
+    setRavenQuestView('active');
+  }, [ravenQuestResetPlay]);
 
-  const legendsaventurebkkExitToHome = useCallback(() => {
-    setLegendsaventurebkkExitOpen(false);
-    setLegendsaventurebkkQuestions([]);
-    legendsaventurebkkResetPlay();
-    setLegendsaventurebkkView('home');
-  }, [legendsaventurebkkResetPlay]);
+  const ravenQuestExitToHome = useCallback(() => {
+    setRavenQuestExitOpen(false);
+    setRavenQuestQuestions([]);
+    ravenQuestResetPlay();
+    setRavenQuestView('intro');
+  }, [ravenQuestResetPlay]);
 
-  const legendsaventurebkkFinishQuiz = useCallback(
-    async (legendsaventurebkkFinalCorrect: number) => {
-      setLegendsaventurebkkCorrect(legendsaventurebkkFinalCorrect);
-      await legendsaventurebkkAddQuizPoints(
-        legendsaventurebkkFinalCorrect * legendsaventurebkkPointsPerCorrect,
+  const ravenQuestFinishQuiz = useCallback(
+    async (ravenQuestFinalCorrect: number) => {
+      setRavenQuestCorrect(ravenQuestFinalCorrect);
+      await ravenQuestAddQuizPoints(
+        ravenQuestFinalCorrect * ravenQuestPointsPerCorrect,
       );
-      setLegendsaventurebkkView('complete');
+      setRavenQuestView('finished');
     },
     [],
   );
 
-  const legendsaventurebkkOnSelectAnswer = useCallback(
-    (legendsaventurebkkOption: string) => {
-      if (!legendsaventurebkkCurrent || legendsaventurebkkRevealed) {
+  const ravenQuestOnSelectAnswer = useCallback(
+    (ravenQuestOption: string) => {
+      if (!ravenQuestCurrent || ravenQuestRevealed) {
         return;
       }
-      setLegendsaventurebkkSelected(legendsaventurebkkOption);
-      setLegendsaventurebkkRevealed(true);
+      setRavenQuestSelected(ravenQuestOption);
+      setRavenQuestRevealed(true);
       if (
-        legendsaventurebkkOption ===
-        legendsaventurebkkCurrent.legendsaventurebkkCorrect
+        ravenQuestOption ===
+        ravenQuestCurrent.ravenQuestCorrect
       ) {
-        setLegendsaventurebkkCorrect(c => c + 1);
+        setRavenQuestCorrect(c => c + 1);
       }
     },
-    [legendsaventurebkkCurrent, legendsaventurebkkRevealed],
+    [ravenQuestCurrent, ravenQuestRevealed],
   );
 
-  const legendsaventurebkkOnNext = useCallback(() => {
-    if (!legendsaventurebkkCurrent || !legendsaventurebkkRevealed) {
+  const ravenQuestOnNext = useCallback(() => {
+    if (!ravenQuestCurrent || !ravenQuestRevealed) {
       return;
     }
 
-    if (legendsaventurebkkIndex >= legendsaventurebkkQuizTotal - 1) {
-      legendsaventurebkkFinishQuiz(legendsaventurebkkCorrect);
+    if (ravenQuestIndex >= ravenQuestQuizTotal - 1) {
+      ravenQuestFinishQuiz(ravenQuestCorrect);
       return;
     }
 
-    setLegendsaventurebkkIndex(i => i + 1);
-    setLegendsaventurebkkSelected(null);
-    setLegendsaventurebkkRevealed(false);
+    setRavenQuestIndex(i => i + 1);
+    setRavenQuestSelected(null);
+    setRavenQuestRevealed(false);
   }, [
-    legendsaventurebkkCorrect,
-    legendsaventurebkkCurrent,
-    legendsaventurebkkFinishQuiz,
-    legendsaventurebkkIndex,
-    legendsaventurebkkRevealed,
+    ravenQuestCorrect,
+    ravenQuestCurrent,
+    ravenQuestFinishQuiz,
+    ravenQuestIndex,
+    ravenQuestRevealed,
   ]);
 
-  const legendsaventurebkkAnswerStyle = useCallback(
-    (legendsaventurebkkOption: string) => {
-      if (!legendsaventurebkkRevealed) {
-        return styles.legendsaventurebkkAnswerDefault;
+  const ravenQuestAnswerStyle = useCallback(
+    (ravenQuestOption: string) => {
+      if (!ravenQuestRevealed) {
+        return styles.ravenQuestAnswerDefault;
       }
       if (
-        legendsaventurebkkOption ===
-        legendsaventurebkkCurrent?.legendsaventurebkkCorrect
+        ravenQuestOption ===
+        ravenQuestCurrent?.ravenQuestCorrect
       ) {
-        return styles.legendsaventurebkkAnswerCorrect;
+        return styles.ravenQuestAnswerCorrect;
       }
-      if (legendsaventurebkkOption === legendsaventurebkkSelected) {
-        return styles.legendsaventurebkkAnswerWrong;
+      if (ravenQuestOption === ravenQuestSelected) {
+        return styles.ravenQuestAnswerWrong;
       }
-      return styles.legendsaventurebkkAnswerDefault;
+      return styles.ravenQuestAnswerDefault;
     },
     [
-      legendsaventurebkkCurrent,
-      legendsaventurebkkRevealed,
-      legendsaventurebkkSelected,
+      ravenQuestCurrent,
+      ravenQuestRevealed,
+      ravenQuestSelected,
     ],
   );
 
-  const legendsaventurebkkAnswerTextStyle = useCallback(
-    (legendsaventurebkkOption: string) => {
-      if (!legendsaventurebkkRevealed) {
-        return styles.legendsaventurebkkAnswerText;
+  const ravenQuestAnswerTextStyle = useCallback(
+    (ravenQuestOption: string) => {
+      if (!ravenQuestRevealed) {
+        return styles.ravenQuestAnswerText;
       }
       if (
-        legendsaventurebkkOption ===
-        legendsaventurebkkCurrent?.legendsaventurebkkCorrect
+        ravenQuestOption ===
+        ravenQuestCurrent?.ravenQuestCorrect
       ) {
-        return styles.legendsaventurebkkAnswerTextCorrect;
+        return styles.ravenQuestAnswerTextCorrect;
       }
-      if (legendsaventurebkkOption === legendsaventurebkkSelected) {
-        return styles.legendsaventurebkkAnswerTextWrong;
+      if (ravenQuestOption === ravenQuestSelected) {
+        return styles.ravenQuestAnswerTextWrong;
       }
-      return styles.legendsaventurebkkAnswerText;
+      return styles.ravenQuestAnswerText;
     },
     [
-      legendsaventurebkkCurrent,
-      legendsaventurebkkRevealed,
-      legendsaventurebkkSelected,
+      ravenQuestCurrent,
+      ravenQuestRevealed,
+      ravenQuestSelected,
     ],
   );
 
   React.useEffect(() => {
-    if (legendsaventurebkkView !== 'play') {
+    if (ravenQuestView !== 'active') {
       return;
     }
-    const legendsaventurebkkSub = BackHandler.addEventListener(
+    const ravenQuestSub = BackHandler.addEventListener(
       'hardwareBackPress',
       () => {
-        setLegendsaventurebkkExitOpen(true);
+        setRavenQuestExitOpen(true);
         return true;
       },
     );
-    return () => legendsaventurebkkSub.remove();
-  }, [legendsaventurebkkView]);
+    return () => ravenQuestSub.remove();
+  }, [ravenQuestView]);
 
-  const legendsaventurebkkNextLabel = useMemo(
+  const ravenQuestNextLabel = useMemo(
     () =>
-      legendsaventurebkkIndex >= legendsaventurebkkQuizTotal - 1
+      ravenQuestIndex >= ravenQuestQuizTotal - 1
         ? 'Finish'
         : 'Next',
-    [legendsaventurebkkIndex],
+    [ravenQuestIndex],
   );
 
-  if (legendsaventurebkkView === 'complete') {
+  if (ravenQuestView === 'finished') {
     return (
       <AppLayout tab>
-        <View style={styles.legendsaventurebkkCompleteWrap}>
+        <FadeInView style={styles.ravenQuestCompleteWrap} triggerKey="complete">
           <Image
             source={require('../../../assets/imgs/quiz/quizComplete.png')}
-            style={styles.legendsaventurebkkCompleteImage}
+            style={styles.ravenQuestCompleteImage}
             resizeMode="contain"
           />
-          <Text style={styles.legendsaventurebkkCompleteTitle}>
+          <Text style={styles.ravenQuestCompleteTitle}>
             Quiz Complete!
           </Text>
-          <Text style={styles.legendsaventurebkkCompleteScore}>
-            You answered {legendsaventurebkkCorrect} out of{' '}
-            {legendsaventurebkkQuizTotal} correctly
+          <Text style={styles.ravenQuestCompleteScore}>
+            You answered {ravenQuestCorrect} out of{' '}
+            {ravenQuestQuizTotal} correctly
           </Text>
-          <Text style={styles.legendsaventurebkkCompletePoints}>
-            +{legendsaventurebkkCorrect * legendsaventurebkkPointsPerCorrect}{' '}
+          <Text style={styles.ravenQuestCompletePoints}>
+            +{ravenQuestCorrect * ravenQuestPointsPerCorrect}{' '}
             Insights
           </Text>
-          <LegendsaventurebkkGradientBtn
-            legendsaventurebkkLabel="View Artifacts"
-            legendsaventurebkkOnPress={() =>
-              legendsaventurebkkNavigation.navigate(Routes.Artifacts)
+          <RavenQuestGradientBtn
+            ravenQuestLabel="View Artifacts"
+            ravenQuestOnPress={() =>
+              ravenQuestNavigation.navigate(Routes.Artifacts)
             }
-            legendsaventurebkkStyle={styles.legendsaventurebkkCompletePrimary}
+            ravenQuestStyle={styles.ravenQuestCompletePrimary}
           />
-          <LegendsaventurebkkOutlineBtn
-            legendsaventurebkkLabel="Back to Quiz"
-            legendsaventurebkkOnPress={legendsaventurebkkExitToHome}
+          <RavenQuestOutlineBtn
+            ravenQuestLabel="Back to Quiz"
+            ravenQuestOnPress={ravenQuestExitToHome}
           />
-        </View>
+        </FadeInView>
       </AppLayout>
     );
   }
 
-  if (legendsaventurebkkView === 'play' && legendsaventurebkkCurrent) {
+  if (ravenQuestView === 'active' && ravenQuestCurrent) {
     return (
-      <AppLayout tab contentStyle={styles.legendsaventurebkkPlayScroll}>
-        <View style={styles.legendsaventurebkkPlayHeader}>
+      <AppLayout tab contentStyle={styles.ravenQuestPlayScroll}>
+        <FadeInView triggerKey={ravenQuestIndex}>
+        <View style={styles.ravenQuestPlayHeader}>
           <Pressable
-            onPress={() => setLegendsaventurebkkExitOpen(true)}
+            onPress={() => setRavenQuestExitOpen(true)}
             style={({pressed}) => [
-              styles.legendsaventurebkkBackBtn,
-              pressed && styles.legendsaventurebkkPressed,
+              styles.ravenQuestBackBtn,
+              pressed && styles.ravenQuestPressed,
             ]}>
             <Image source={require('../../../assets/imgs/icons/backIcon.png')} />
           </Pressable>
-          <View style={styles.legendsaventurebkkPlayHeaderMeta}>
-            <Text style={styles.legendsaventurebkkQuestionCount}>
-              Question {legendsaventurebkkIndex + 1}/
-              {legendsaventurebkkQuizTotal}
+          <View style={styles.ravenQuestPlayHeaderMeta}>
+            <Text style={styles.ravenQuestQuestionCount}>
+              Question {ravenQuestIndex + 1}/
+              {ravenQuestQuizTotal}
             </Text>
-            <Text style={styles.legendsaventurebkkCorrectCount}>
-              {legendsaventurebkkCorrect} Correct
+            <Text style={styles.ravenQuestCorrectCount}>
+              {ravenQuestCorrect} Correct
             </Text>
           </View>
         </View>
 
-        <View style={styles.legendsaventurebkkProgressTrack}>
-          <LinearGradient
-            colors={gradients.primary}
-            start={gradientAxis.horizontal.start}
-            end={gradientAxis.horizontal.end}
-            style={[
-              styles.legendsaventurebkkProgressFill,
-              {width: `${Math.max(legendsaventurebkkProgress * 100, 4.2)}%`},
-            ]}
-          />
-        </View>
+        <AnimatedProgressBar progress={ravenQuestProgress} />
 
         <Image
-          source={legendsaventurebkkCurrent.legendsaventurebkkImage}
-          style={styles.legendsaventurebkkQuizImage}
+          source={ravenQuestCurrent.ravenQuestImage}
+          style={styles.ravenQuestQuizImage}
           resizeMode="cover"
         />
 
-        <View style={styles.legendsaventurebkkQuestionBox}>
-          <Text style={styles.legendsaventurebkkQuestionText}>
-            {legendsaventurebkkCurrent.legendsaventurebkkQuestion}
-          </Text>
+        <View style={styles.ravenQuestQuestionBox}>
+          <TypewriterText
+            text={ravenQuestCurrent.ravenQuestQuestion}
+            style={styles.ravenQuestQuestionText}
+            triggerKey={ravenQuestIndex}
+          />
         </View>
 
-        <View style={styles.legendsaventurebkkAnswersGrid}>
-          {legendsaventurebkkCurrent.legendsaventurebkkOptions.map(
-            legendsaventurebkkOption => (
+        <View style={styles.ravenQuestAnswersGrid}>
+          {ravenQuestCurrent.ravenQuestOptions.map(
+            ravenQuestOption => (
               <Pressable
-                key={legendsaventurebkkOption}
-                disabled={legendsaventurebkkRevealed}
+                key={ravenQuestOption}
+                disabled={ravenQuestRevealed}
                 onPress={() =>
-                  legendsaventurebkkOnSelectAnswer(legendsaventurebkkOption)
+                  ravenQuestOnSelectAnswer(ravenQuestOption)
                 }
                 style={({pressed}) => [
-                  styles.legendsaventurebkkAnswerBtn,
-                  legendsaventurebkkAnswerStyle(legendsaventurebkkOption),
+                  styles.ravenQuestAnswerBtn,
+                  ravenQuestAnswerStyle(ravenQuestOption),
                   pressed &&
-                    !legendsaventurebkkRevealed &&
-                    styles.legendsaventurebkkPressed,
+                    !ravenQuestRevealed &&
+                    styles.ravenQuestPressed,
                 ]}>
                 <Text
-                  style={legendsaventurebkkAnswerTextStyle(
-                    legendsaventurebkkOption,
+                  style={ravenQuestAnswerTextStyle(
+                    ravenQuestOption,
                   )}>
-                  {legendsaventurebkkOption}
+                  {ravenQuestOption}
                 </Text>
               </Pressable>
             ),
           )}
         </View>
 
-        <LegendsaventurebkkGradientBtn
-          legendsaventurebkkLabel={legendsaventurebkkNextLabel}
-          legendsaventurebkkOnPress={legendsaventurebkkOnNext}
-          legendsaventurebkkDisabled={!legendsaventurebkkRevealed}
-          legendsaventurebkkStyle={styles.legendsaventurebkkNextBtn}
+        <RavenQuestGradientBtn
+          ravenQuestLabel={ravenQuestNextLabel}
+          ravenQuestOnPress={ravenQuestOnNext}
+          ravenQuestDisabled={!ravenQuestRevealed}
+          ravenQuestStyle={styles.ravenQuestNextBtn}
         />
 
-        <LegendsaventurebkkExitModal
-          legendsaventurebkkVisible={legendsaventurebkkExitOpen}
-          legendsaventurebkkOnExit={legendsaventurebkkExitToHome}
-          legendsaventurebkkOnCancel={() =>
-            setLegendsaventurebkkExitOpen(false)
+        <RavenQuestExitModal
+          ravenQuestVisible={ravenQuestExitOpen}
+          ravenQuestOnExit={ravenQuestExitToHome}
+          ravenQuestOnCancel={() =>
+            setRavenQuestExitOpen(false)
           }
         />
+        </FadeInView>
       </AppLayout>
     );
   }
 
   return (
     <AppLayout tab>
-      <Text style={styles.legendsaventurebkkTitle}>Quiz</Text>
-      <Text style={styles.legendsaventurebkkSubtitle}>
+      <FadeInView>
+      <Text style={styles.ravenQuestTitle}>Quiz</Text>
+      <Text style={styles.ravenQuestSubtitle}>
         Test your mythology knowledge
       </Text>
 
       <Image
         source={require('../../../assets/imgs/quiz/quizHero.png')}
-        style={styles.legendsaventurebkkHeroImage}
+        style={styles.ravenQuestHeroImage}
         resizeMode="contain"
       />
 
-      <View style={styles.legendsaventurebkkInfoCard}>
-        <Text style={styles.legendsaventurebkkInfoTitle}>Mythology Quiz</Text>
-        <Text style={styles.legendsaventurebkkInfoBody}>
+      <View style={styles.ravenQuestInfoCard}>
+        <Text style={styles.ravenQuestInfoTitle}>Mythology Quiz</Text>
+        <Text style={styles.ravenQuestInfoBody}>
           Answer 10 questions based on the tales and mythology from the app.
           Each correct answer adds 50 insights toward unlocking ancient
           artifacts.
         </Text>
       </View>
 
-      <LegendsaventurebkkGradientBtn
-        legendsaventurebkkLabel="Start Quiz"
-        legendsaventurebkkOnPress={legendsaventurebkkStartQuiz}
-        legendsaventurebkkStyle={styles.legendsaventurebkkStartBtn}
+      <RavenQuestGradientBtn
+        ravenQuestLabel="Start Quiz"
+        ravenQuestOnPress={ravenQuestStartQuiz}
+        ravenQuestStyle={styles.ravenQuestStartBtn}
       />
+      </FadeInView>
     </AppLayout>
   );
 };
 
 const styles = StyleSheet.create({
-  legendsaventurebkkTitle: {
+  ravenQuestTitle: {
     color: colors.gold,
     fontSize: 48.1,
     fontWeight: '500',
@@ -473,20 +474,20 @@ const styles = StyleSheet.create({
     marginBottom: 8.3,
     marginTop: 25.4,
   },
-  legendsaventurebkkSubtitle: {
+  ravenQuestSubtitle: {
     color: colors.textMuted,
     fontSize: 16.5,
     lineHeight: 24.1,
     marginBottom: 16.2,
   },
-  legendsaventurebkkHeroImage: {
+  ravenQuestHeroImage: {
     width: 242.3,
     height: 242.4,
     alignSelf: 'center',
     borderRadius: 28.5,
     marginBottom: 16.1,
   },
-  legendsaventurebkkInfoCard: {
+  ravenQuestInfoCard: {
     borderRadius: 16.2,
     borderWidth: 1.3,
     borderColor: colors.border,
@@ -495,31 +496,31 @@ const styles = StyleSheet.create({
     gap: 12.5,
     marginBottom: 24.1,
   },
-  legendsaventurebkkInfoTitle: {
+  ravenQuestInfoTitle: {
     color: colors.gold,
     fontSize: 24.2,
     fontWeight: '500',
     lineHeight: 32.3,
   },
-  legendsaventurebkkInfoBody: {
+  ravenQuestInfoBody: {
     color: colors.textMutedLight,
     fontSize: 16.4,
     lineHeight: 26.5,
   },
-  legendsaventurebkkStartBtn: {
+  ravenQuestStartBtn: {
     minHeight: 56.1,
   },
-  legendsaventurebkkPlayScroll: {
+  ravenQuestPlayScroll: {
     paddingBottom: 120.2,
   },
-  legendsaventurebkkPlayHeader: {
+  ravenQuestPlayHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 12.3,
     marginTop: 40.4,
     marginBottom: 16.5,
   },
-  legendsaventurebkkBackBtn: {
+  ravenQuestBackBtn: {
     width: 40.1,
     height: 40.2,
     borderRadius: 20.3,
@@ -529,47 +530,47 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  legendsaventurebkkBackIcon: {
+  ravenQuestBackIcon: {
     color: colors.text,
     fontSize: 20.5,
     fontWeight: '600',
   },
-  legendsaventurebkkPlayHeaderMeta: {
+  ravenQuestPlayHeaderMeta: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
   },
-  legendsaventurebkkQuestionCount: {
+  ravenQuestQuestionCount: {
     color: colors.textMutedSoft,
     fontSize: 16.1,
     lineHeight: 24.2,
   },
-  legendsaventurebkkCorrectCount: {
+  ravenQuestCorrectCount: {
     color: colors.gold,
     fontSize: 16.3,
     lineHeight: 24.4,
     marginLeft: 'auto',
   },
-  legendsaventurebkkProgressTrack: {
+  ravenQuestProgressTrack: {
     height: 8.5,
     borderRadius: 8.1,
     backgroundColor: colors.cardMedium,
     overflow: 'hidden',
     marginBottom: 24.2,
   },
-  legendsaventurebkkProgressFill: {
+  ravenQuestProgressFill: {
     height: '100%',
     borderRadius: 8.3,
     minWidth: 8.4,
   },
-  legendsaventurebkkQuizImage: {
+  ravenQuestQuizImage: {
     width: 172.5,
     height: 172.1,
     borderRadius: 28.2,
     alignSelf: 'center',
     marginBottom: 24.3,
   },
-  legendsaventurebkkQuestionBox: {
+  ravenQuestQuestionBox: {
     borderRadius: 16.4,
     borderWidth: 1.5,
     borderColor: colors.border,
@@ -579,19 +580,19 @@ const styles = StyleSheet.create({
     minHeight: 120.3,
     justifyContent: 'center',
   },
-  legendsaventurebkkQuestionText: {
+  ravenQuestQuestionText: {
     color: colors.text,
     fontSize: 20.4,
     lineHeight: 32.5,
     textAlign: 'center',
   },
-  legendsaventurebkkAnswersGrid: {
+  ravenQuestAnswersGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 12.1,
     marginBottom: 24.2,
   },
-  legendsaventurebkkAnswerBtn: {
+  ravenQuestAnswerBtn: {
     width: '48%',
     minHeight: 74.3,
     borderRadius: 20.4,
@@ -601,92 +602,92 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 12.1,
   },
-  legendsaventurebkkAnswerDefault: {
+  ravenQuestAnswerDefault: {
     borderColor: colors.borderMedium,
   },
-  legendsaventurebkkAnswerCorrect: {
+  ravenQuestAnswerCorrect: {
     borderColor: colors.success,
   },
-  legendsaventurebkkAnswerWrong: {
+  ravenQuestAnswerWrong: {
     borderColor: colors.error,
   },
-  legendsaventurebkkAnswerText: {
+  ravenQuestAnswerText: {
     color: colors.text,
     fontSize: 16.2,
     fontWeight: '500',
     textAlign: 'center',
   },
-  legendsaventurebkkAnswerTextCorrect: {
+  ravenQuestAnswerTextCorrect: {
     color: colors.success,
     fontSize: 16.3,
     fontWeight: '500',
     textAlign: 'center',
   },
-  legendsaventurebkkAnswerTextWrong: {
+  ravenQuestAnswerTextWrong: {
     color: colors.error,
     fontSize: 16.4,
     fontWeight: '500',
     textAlign: 'center',
   },
-  legendsaventurebkkNextBtn: {
+  ravenQuestNextBtn: {
     minHeight: 56.5,
     marginBottom: 16.1,
   },
-  legendsaventurebkkCompleteWrap: {
+  ravenQuestCompleteWrap: {
     alignItems: 'center',
     paddingTop: 8.2,
     paddingBottom: 24.3,
     gap: 12.4,
     marginTop: 50.5,
   },
-  legendsaventurebkkCompleteImage: {
+  ravenQuestCompleteImage: {
     width: 322.1,
     height: 322.2,
     borderRadius: 28.3,
     marginBottom: 8.4,
   },
-  legendsaventurebkkCompleteTitle: {
+  ravenQuestCompleteTitle: {
     color: colors.gold,
     fontSize: 36.5,
     fontWeight: '500',
     lineHeight: 40.1,
     textAlign: 'center',
   },
-  legendsaventurebkkCompleteScore: {
+  ravenQuestCompleteScore: {
     color: colors.textMutedLight,
     fontSize: 18.2,
     lineHeight: 28.3,
     textAlign: 'center',
   },
-  legendsaventurebkkCompletePoints: {
+  ravenQuestCompletePoints: {
     color: colors.accent,
     fontSize: 24.4,
     lineHeight: 32.5,
     marginBottom: 8.1,
   },
-  legendsaventurebkkCompletePrimary: {
+  ravenQuestCompletePrimary: {
     width: '100%',
     minHeight: 56.2,
     marginTop: 8.3,
   },
-  legendsaventurebkkGradientPress: {
+  ravenQuestGradientPress: {
     borderRadius: 20.4,
     overflow: 'hidden',
     width: '100%',
   },
-  legendsaventurebkkGradientBtn: {
+  ravenQuestGradientBtn: {
     minHeight: 56.5,
     borderRadius: 20.1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  legendsaventurebkkGradientText: {
+  ravenQuestGradientText: {
     color: colors.textDark,
     fontSize: 16.2,
     fontWeight: '500',
     textAlign: 'center',
   },
-  legendsaventurebkkOutlineBtn: {
+  ravenQuestOutlineBtn: {
     width: '100%',
     minHeight: 56.3,
     borderRadius: 20.4,
@@ -697,19 +698,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 14.1,
   },
-  legendsaventurebkkOutlineText: {
+  ravenQuestOutlineText: {
     color: colors.text,
     fontSize: 16.2,
     fontWeight: '500',
   },
-  legendsaventurebkkModalOverlay: {
+  ravenQuestModalOverlay: {
     flex: 1,
     backgroundColor: colors.overlayDark,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 16.3,
   },
-  legendsaventurebkkModal: {
+  ravenQuestModal: {
     width: '100%',
     maxWidth: 361.4,
     borderRadius: 16.5,
@@ -720,37 +721,37 @@ const styles = StyleSheet.create({
     paddingVertical: 24.3,
     gap: 12.4,
   },
-  legendsaventurebkkModalTitle: {
+  ravenQuestModalTitle: {
     color: colors.gold,
     fontSize: 18.5,
     fontWeight: '600',
     textAlign: 'center',
     marginBottom: 4.1,
   },
-  legendsaventurebkkModalBody: {
+  ravenQuestModalBody: {
     color: colors.textMutedLight,
     fontSize: 16.2,
     lineHeight: 24.3,
     textAlign: 'center',
     marginBottom: 8.4,
   },
-  legendsaventurebkkModalDeletePress: {
+  ravenQuestModalDeletePress: {
     borderRadius: 14.5,
     overflow: 'hidden',
   },
-  legendsaventurebkkModalDeleteBtn: {
+  ravenQuestModalDeleteBtn: {
     minHeight: 36.1,
     borderRadius: 14.2,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 8.3,
   },
-  legendsaventurebkkModalDeleteText: {
+  ravenQuestModalDeleteText: {
     color: colors.text,
     fontSize: 14.4,
     fontWeight: '500',
   },
-  legendsaventurebkkModalCancelBtn: {
+  ravenQuestModalCancelBtn: {
     minHeight: 38.5,
     borderRadius: 14.1,
     borderWidth: 1.2,
@@ -760,15 +761,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 9.3,
   },
-  legendsaventurebkkModalCancelText: {
+  ravenQuestModalCancelText: {
     color: colors.text,
     fontSize: 14.4,
     fontWeight: '500',
   },
-  legendsaventurebkkDisabled: {
+  ravenQuestDisabled: {
     opacity: 0.45,
   },
-  legendsaventurebkkPressed: {
+  ravenQuestPressed: {
     opacity: 0.85,
   },
 });

@@ -2,13 +2,13 @@ import React from 'react';
 import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import type {LegendsaventurebkkStory} from '../../../shared/types';
+import type {RavenQuestStory} from '../../../shared/types';
 import {colors, gradients, typography} from '../../../shared/theme';
 import GradientButton from '../../../shared/components/ui/GradientButton';
 import RegionBadge from '../../../shared/components/ui/RegionBadge';
 
 type StoryListCardProps = {
-  story: LegendsaventurebkkStory;
+  story: RavenQuestStory;
   onOpen: () => void;
 };
 
@@ -16,7 +16,7 @@ const StoryListCard = ({story, onOpen}: StoryListCardProps) => (
   <View style={styles.card}>
     <View style={styles.imageWrap}>
       <ImageBackground
-        source={story.legendsaventurebkkImage}
+        source={story.ravenQuestImage}
         style={StyleSheet.absoluteFill}
         resizeMode="cover"
       />
@@ -25,11 +25,11 @@ const StoryListCard = ({story, onOpen}: StoryListCardProps) => (
         locations={[0.5, 0.75, 1]}
         style={StyleSheet.absoluteFill}
       />
-      <RegionBadge region={story.legendsaventurebkkRegion} style={styles.badgePos} />
+      <RegionBadge region={story.ravenQuestRegion} style={styles.badgePos} />
     </View>
     <View style={styles.body}>
-      <Text style={styles.title}>{story.legendsaventurebkkTitle}</Text>
-      <Text style={styles.desc}>{story.legendsaventurebkkDescription}</Text>
+      <Text style={styles.title}>{story.ravenQuestTitle}</Text>
+      <Text style={styles.desc}>{story.ravenQuestDescription}</Text>
       <GradientButton label="Open" onPress={onOpen} flex />
     </View>
   </View>

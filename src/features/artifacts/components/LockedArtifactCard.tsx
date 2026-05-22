@@ -1,13 +1,13 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 
-import {legendsaventurebkkAssets} from '../../../shared/constants';
-import type {LegendsaventurebkkArtifact} from '../../../shared/types';
+import {ravenQuestAssets} from '../../../shared/constants';
+import type {RavenQuestArtifact} from '../../../shared/types';
 import {colors} from '../../../shared/theme';
 import RegionBadge from '../../../shared/components/ui/RegionBadge';
 
 type LockedArtifactCardProps = {
-  artifact: LegendsaventurebkkArtifact;
+  artifact: RavenQuestArtifact;
   width: number;
 };
 
@@ -15,23 +15,23 @@ const LockedArtifactCard = ({artifact, width}: LockedArtifactCardProps) => (
   <View style={[styles.card, {width}]}>
     <View style={styles.imageWrap}>
       <Image
-        source={artifact.legendsaventurebkkImage}
+        source={artifact.ravenQuestImage}
         style={styles.image}
         resizeMode="cover"
       />
       <View style={styles.overlay}>
-        <Image source={legendsaventurebkkAssets.icons.lock} />
+        <Image source={ravenQuestAssets.icons.lock} />
       </View>
       <RegionBadge
-        region={artifact.legendsaventurebkkRegion}
+        region={artifact.ravenQuestRegion}
         muted
         style={styles.badgePos}
       />
     </View>
     <View style={styles.body}>
-      <Text style={styles.name}>{artifact.legendsaventurebkkName}</Text>
+      <Text style={styles.name}>{artifact.ravenQuestName}</Text>
       <Text style={styles.hint}>
-        {artifact.legendsaventurebkkPointsRequired} insights needed
+        {artifact.ravenQuestPointsRequired} insights needed
       </Text>
     </View>
   </View>

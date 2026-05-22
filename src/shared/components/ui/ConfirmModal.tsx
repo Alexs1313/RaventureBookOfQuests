@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {
+  Animated,
   Image,
   Modal,
   Pressable,
@@ -9,7 +10,8 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
-import {legendsaventurebkkAssets} from '../../constants';
+import {animationDurations} from '../../lib/animations';
+import {ravenQuestAssets} from '../../constants';
 import {colors, gradients, gradientAxis} from '../../theme';
 
 type ConfirmModalProps = {
@@ -32,49 +34,90 @@ const ConfirmModal = ({
   onConfirm,
   onCancel,
   showClose,
-}: ConfirmModalProps) => (
-  <Modal
-    visible={visible}
-    transparent
-    animationType="fade"
-    onRequestClose={onCancel}>
-    <Pressable style={styles.overlay} onPress={onCancel}>
-      <Pressable style={styles.modal} onPress={e => e.stopPropagation()}>
-        {showClose ? (
-          <Pressable onPress={onCancel} style={styles.close}>
-            <Image source={legendsaventurebkkAssets.icons.close} />
+}: ConfirmModalProps) => {
+  const overlayOpacity = useRef(new Animated.Value(0)).current;
+  const modalScale = useRef(new Animated.Value(0.92)).current;
+  const modalOpacity = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (visible) {
+      Animated.parallel([
+        Animated.timing(overlayOpacity, {
+          toValue: 1,
+          duration: animationDurations.fast,
+          useNativeDriver: true,
+        }),
+        Animated.spring(modalScale, {
+          toValue: 1,
+          speed: 14,
+          bounciness: 6,
+          useNativeDriver: true,
+        }),
+        Animated.timing(modalOpacity, {
+          toValue: 1,
+          duration: animationDurations.normal,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    } else {
+      overlayOpacity.setValue(0);
+      modalScale.setValue(0.92);
+      modalOpacity.setValue(0);
+    }
+  }, [visible, overlayOpacity, modalScale, modalOpacity]);
+
+  return (
+    <Modal
+      visible={visible}
+      transparent
+      animationType="none"
+      onRequestClose={onCancel}>
+      <Animated.View style={[styles.overlay, {opacity: overlayOpacity}]}>
+        <Pressable style={StyleSheet.absoluteFill} onPress={onCancel} />
+        <Animated.View
+          style={[
+            styles.modal,
+            {
+              opacity: modalOpacity,
+              transform: [{scale: modalScale}],
+            },
+          ]}>
+          {showClose ? (
+            <Pressable onPress={onCancel} style={styles.close}>
+              <Image source={ravenQuestAssets.icons.close} />
+            </Pressable>
+          ) : null}
+          <Text style={[styles.title, showClose && styles.titleWithClose]}>
+            {title}
+          </Text>
+          <Text style={styles.body}>{body}</Text>
+          <Pressable
+            onPress={onConfirm}
+            style={({pressed}) => [
+              styles.confirmPress,
+              pressed && styles.pressed,
+            ]}>
+            <LinearGradient
+              colors={gradients.danger}
+              start={gradientAxis.horizontal.start}
+              end={gradientAxis.horizontal.end}
+              style={styles.confirmBtn}>
+              <Text style={styles.confirmText}>{confirmLabel}</Text>
+            </LinearGradient>
           </Pressable>
-        ) : null}
-        <Text style={[styles.title, showClose && styles.titleWithClose]}>
-          {title}
-        </Text>
-        <Text style={styles.body}>{body}</Text>
-        <Pressable
-          onPress={onConfirm}
-          style={({pressed}) => [
-            styles.confirmPress,
-            pressed && styles.pressed,
-          ]}>
-          <LinearGradient
-            colors={gradients.danger}
-            start={gradientAxis.horizontal.start}
-            end={gradientAxis.horizontal.end}
-            style={styles.confirmBtn}>
-            <Text style={styles.confirmText}>{confirmLabel}</Text>
-          </LinearGradient>
-        </Pressable>
-        <Pressable
-          onPress={onCancel}
-          style={({pressed}) => [
-            styles.cancelBtn,
-            pressed && styles.pressed,
-          ]}>
-          <Text style={styles.cancelText}>{cancelLabel}</Text>
-        </Pressable>
-      </Pressable>
-    </Pressable>
-  </Modal>
-);
+          <Pressable
+            onPress={onCancel}
+            style={({pressed}) => [
+              styles.cancelBtn,
+              pressed && styles.pressed,
+            ]}>
+            <Text style={styles.cancelText}>{cancelLabel}</Text>
+          </Pressable>
+        </Animated.View>
+      </Animated.View>
+    </Modal>
+  );
+};
 
 const styles = StyleSheet.create({
   overlay: {

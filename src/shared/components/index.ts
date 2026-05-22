@@ -8,3 +8,10 @@ export {default as ScreenHeader} from './ui/ScreenHeader';
 export {default as JourneyBadge} from './ui/JourneyBadge';
 export {default as TextCard} from './ui/TextCard';
 export {default as ConfirmModal} from './ui/ConfirmModal';
+export {
+  FadeInView,
+  StaggerItem,
+  AnimatedProgressBar,
+  BookPageLoader,
+  TypewriterText,
+} from './animation';

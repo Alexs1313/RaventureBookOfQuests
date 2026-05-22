@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
+import FadeInView from '../animation/FadeInView';
 import {typography} from '../../theme';
 
 type ScreenHeaderProps = {
@@ -16,11 +17,13 @@ const ScreenHeader = ({
   progress,
   compact,
 }: ScreenHeaderProps) => (
-  <View>
-    <Text style={compact ? styles.titleCompact : styles.title}>{title}</Text>
-    {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
-    {progress ? <Text style={styles.progress}>{progress}</Text> : null}
-  </View>
+  <FadeInView>
+    <View>
+      <Text style={compact ? styles.titleCompact : styles.title}>{title}</Text>
+      {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
+      {progress ? <Text style={styles.progress}>{progress}</Text> : null}
+    </View>
+  </FadeInView>
 );
 
 const styles = StyleSheet.create({

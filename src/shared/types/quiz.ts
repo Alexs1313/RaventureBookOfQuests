@@ -1,9 +1,9 @@
 import type {ImageSourcePropType} from 'react-native';
 
-export type LegendsaventurebkkQuizQuestion = {
-  legendsaventurebkkId: string;
-  legendsaventurebkkQuestion: string;
-  legendsaventurebkkOptions: string[];
-  legendsaventurebkkCorrect: string;
-  legendsaventurebkkImage: ImageSourcePropType;
+export type RavenQuestQuizQuestion = {
+  ravenQuestId: string;
+  ravenQuestQuestion: string;
+  ravenQuestOptions: string[];
+  ravenQuestCorrect: string;
+  ravenQuestImage: ImageSourcePropType;
 };

@@ -6,10 +6,11 @@ import WebView from 'react-native-webview';
 
 import {Routes} from '../../app/navigation/routes';
 import type {RootStackParamList} from '../../app/navigation/types';
-import {legendsaventurebkkAssets} from '../../shared/constants';
+import {FadeInView} from '../../shared/components';
+import {ravenQuestAssets} from '../../shared/constants';
 import {colors} from '../../shared/theme';
 
-const loadddHtml = `<!DOCTYPE html>
+const ravenQuestLoaderHtml = `<!DOCTYPE html>
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -250,19 +251,19 @@ const LoaderScreen = () => {
 
   return (
     <ImageBackground
-      source={legendsaventurebkkAssets.backgrounds.loader}
+      source={ravenQuestAssets.backgrounds.loader}
       style={styles.bg}>
       <ScrollView
         contentContainerStyle={styles.scroll}
         showsVerticalScrollIndicator={false}>
-        <View style={styles.loaderWrap}>
+        <FadeInView style={styles.loaderWrap} delay={200}>
           <WebView
-            source={{html: loadddHtml}}
+            source={{html: ravenQuestLoaderHtml}}
             scrollEnabled={false}
             originWhitelist={['*']}
             style={styles.webview}
           />
-        </View>
+        </FadeInView>
       </ScrollView>
     </ImageBackground>
   );

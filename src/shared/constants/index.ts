@@ -1,1 +1,1 @@
-export {legendsaventurebkkAssets} from './assets';
+export {ravenQuestAssets} from './assets';

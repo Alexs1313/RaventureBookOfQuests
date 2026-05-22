@@ -1,5 +1,5 @@
-export type LegendsaventurebkkQuizView = 'home' | 'play' | 'complete';
+export type RavenQuestTrialPhase = 'intro' | 'active' | 'finished';
 
-export type LegendsaventurebkkStoriesView = 'list' | 'reader';
+export type RavenQuestChroniclePhase = 'catalog' | 'reading';
 
-export type LegendsaventurebkkSavedView = 'list' | 'detail';
+export type RavenQuestBookmarkPhase = 'shelf' | 'passage';

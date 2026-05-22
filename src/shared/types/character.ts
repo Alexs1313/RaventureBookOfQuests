@@ -1,12 +1,12 @@
 import type {ImageSourcePropType} from 'react-native';
 
-import type {LegendsaventurebkkRegion} from './story';
+import type {RavenQuestRegion} from './story';
 
-export type LegendsaventurebkkCharacter = {
-  legendsaventurebkkId: string;
-  legendsaventurebkkRegion: LegendsaventurebkkRegion;
-  legendsaventurebkkName: string;
-  legendsaventurebkkDescription: string;
-  legendsaventurebkkImage: ImageSourcePropType;
-  legendsaventurebkkTalesRequired: number;
+export type RavenQuestCharacter = {
+  ravenQuestId: string;
+  ravenQuestRegion: RavenQuestRegion;
+  ravenQuestName: string;
+  ravenQuestDescription: string;
+  ravenQuestImage: ImageSourcePropType;
+  ravenQuestTalesRequired: number;
 };

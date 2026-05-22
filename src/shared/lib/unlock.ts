@@ -1,18 +1,18 @@
 import type {
-  LegendsaventurebkkArtifact,
-  LegendsaventurebkkCharacter,
+  RavenQuestArtifact,
+  RavenQuestCharacter,
 } from '../types';
 
-export const legendsaventurebkkIsArtifactUnlocked = (
-  legendsaventurebkkArtifact: LegendsaventurebkkArtifact,
-  legendsaventurebkkPoints: number,
+export const ravenQuestIsArtifactUnlocked = (
+  ravenQuestArtifact: RavenQuestArtifact,
+  ravenQuestPoints: number,
 ) =>
-  legendsaventurebkkPoints >=
-  legendsaventurebkkArtifact.legendsaventurebkkPointsRequired;
+  ravenQuestPoints >=
+  ravenQuestArtifact.ravenQuestPointsRequired;
 
-export const legendsaventurebkkIsCharacterUnlocked = (
-  legendsaventurebkkCharacter: LegendsaventurebkkCharacter,
-  legendsaventurebkkTalesRead: number,
+export const ravenQuestIsCharacterUnlocked = (
+  ravenQuestCharacter: RavenQuestCharacter,
+  ravenQuestTalesRead: number,
 ) =>
-  legendsaventurebkkTalesRead >=
-  legendsaventurebkkCharacter.legendsaventurebkkTalesRequired;
+  ravenQuestTalesRead >=
+  ravenQuestCharacter.ravenQuestTalesRequired;

@@ -1,38 +1,38 @@
 import type {ImageSourcePropType} from 'react-native';
 
-export type LegendsaventurebkkRegion =
+export type RavenQuestRegion =
   | 'Greece'
   | 'Egypt'
   | 'India'
   | 'Aztecs';
 
-export type LegendsaventurebkkStoryChoice = {
-  legendsaventurebkkLabel: string;
-  legendsaventurebkkNext: string;
+export type RavenQuestStoryChoice = {
+  ravenQuestLabel: string;
+  ravenQuestNext: string;
 };
 
-export type LegendsaventurebkkStoryNode = {
-  legendsaventurebkkAddText?: string;
-  legendsaventurebkkQuestion?: string;
-  legendsaventurebkkChoices?: LegendsaventurebkkStoryChoice[];
-  legendsaventurebkkEnding?: boolean;
+export type RavenQuestStoryNode = {
+  ravenQuestAddText?: string;
+  ravenQuestQuestion?: string;
+  ravenQuestChoices?: RavenQuestStoryChoice[];
+  ravenQuestEnding?: boolean;
 };
 
-export type LegendsaventurebkkStory = {
-  legendsaventurebkkId: string;
-  legendsaventurebkkRegion: LegendsaventurebkkRegion;
-  legendsaventurebkkTitle: string;
-  legendsaventurebkkDescription: string;
-  legendsaventurebkkIntro: string;
-  legendsaventurebkkImage: ImageSourcePropType;
-  legendsaventurebkkNodes: Record<string, LegendsaventurebkkStoryNode>;
+export type RavenQuestStory = {
+  ravenQuestId: string;
+  ravenQuestRegion: RavenQuestRegion;
+  ravenQuestTitle: string;
+  ravenQuestDescription: string;
+  ravenQuestIntro: string;
+  ravenQuestImage: ImageSourcePropType;
+  ravenQuestNodes: Record<string, RavenQuestStoryNode>;
 };
 
-export type LegendsaventurebkkStoryBranch = {
-  legendsaventurebkkChoice1: string;
-  legendsaventurebkkBridge: string;
-  legendsaventurebkkChoice2A: string;
-  legendsaventurebkkChoice2B: string;
-  legendsaventurebkkEndingA: string;
-  legendsaventurebkkEndingB: string;
+export type RavenQuestStoryBranch = {
+  ravenQuestChoice1: string;
+  ravenQuestBridge: string;
+  ravenQuestChoice2A: string;
+  ravenQuestChoice2B: string;
+  ravenQuestEndingA: string;
+  ravenQuestEndingB: string;
 };

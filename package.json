@@ -9,6 +9,8 @@
     "start": "react-native start",
     "test": "jest",
     "check:words": "node tools/checkBannedWords.mjs",
+    "bundle:ios": "react-native bundle --platform ios --dev false --entry-file index.js --bundle-output build/main.ios.jsbundle --assets-dest build/ios-assets",
+    "compare:bundles": "node tools/compareBundles.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

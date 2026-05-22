@@ -1,32 +1,33 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const legendsaventurebkkTalesReadKey = 'legendsaventurebkk_tales_read';
+const ravenQuestTalesReadKey =
+  '@book_explorer_raventure/chronicles_finished';
 
-export const legendsaventurebkkMarkTaleRead = async (
-  legendsaventurebkkStoryId: string,
+export const ravenQuestMarkTaleRead = async (
+  ravenQuestStoryId: string,
 ) => {
-  const legendsaventurebkkRaw = await AsyncStorage.getItem(
-    legendsaventurebkkTalesReadKey,
+  const ravenQuestRaw = await AsyncStorage.getItem(
+    ravenQuestTalesReadKey,
   );
-  const legendsaventurebkkIds: string[] = legendsaventurebkkRaw
-    ? JSON.parse(legendsaventurebkkRaw)
+  const ravenQuestIds: string[] = ravenQuestRaw
+    ? JSON.parse(ravenQuestRaw)
     : [];
 
-  if (!legendsaventurebkkIds.includes(legendsaventurebkkStoryId)) {
-    legendsaventurebkkIds.push(legendsaventurebkkStoryId);
+  if (!ravenQuestIds.includes(ravenQuestStoryId)) {
+    ravenQuestIds.push(ravenQuestStoryId);
     await AsyncStorage.setItem(
-      legendsaventurebkkTalesReadKey,
-      JSON.stringify(legendsaventurebkkIds),
+      ravenQuestTalesReadKey,
+      JSON.stringify(ravenQuestIds),
     );
   }
 };
 
-export const legendsaventurebkkGetTalesReadCount = async () => {
-  const legendsaventurebkkRaw = await AsyncStorage.getItem(
-    legendsaventurebkkTalesReadKey,
+export const ravenQuestGetTalesReadCount = async () => {
+  const ravenQuestRaw = await AsyncStorage.getItem(
+    ravenQuestTalesReadKey,
   );
-  const legendsaventurebkkIds: string[] = legendsaventurebkkRaw
-    ? JSON.parse(legendsaventurebkkRaw)
+  const ravenQuestIds: string[] = ravenQuestRaw
+    ? JSON.parse(ravenQuestRaw)
     : [];
-  return legendsaventurebkkIds.length;
+  return ravenQuestIds.length;
 };

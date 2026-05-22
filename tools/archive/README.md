@@ -1,5 +1,3 @@
 # Archive
 
-Removed unused `Legendsaventurebkk/Legendsaventurebkkcrns/Legendsaventurebkkarfcts.tsx`.
-
-The app uses `Legendsaventurebkk/screens/ArtifactsScreen.tsx` instead.
+Historical migration notes only. The live app lives under `src/` with the `ravenQuest` namespace and `Book Explorer Raventure` branding.

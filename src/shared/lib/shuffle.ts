@@ -1,31 +1,31 @@
-export const legendsaventurebkkShuffle = <T>(
-  legendsaventurebkkItems: T[],
+export const ravenQuestShuffle = <T>(
+  ravenQuestItems: T[],
 ): T[] => {
-  const legendsaventurebkkCopy = [...legendsaventurebkkItems];
-  let legendsaventurebkkSeed = Date.now();
+  const ravenQuestCopy = [...ravenQuestItems];
+  let ravenQuestSeed = Date.now();
 
-  const legendsaventurebkkNext = () => {
-    legendsaventurebkkSeed =
-      (legendsaventurebkkSeed * 1103515245 + 12345) & 0x7fffffff;
-    return legendsaventurebkkSeed / 0x7fffffff;
+  const ravenQuestNext = () => {
+    ravenQuestSeed =
+      (ravenQuestSeed * 1103515245 + 12345) & 0x7fffffff;
+    return ravenQuestSeed / 0x7fffffff;
   };
 
   for (
-    let legendsaventurebkkIndex = legendsaventurebkkCopy.length - 1;
-    legendsaventurebkkIndex > 0;
-    legendsaventurebkkIndex -= 1
+    let ravenQuestIndex = ravenQuestCopy.length - 1;
+    ravenQuestIndex > 0;
+    ravenQuestIndex -= 1
   ) {
-    const legendsaventurebkkSwapIndex = Math.floor(
-      legendsaventurebkkNext() * (legendsaventurebkkIndex + 1),
+    const ravenQuestSwapIndex = Math.floor(
+      ravenQuestNext() * (ravenQuestIndex + 1),
     );
     [
-      legendsaventurebkkCopy[legendsaventurebkkIndex],
-      legendsaventurebkkCopy[legendsaventurebkkSwapIndex],
+      ravenQuestCopy[ravenQuestIndex],
+      ravenQuestCopy[ravenQuestSwapIndex],
     ] = [
-      legendsaventurebkkCopy[legendsaventurebkkSwapIndex],
-      legendsaventurebkkCopy[legendsaventurebkkIndex],
+      ravenQuestCopy[ravenQuestSwapIndex],
+      ravenQuestCopy[ravenQuestIndex],
     ];
   }
 
-  return legendsaventurebkkCopy;
+  return ravenQuestCopy;
 };

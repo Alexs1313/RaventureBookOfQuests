@@ -1,5 +1,12 @@
-import React from 'react';
-import {Pressable, StyleSheet, Text, type StyleProp, type ViewStyle} from 'react-native';
+import React, {useRef} from 'react';
+import {
+  Animated,
+  Pressable,
+  StyleSheet,
+  Text,
+  type StyleProp,
+  type ViewStyle,
+} from 'react-native';
 
 import {colors} from '../../theme';
 
@@ -9,13 +16,35 @@ type OutlineButtonProps = {
   style?: StyleProp<ViewStyle>;
 };
 
-const OutlineButton = ({label, onPress, style}: OutlineButtonProps) => (
-  <Pressable
-    onPress={onPress}
-    style={({pressed}) => [styles.btn, style, pressed && styles.pressed]}>
-    <Text style={styles.text}>{label}</Text>
-  </Pressable>
-);
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
+const OutlineButton = ({label, onPress, style}: OutlineButtonProps) => {
+  const scale = useRef(new Animated.Value(1)).current;
+
+  return (
+    <AnimatedPressable
+      onPress={onPress}
+      onPressIn={() =>
+        Animated.spring(scale, {
+          toValue: 0.97,
+          useNativeDriver: true,
+          speed: 28,
+          bounciness: 0,
+        }).start()
+      }
+      onPressOut={() =>
+        Animated.spring(scale, {
+          toValue: 1,
+          useNativeDriver: true,
+          speed: 20,
+          bounciness: 6,
+        }).start()
+      }
+      style={[styles.btn, style, {transform: [{scale}]}]}>
+      <Text style={styles.text}>{label}</Text>
+    </AnimatedPressable>
+  );
+};
 
 const styles = StyleSheet.create({
   btn: {
@@ -33,9 +62,6 @@ const styles = StyleSheet.create({
     color: colors.text,
     fontSize: 16.3,
     fontWeight: '500',
-  },
-  pressed: {
-    opacity: 0.85,
   },
 });
 

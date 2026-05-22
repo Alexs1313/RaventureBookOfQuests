@@ -1,7 +1,8 @@
 import {useNavigation} from '@react-navigation/native';
 import type {StackNavigationProp} from '@react-navigation/stack';
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
+  Animated,
   ImageBackground,
   Pressable,
   StyleSheet,
@@ -12,12 +13,35 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import {Routes} from '../../app/navigation/routes';
 import type {RootStackParamList} from '../../app/navigation/types';
-import {AppLayout} from '../../shared/components';
+import {AppLayout, FadeInView, TypewriterText} from '../../shared/components';
 import {colors, gradients, gradientAxis} from '../../shared/theme';
 
 import {onboardingSteps} from './onboardingSteps';
 
 const stepCount = onboardingSteps.length;
+
+const AnimatedDot = ({active}: {active: boolean}) => {
+  const width = useRef(new Animated.Value(active ? 32.5 : 8.2)).current;
+
+  useEffect(() => {
+    Animated.spring(width, {
+      toValue: active ? 32.5 : 8.2,
+      useNativeDriver: false,
+      speed: 16,
+      bounciness: 6,
+    }).start();
+  }, [active, width]);
+
+  return (
+    <Animated.View
+      style={[
+        styles.dot,
+        active && styles.dotActive,
+        {width},
+      ]}
+    />
+  );
+};
 
 const OnboardingScreen = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
@@ -43,7 +67,7 @@ const OnboardingScreen = () => {
 
   return (
     <AppLayout contentStyle={styles.layoutContent}>
-      <View style={styles.card}>
+      <FadeInView triggerKey={step} style={styles.card}>
         <ImageBackground
           source={current.image}
           style={styles.cardImage}
@@ -54,18 +78,25 @@ const OnboardingScreen = () => {
             style={styles.cardGradient}
           />
           <View style={styles.cardTextWrap}>
-            <Text style={styles.title}>{current.title}</Text>
-            <Text style={styles.description}>{current.description}</Text>
+            <TypewriterText
+              text={current.title}
+              style={styles.title}
+              triggerKey={`title-${step}`}
+              charDelayMs={42}
+            />
+            <TypewriterText
+              text={current.description}
+              style={styles.description}
+              triggerKey={`desc-${step}`}
+              delayMs={current.title.length * 42 + 280}
+            />
           </View>
         </ImageBackground>
-      </View>
+      </FadeInView>
 
       <View style={styles.pagination}>
         {onboardingSteps.map((_, index) => (
-          <View
-            key={index}
-            style={[styles.dot, index === step && styles.dotActive]}
-          />
+          <AnimatedDot key={index} active={index === step} />
         ))}
       </View>
 
@@ -150,13 +181,11 @@ const styles = StyleSheet.create({
     marginBottom: 24.1,
   },
   dot: {
-    width: 8.2,
     height: 8.3,
     borderRadius: 4.4,
     backgroundColor: '#5A3A24',
   },
   dotActive: {
-    width: 32.5,
     backgroundColor: colors.accent,
   },
   actions: {

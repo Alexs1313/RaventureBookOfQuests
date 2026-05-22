@@ -1,41 +1,42 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import {legendsaventurebkkGetStoryById} from '../../../content/stories';
-import type {LegendsaventurebkkSavedTale} from '../../types';
+import {ravenQuestGetStoryById} from '../../../../content/stories';
+import type {RavenQuestSavedTale} from '../../types';
 
-const legendsaventurebkkSavedIndexKey = 'legendsaventurebkk_saved_index';
+const ravenQuestSavedIndexKey =
+  '@book_explorer_raventure/bookmark_index';
 
-export const legendsaventurebkkSavedKey = (legendsaventurebkkId: string) =>
-  `legendsaventurebkk_saved_${legendsaventurebkkId}`;
+export const ravenQuestSavedKey = (ravenQuestId: string) =>
+  `@book_explorer_raventure/bookmark_${ravenQuestId}`;
 
-const legendsaventurebkkParseSaved = (
-  legendsaventurebkkId: string,
-  legendsaventurebkkRaw: string,
-): LegendsaventurebkkSavedTale | null => {
-  if (legendsaventurebkkRaw === '1') {
-    const legendsaventurebkkStory =
-      legendsaventurebkkGetStoryById(legendsaventurebkkId);
-    if (!legendsaventurebkkStory) {
+const ravenQuestParseSaved = (
+  ravenQuestId: string,
+  ravenQuestRaw: string,
+): RavenQuestSavedTale | null => {
+  if (ravenQuestRaw === '1') {
+    const ravenQuestStory =
+      ravenQuestGetStoryById(ravenQuestId);
+    if (!ravenQuestStory) {
       return null;
     }
     return {
-      legendsaventurebkkId,
-      legendsaventurebkkHistory: [
-        legendsaventurebkkStory.legendsaventurebkkIntro,
+      ravenQuestId,
+      ravenQuestHistory: [
+        ravenQuestStory.ravenQuestIntro,
       ],
-      legendsaventurebkkSavedAt: 0,
+      ravenQuestSavedAt: 0,
     };
   }
 
   try {
-    const legendsaventurebkkParsed = JSON.parse(
-      legendsaventurebkkRaw,
-    ) as LegendsaventurebkkSavedTale;
+    const ravenQuestParsed = JSON.parse(
+      ravenQuestRaw,
+    ) as RavenQuestSavedTale;
     if (
-      legendsaventurebkkParsed.legendsaventurebkkId &&
-      Array.isArray(legendsaventurebkkParsed.legendsaventurebkkHistory)
+      ravenQuestParsed.ravenQuestId &&
+      Array.isArray(ravenQuestParsed.ravenQuestHistory)
     ) {
-      return legendsaventurebkkParsed;
+      return ravenQuestParsed;
     }
   } catch {
     return null;
@@ -44,112 +45,112 @@ const legendsaventurebkkParseSaved = (
   return null;
 };
 
-export const legendsaventurebkkIsStorySaved = async (
-  legendsaventurebkkId: string,
+export const ravenQuestIsStorySaved = async (
+  ravenQuestId: string,
 ) => {
-  const legendsaventurebkkRaw = await AsyncStorage.getItem(
-    legendsaventurebkkSavedKey(legendsaventurebkkId),
+  const ravenQuestRaw = await AsyncStorage.getItem(
+    ravenQuestSavedKey(ravenQuestId),
   );
-  return legendsaventurebkkRaw != null;
+  return ravenQuestRaw != null;
 };
 
-export const legendsaventurebkkSaveTale = async (
-  legendsaventurebkkTale: LegendsaventurebkkSavedTale,
+export const ravenQuestSaveTale = async (
+  ravenQuestTale: RavenQuestSavedTale,
 ) => {
-  const legendsaventurebkkId = legendsaventurebkkTale.legendsaventurebkkId;
+  const ravenQuestId = ravenQuestTale.ravenQuestId;
   await AsyncStorage.setItem(
-    legendsaventurebkkSavedKey(legendsaventurebkkId),
-    JSON.stringify(legendsaventurebkkTale),
+    ravenQuestSavedKey(ravenQuestId),
+    JSON.stringify(ravenQuestTale),
   );
 
-  const legendsaventurebkkIndexRaw = await AsyncStorage.getItem(
-    legendsaventurebkkSavedIndexKey,
+  const ravenQuestIndexRaw = await AsyncStorage.getItem(
+    ravenQuestSavedIndexKey,
   );
-  const legendsaventurebkkIndex: string[] = legendsaventurebkkIndexRaw
-    ? JSON.parse(legendsaventurebkkIndexRaw)
+  const ravenQuestIndex: string[] = ravenQuestIndexRaw
+    ? JSON.parse(ravenQuestIndexRaw)
     : [];
 
-  if (!legendsaventurebkkIndex.includes(legendsaventurebkkId)) {
-    legendsaventurebkkIndex.push(legendsaventurebkkId);
+  if (!ravenQuestIndex.includes(ravenQuestId)) {
+    ravenQuestIndex.push(ravenQuestId);
     await AsyncStorage.setItem(
-      legendsaventurebkkSavedIndexKey,
-      JSON.stringify(legendsaventurebkkIndex),
+      ravenQuestSavedIndexKey,
+      JSON.stringify(ravenQuestIndex),
     );
   }
 };
 
-export const legendsaventurebkkLoadSavedTales = async () => {
-  let legendsaventurebkkIndexRaw = await AsyncStorage.getItem(
-    legendsaventurebkkSavedIndexKey,
+export const ravenQuestLoadSavedTales = async () => {
+  let ravenQuestIndexRaw = await AsyncStorage.getItem(
+    ravenQuestSavedIndexKey,
   );
-  let legendsaventurebkkIndex: string[] = legendsaventurebkkIndexRaw
-    ? JSON.parse(legendsaventurebkkIndexRaw)
+  let ravenQuestIndex: string[] = ravenQuestIndexRaw
+    ? JSON.parse(ravenQuestIndexRaw)
     : [];
 
-  if (legendsaventurebkkIndex.length === 0) {
-    const legendsaventurebkkAllKeys = await AsyncStorage.getAllKeys();
-    legendsaventurebkkIndex = legendsaventurebkkAllKeys
+  if (ravenQuestIndex.length === 0) {
+    const ravenQuestAllKeys = await AsyncStorage.getAllKeys();
+    ravenQuestIndex = ravenQuestAllKeys
       .filter(
         key =>
-          key.startsWith('legendsaventurebkk_saved_') &&
-          key !== legendsaventurebkkSavedIndexKey,
+          key.startsWith('ravenQuest_saved_') &&
+          key !== ravenQuestSavedIndexKey,
       )
-      .map(key => key.replace('legendsaventurebkk_saved_', ''));
+      .map(key => key.replace('ravenQuest_saved_', ''));
 
-    if (legendsaventurebkkIndex.length > 0) {
+    if (ravenQuestIndex.length > 0) {
       await AsyncStorage.setItem(
-        legendsaventurebkkSavedIndexKey,
-        JSON.stringify(legendsaventurebkkIndex),
+        ravenQuestSavedIndexKey,
+        JSON.stringify(ravenQuestIndex),
       );
     }
   }
 
-  const legendsaventurebkkTales = await Promise.all(
-    legendsaventurebkkIndex.map(async legendsaventurebkkId => {
-      const legendsaventurebkkRaw = await AsyncStorage.getItem(
-        legendsaventurebkkSavedKey(legendsaventurebkkId),
+  const ravenQuestTales = await Promise.all(
+    ravenQuestIndex.map(async ravenQuestId => {
+      const ravenQuestRaw = await AsyncStorage.getItem(
+        ravenQuestSavedKey(ravenQuestId),
       );
-      if (!legendsaventurebkkRaw) {
+      if (!ravenQuestRaw) {
         return null;
       }
-      return legendsaventurebkkParseSaved(
-        legendsaventurebkkId,
-        legendsaventurebkkRaw,
+      return ravenQuestParseSaved(
+        ravenQuestId,
+        ravenQuestRaw,
       );
     }),
   );
 
-  return legendsaventurebkkTales
+  return ravenQuestTales
     .filter(
-      (legendsaventurebkkTale): legendsaventurebkkTale is LegendsaventurebkkSavedTale =>
-        legendsaventurebkkTale != null &&
-        legendsaventurebkkGetStoryById(
-          legendsaventurebkkTale.legendsaventurebkkId,
+      (ravenQuestTale): ravenQuestTale is RavenQuestSavedTale =>
+        ravenQuestTale != null &&
+        ravenQuestGetStoryById(
+          ravenQuestTale.ravenQuestId,
         ) != null,
     )
     .sort(
       (a, b) =>
-        b.legendsaventurebkkSavedAt - a.legendsaventurebkkSavedAt,
+        b.ravenQuestSavedAt - a.ravenQuestSavedAt,
     );
 };
 
-export const legendsaventurebkkRemoveSavedTale = async (
-  legendsaventurebkkId: string,
+export const ravenQuestRemoveSavedTale = async (
+  ravenQuestId: string,
 ) => {
-  await AsyncStorage.removeItem(legendsaventurebkkSavedKey(legendsaventurebkkId));
+  await AsyncStorage.removeItem(ravenQuestSavedKey(ravenQuestId));
 
-  const legendsaventurebkkIndexRaw = await AsyncStorage.getItem(
-    legendsaventurebkkSavedIndexKey,
+  const ravenQuestIndexRaw = await AsyncStorage.getItem(
+    ravenQuestSavedIndexKey,
   );
-  const legendsaventurebkkIndex: string[] = legendsaventurebkkIndexRaw
-    ? JSON.parse(legendsaventurebkkIndexRaw)
+  const ravenQuestIndex: string[] = ravenQuestIndexRaw
+    ? JSON.parse(ravenQuestIndexRaw)
     : [];
 
   await AsyncStorage.setItem(
-    legendsaventurebkkSavedIndexKey,
+    ravenQuestSavedIndexKey,
     JSON.stringify(
-      legendsaventurebkkIndex.filter(
-        id => id !== legendsaventurebkkId,
+      ravenQuestIndex.filter(
+        id => id !== ravenQuestId,
       ),
     ),
   );

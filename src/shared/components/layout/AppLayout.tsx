@@ -8,7 +8,7 @@ import {
   type ViewStyle,
 } from 'react-native';
 
-import {legendsaventurebkkAssets} from '../../constants';
+import {ravenQuestAssets} from '../../constants';
 import {colors, spacing} from '../../theme';
 
 type AppLayoutProps = {
@@ -25,7 +25,7 @@ const AppLayout = ({
   tab = false,
 }: AppLayoutProps) => (
   <ImageBackground
-    source={legendsaventurebkkAssets.backgrounds.app}
+    source={ravenQuestAssets.backgrounds.app}
     style={styles.bg}>
     <View style={styles.overlay} />
     <ScrollView

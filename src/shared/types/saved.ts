@@ -1,11 +1,11 @@
-export type LegendsaventurebkkSavedTale = {
-  legendsaventurebkkId: string;
-  legendsaventurebkkHistory: string[];
-  legendsaventurebkkSavedAt: number;
+export type RavenQuestSavedTale = {
+  ravenQuestId: string;
+  ravenQuestHistory: string[];
+  ravenQuestSavedAt: number;
 };
 
-export type LegendsaventurebkkSavedEntry = LegendsaventurebkkSavedTale & {
-  legendsaventurebkkTitle: string;
-  legendsaventurebkkRegion: string;
-  legendsaventurebkkImage: import('react-native').ImageSourcePropType;
+export type RavenQuestSavedEntry = RavenQuestSavedTale & {
+  ravenQuestTitle: string;
+  ravenQuestRegion: string;
+  ravenQuestImage: import('react-native').ImageSourcePropType;
 };

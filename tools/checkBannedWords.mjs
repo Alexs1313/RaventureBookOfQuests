@@ -10,7 +10,7 @@ import {fileURLToPath} from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.join(__dirname, '..');
 
-const scanRoots = ['src'];
+const scanRoots = ['src', 'content'];
 
 const banned = [
   'hidden',
@@ -116,7 +116,7 @@ const allow = [
   'overflow: hidden',
   'keyboardhidden',
   'space-between',
-  'legendsaventurebkk_points',
+  'ravenQuest_points',
   'quiz_points',
   'between the worlds',
   ' between ',
@@ -162,7 +162,7 @@ for (const root of scanRoots) {
         return;
       }
       const looksLikeCopy =
-        /['"`]|description:|title:|label:|legendsaventurebkkdescription/i.test(
+        /['"`]|description:|title:|label:|ravenQuestdescription/i.test(
           line,
         );
       if (!looksLikeCopy) {

@@ -1,4 +1,4 @@
-export const legendsaventurebkkAssets = {
+export const ravenQuestAssets = {
   backgrounds: {
     app: require('../../../assets/imgs/backgrounds/appBackground.png'),
     loader: require('../../../assets/imgs/backgrounds/loaderBackground.png'),

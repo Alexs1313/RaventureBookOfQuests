@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import {
+  Animated,
   Image,
   Pressable,
   StyleSheet,
@@ -23,6 +24,8 @@ type GradientButtonProps = {
   flex?: boolean;
 };
 
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
 const GradientButton = ({
   label,
   onPress,
@@ -31,32 +34,47 @@ const GradientButton = ({
   icon,
   tall,
   flex,
-}: GradientButtonProps) => (
-  <Pressable
-    disabled={disabled}
-    onPress={onPress}
-    style={({pressed}) => [
-      styles.press,
-      flex && styles.flex,
-      disabled && styles.disabled,
-      pressed && !disabled && styles.pressed,
-    ]}>
-    <LinearGradient
-      colors={gradients.primary}
-      start={gradientAxis.horizontal.start}
-      end={gradientAxis.horizontal.end}
-      style={[styles.btn, tall && styles.tall, style]}>
-      {icon ? (
-        <View style={styles.iconRow}>
-          <Image source={icon} />
+}: GradientButtonProps) => {
+  const scale = useRef(new Animated.Value(1)).current;
+
+  const animateTo = (value: number) => {
+    Animated.spring(scale, {
+      toValue: value,
+      useNativeDriver: true,
+      speed: 28,
+      bounciness: value < 1 ? 0 : 6,
+    }).start();
+  };
+
+  return (
+    <AnimatedPressable
+      disabled={disabled}
+      onPress={onPress}
+      onPressIn={() => !disabled && animateTo(0.96)}
+      onPressOut={() => animateTo(1)}
+      style={[
+        styles.press,
+        flex && styles.flex,
+        disabled && styles.disabled,
+        {transform: [{scale}]},
+      ]}>
+      <LinearGradient
+        colors={gradients.primary}
+        start={gradientAxis.horizontal.start}
+        end={gradientAxis.horizontal.end}
+        style={[styles.btn, tall && styles.tall, style]}>
+        {icon ? (
+          <View style={styles.iconRow}>
+            <Image source={icon} />
+            <Text style={styles.text}>{label}</Text>
+          </View>
+        ) : (
           <Text style={styles.text}>{label}</Text>
-        </View>
-      ) : (
-        <Text style={styles.text}>{label}</Text>
-      )}
-    </LinearGradient>
-  </Pressable>
-);
+        )}
+      </LinearGradient>
+    </AnimatedPressable>
+  );
+};
 
 const styles = StyleSheet.create({
   press: {
@@ -88,9 +106,6 @@ const styles = StyleSheet.create({
   },
   disabled: {
     opacity: 0.45,
-  },
-  pressed: {
-    opacity: 0.85,
   },
 });
 

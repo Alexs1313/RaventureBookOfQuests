@@ -1,12 +1,12 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 
-import type {LegendsaventurebkkArtifact} from '../../../shared/types';
+import type {RavenQuestArtifact} from '../../../shared/types';
 import {colors, typography} from '../../../shared/theme';
 import RegionBadge from '../../../shared/components/ui/RegionBadge';
 
 type ArtifactCardProps = {
-  artifact: LegendsaventurebkkArtifact;
+  artifact: RavenQuestArtifact;
   width: number;
 };
 
@@ -14,18 +14,18 @@ const ArtifactCard = ({artifact, width}: ArtifactCardProps) => (
   <View style={[styles.card, {width}]}>
     <View style={styles.imageWrap}>
       <Image
-        source={artifact.legendsaventurebkkImage}
+        source={artifact.ravenQuestImage}
         style={styles.image}
         resizeMode="contain"
       />
       <RegionBadge
-        region={artifact.legendsaventurebkkRegion}
+        region={artifact.ravenQuestRegion}
         style={styles.badgePos}
       />
     </View>
     <View style={styles.body}>
-      <Text style={styles.name}>{artifact.legendsaventurebkkName}</Text>
-      <Text style={styles.desc}>{artifact.legendsaventurebkkDescription}</Text>
+      <Text style={styles.name}>{artifact.ravenQuestName}</Text>
+      <Text style={styles.desc}>{artifact.ravenQuestDescription}</Text>
     </View>
   </View>
 );
