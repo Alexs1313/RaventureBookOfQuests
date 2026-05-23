@@ -4,7 +4,6 @@ import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {
   Image,
   ImageBackground,
-  Modal,
   Pressable,
   Share,
   StyleSheet,
@@ -15,7 +14,12 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {Routes} from '../../app/navigation/routes';
 import type {MainTabParamList} from '../../app/navigation/types';
-import {AppLayout, FadeInView, StaggerItem} from '../../shared/components';
+import {
+  AppLayout,
+  ConfirmModal,
+  FadeInView,
+  StaggerItem,
+} from '../../shared/components';
 import {colors, gradients, gradientAxis} from '../../shared/theme';
 
 import {ravenQuestGetStoryById} from '../../../content/stories';
@@ -29,6 +33,7 @@ import {
   ravenQuestRemoveSavedTale,
   ravenQuestShareMessage,
 } from '../../shared/lib';
+import Orientation from 'react-native-orientation-locker';
 
 const RavenQuestGradientBtn = ({
   ravenQuestLabel,
@@ -55,14 +60,10 @@ const RavenQuestGradientBtn = ({
       {ravenQuestIcon ? (
         <View style={styles.ravenQuestShareBtnInner}>
           <Image source={ravenQuestIcon} />
-          <Text style={styles.ravenQuestGradientText}>
-            {ravenQuestLabel}
-          </Text>
+          <Text style={styles.ravenQuestGradientText}>{ravenQuestLabel}</Text>
         </View>
       ) : (
-        <Text style={styles.ravenQuestGradientText}>
-          {ravenQuestLabel}
-        </Text>
+        <Text style={styles.ravenQuestGradientText}>{ravenQuestLabel}</Text>
       )}
     </LinearGradient>
   </Pressable>
@@ -123,9 +124,7 @@ const RavenQuestSavedCard = ({
         {ravenQuestEntry.ravenQuestTitle}
       </Text>
       <Text style={styles.ravenQuestCardPreview} numberOfLines={2}>
-        {ravenQuestPreviewText(
-          ravenQuestEntry.ravenQuestHistory,
-        )}
+        {ravenQuestPreviewText(ravenQuestEntry.ravenQuestHistory)}
       </Text>
       <View style={styles.ravenQuestCardActions}>
         <RavenQuestGradientBtn
@@ -150,18 +149,20 @@ const RavenQuestSavedCard = ({
 
 const SavedScreen = () => {
   const ravenQuestNavigation =
-    useNavigation<BottomTabNavigationProp<MainTabParamList, typeof Routes.Saved>>();
+    useNavigation<
+      BottomTabNavigationProp<MainTabParamList, typeof Routes.Saved>
+    >();
   const [ravenQuestView, setRavenQuestView] =
     useState<RavenQuestBookmarkPhase>('shelf');
   const [ravenQuestEntries, setRavenQuestEntries] = useState<
     RavenQuestSavedEntry[]
   >([]);
-  const [ravenQuestActiveId, setRavenQuestActiveId] = useState<
-    string | null
-  >(null);
-  const [ravenQuestDeleteId, setRavenQuestDeleteId] = useState<
-    string | null
-  >(null);
+  const [ravenQuestActiveId, setRavenQuestActiveId] = useState<string | null>(
+    null,
+  );
+  const [ravenQuestDeleteId, setRavenQuestDeleteId] = useState<string | null>(
+    null,
+  );
 
   const ravenQuestReload = useCallback(async () => {
     const ravenQuestTales = await ravenQuestLoadSavedTales();
@@ -175,18 +176,13 @@ const SavedScreen = () => {
         }
         return {
           ...ravenQuestTale,
-          ravenQuestTitle:
-            ravenQuestStory.ravenQuestTitle,
-          ravenQuestRegion:
-            ravenQuestStory.ravenQuestRegion,
-          ravenQuestImage:
-            ravenQuestStory.ravenQuestImage,
+          ravenQuestTitle: ravenQuestStory.ravenQuestTitle,
+          ravenQuestRegion: ravenQuestStory.ravenQuestRegion,
+          ravenQuestImage: ravenQuestStory.ravenQuestImage,
         } as RavenQuestSavedEntry;
       })
       .filter(
-        (
-          ravenQuestEntry,
-        ): ravenQuestEntry is RavenQuestSavedEntry =>
+        (ravenQuestEntry): ravenQuestEntry is RavenQuestSavedEntry =>
           ravenQuestEntry != null,
       );
     setRavenQuestEntries(ravenQuestMapped);
@@ -214,6 +210,15 @@ const SavedScreen = () => {
     [],
   );
 
+  useFocusEffect(
+    useCallback(() => {
+      Orientation.lockToPortrait();
+      return () => {
+        Orientation.unlockAllOrientations();
+      };
+    }, []),
+  );
+
   const ravenQuestConfirmDelete = useCallback(async () => {
     if (!ravenQuestDeleteId) {
       return;
@@ -225,11 +230,7 @@ const SavedScreen = () => {
     }
     setRavenQuestDeleteId(null);
     await ravenQuestReload();
-  }, [
-    ravenQuestActiveId,
-    ravenQuestDeleteId,
-    ravenQuestReload,
-  ]);
+  }, [ravenQuestActiveId, ravenQuestDeleteId, ravenQuestReload]);
 
   if (ravenQuestView === 'passage' && ravenQuestActiveEntry) {
     return (
@@ -244,12 +245,12 @@ const SavedScreen = () => {
               styles.ravenQuestHeaderBtn,
               pressed && styles.ravenQuestPressed,
             ]}>
-            <Image source={require('../../../assets/imgs/icons/backIcon.png')} />
+            <Image
+              source={require('../../../assets/imgs/icons/backIcon.png')}
+            />
           </Pressable>
           <Pressable
-            onPress={() =>
-              ravenQuestShareEntry(ravenQuestActiveEntry)
-            }
+            onPress={() => ravenQuestShareEntry(ravenQuestActiveEntry)}
             style={({pressed}) => [
               styles.ravenQuestHeaderShareBtn,
               pressed && styles.ravenQuestPressed,
@@ -269,31 +270,25 @@ const SavedScreen = () => {
         </View>
 
         <View style={styles.ravenQuestTextBlocks}>
-          {ravenQuestActiveEntry.ravenQuestHistory.map(
-            (ravenQuestBlock, i) => (
-              <View
-                key={`${i}-${ravenQuestBlock.slice(0, 12)}`}
-                style={styles.ravenQuestTextCard}>
-                <Text style={styles.ravenQuestTextCardBody}>
-                  {ravenQuestBlock}
-                </Text>
-              </View>
-            ),
-          )}
+          {ravenQuestActiveEntry.ravenQuestHistory.map((ravenQuestBlock, i) => (
+            <View
+              key={`${i}-${ravenQuestBlock.slice(0, 12)}`}
+              style={styles.ravenQuestTextCard}>
+              <Text style={styles.ravenQuestTextCardBody}>
+                {ravenQuestBlock}
+              </Text>
+            </View>
+          ))}
         </View>
 
         <View style={styles.ravenQuestJourneyBadge}>
-          <Text style={styles.ravenQuestJourneyText}>
-            Journey Complete
-          </Text>
+          <Text style={styles.ravenQuestJourneyText}>Journey Complete</Text>
         </View>
 
         <RavenQuestGradientBtn
           ravenQuestLabel="Share"
           ravenQuestIcon={require('../../../assets/imgs/icons/shareIcon.png')}
-          ravenQuestOnPress={() =>
-            ravenQuestShareEntry(ravenQuestActiveEntry)
-          }
+          ravenQuestOnPress={() => ravenQuestShareEntry(ravenQuestActiveEntry)}
           ravenQuestStyle={styles.ravenQuestDetailShareBtn}
         />
       </AppLayout>
@@ -303,9 +298,7 @@ const SavedScreen = () => {
   return (
     <AppLayout tab>
       <Text style={styles.ravenQuestTitle}>Saved Tales</Text>
-      <Text style={styles.ravenQuestSubtitle}>
-        Your completed adventures
-      </Text>
+      <Text style={styles.ravenQuestSubtitle}>Your completed adventures</Text>
 
       {ravenQuestEntries.length === 0 ? (
         <View style={styles.ravenQuestEmpty}>
@@ -314,9 +307,7 @@ const SavedScreen = () => {
             style={styles.ravenQuestEmptyImage}
             resizeMode="contain"
           />
-          <Text style={styles.ravenQuestEmptyText}>
-            No saved tales yet
-          </Text>
+          <Text style={styles.ravenQuestEmptyText}>No saved tales yet</Text>
           <RavenQuestGradientBtn
             ravenQuestLabel="Explore Tales"
             ravenQuestOnPress={() =>
@@ -328,84 +319,34 @@ const SavedScreen = () => {
       ) : (
         <View style={styles.ravenQuestList}>
           {ravenQuestEntries.map((ravenQuestEntry, index) => (
-            <StaggerItem
-              key={ravenQuestEntry.ravenQuestId}
-              index={index}>
-            <RavenQuestSavedCard
-              ravenQuestEntry={ravenQuestEntry}
-              ravenQuestOnOpen={() => {
-                setRavenQuestActiveId(
-                  ravenQuestEntry.ravenQuestId,
-                );
-                setRavenQuestView('passage');
-              }}
-              ravenQuestOnDelete={() =>
-                setRavenQuestDeleteId(
-                  ravenQuestEntry.ravenQuestId,
-                )
-              }
-              ravenQuestOnShare={() =>
-                ravenQuestShareEntry(ravenQuestEntry)
-              }
-            />
+            <StaggerItem key={ravenQuestEntry.ravenQuestId} index={index}>
+              <RavenQuestSavedCard
+                ravenQuestEntry={ravenQuestEntry}
+                ravenQuestOnOpen={() => {
+                  setRavenQuestActiveId(ravenQuestEntry.ravenQuestId);
+                  setRavenQuestView('passage');
+                }}
+                ravenQuestOnDelete={() =>
+                  setRavenQuestDeleteId(ravenQuestEntry.ravenQuestId)
+                }
+                ravenQuestOnShare={() => ravenQuestShareEntry(ravenQuestEntry)}
+              />
             </StaggerItem>
           ))}
         </View>
       )}
 
-      <Modal
+      <ConfirmModal
         visible={ravenQuestDeleteId != null}
-        transparent
-        animationType="fade"
-        onRequestClose={() => setRavenQuestDeleteId(null)}>
-        <Pressable
-          style={styles.ravenQuestModalOverlay}
-          onPress={() => setRavenQuestDeleteId(null)}>
-          <Pressable
-            style={styles.ravenQuestModal}
-            onPress={e => e.stopPropagation()}>
-            <Pressable
-              onPress={() => setRavenQuestDeleteId(null)}
-              style={styles.ravenQuestModalClose}>
-              <Image
-                source={require('../../../assets/imgs/icons/closeIcon.png')}
-              />
-            </Pressable>
-            <Text style={styles.ravenQuestModalTitle}>
-              Remove Saved Tale?
-            </Text>
-            <Text style={styles.ravenQuestModalBody}>
-              This saved story path will be permanently removed.
-            </Text>
-            <Pressable
-              onPress={ravenQuestConfirmDelete}
-              style={({pressed}) => [
-                styles.ravenQuestModalDeletePress,
-                pressed && styles.ravenQuestPressed,
-              ]}>
-              <LinearGradient
-                colors={gradients.danger}
-                start={gradientAxis.horizontal.start}
-                end={gradientAxis.horizontal.end}
-                style={styles.ravenQuestModalDeleteBtn}>
-                <Text style={styles.ravenQuestModalDeleteText}>
-                  Delete
-                </Text>
-              </LinearGradient>
-            </Pressable>
-            <Pressable
-              onPress={() => setRavenQuestDeleteId(null)}
-              style={({pressed}) => [
-                styles.ravenQuestModalCancelBtn,
-                pressed && styles.ravenQuestPressed,
-              ]}>
-              <Text style={styles.ravenQuestModalCancelText}>
-                Cancel
-              </Text>
-            </Pressable>
-          </Pressable>
-        </Pressable>
-      </Modal>
+        title="Remove Saved Tale?"
+        body="This saved story path will be permanently removed."
+        confirmLabel="Delete"
+        showClose
+        onConfirm={() => {
+          void ravenQuestConfirmDelete();
+        }}
+        onCancel={() => setRavenQuestDeleteId(null)}
+      />
     </AppLayout>
   );
 };
@@ -636,84 +577,6 @@ const styles = StyleSheet.create({
   ravenQuestDetailShareBtn: {
     minHeight: 48.3,
     marginBottom: 16.4,
-  },
-  ravenQuestModalOverlay: {
-    flex: 1,
-    backgroundColor: colors.overlayDark,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 16.5,
-  },
-  ravenQuestModal: {
-    width: '100%',
-    maxWidth: 361.1,
-    borderRadius: 16.2,
-    borderWidth: 1.3,
-    borderColor: colors.borderMedium,
-    backgroundColor: colors.surface,
-    paddingHorizontal: 24.4,
-    paddingTop: 24.5,
-    paddingBottom: 24.1,
-    gap: 12.2,
-  },
-  ravenQuestModalClose: {
-    position: 'absolute',
-    top: 16.3,
-    right: 16.4,
-    width: 24.5,
-    height: 24.1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 1.2,
-  },
-  ravenQuestModalCloseText: {
-    color: colors.textMuted,
-    fontSize: 16.2,
-  },
-  ravenQuestModalTitle: {
-    color: colors.gold,
-    fontSize: 18.3,
-    fontWeight: '600',
-    textAlign: 'center',
-    marginTop: 8.4,
-    marginBottom: 4.5,
-  },
-  ravenQuestModalBody: {
-    color: colors.textMutedLight,
-    fontSize: 16.1,
-    lineHeight: 24.2,
-    textAlign: 'center',
-    marginBottom: 8.3,
-  },
-  ravenQuestModalDeletePress: {
-    borderRadius: 14.4,
-    overflow: 'hidden',
-  },
-  ravenQuestModalDeleteBtn: {
-    minHeight: 36.5,
-    borderRadius: 14.1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  ravenQuestModalDeleteText: {
-    color: colors.text,
-    fontSize: 14.2,
-    fontWeight: '500',
-  },
-  ravenQuestModalCancelBtn: {
-    minHeight: 38.3,
-    borderRadius: 14.4,
-    borderWidth: 1.5,
-    borderColor: colors.border,
-    backgroundColor: colors.cardMedium,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: 9.1,
-  },
-  ravenQuestModalCancelText: {
-    color: colors.text,
-    fontSize: 14.2,
-    fontWeight: '500',
   },
   ravenQuestPressed: {
     opacity: 0.85,

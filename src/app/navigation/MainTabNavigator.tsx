@@ -18,7 +18,6 @@ import type {MainTabParamList} from './types';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
-/** Tab order differs from typical mythology-template (saved/quiz mid-swap). */
 const tabIcons: ImageSourcePropType[] = [
   ravenQuestAssets.tabs.tales,
   ravenQuestAssets.tabs.quiz,
@@ -29,9 +28,8 @@ const tabIcons: ImageSourcePropType[] = [
 
 const makeTabIcon =
   (index: number) =>
-  ({focused}: {focused: boolean}) => (
-    <AnimatedTabIcon focused={focused} source={tabIcons[index]} />
-  );
+  ({focused}: {focused: boolean}) =>
+    <AnimatedTabIcon focused={focused} source={tabIcons[index]} />;
 
 const TabBarBackground = () => <View style={styles.tabBarBg} />;
 
@@ -98,8 +96,8 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     elevation: 0,
-    borderTopWidth: 1.2,
-    borderTopColor: colors.tabBarBorder,
+    borderTopWidth: 0,
+    borderTopColor: 'rgba(212, 118, 62, 0.2)',
     backgroundColor: colors.transparent,
     paddingTop: spacing.tabBarPaddingTop,
     paddingHorizontal: spacing.tabBarPaddingX,

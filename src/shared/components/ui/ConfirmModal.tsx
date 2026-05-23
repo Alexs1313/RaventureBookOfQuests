@@ -3,6 +3,7 @@ import {
   Animated,
   Image,
   Modal,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -69,6 +70,7 @@ const ConfirmModal = ({
   return (
     <Modal
       visible={visible}
+      statusBarTranslucent={Platform.OS === 'android'}
       transparent
       animationType="none"
       onRequestClose={onCancel}>

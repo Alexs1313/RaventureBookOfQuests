@@ -104,9 +104,7 @@ const RavenQuestExitModal = ({
     <Pressable
       style={styles.ravenQuestModalOverlay}
       onPress={ravenQuestOnCancel}>
-      <Pressable
-        style={styles.ravenQuestModal}
-        onPress={e => e.stopPropagation()}>
+      <Pressable style={styles.ravenQuestModal}>
         <Text style={styles.ravenQuestModalTitle}>Exit Quiz?</Text>
         <Text style={styles.ravenQuestModalBody}>
           Your progress will be lost!

@@ -6,8 +6,53 @@ import type {RavenQuestSavedTale} from '../../types';
 const ravenQuestSavedIndexKey =
   '@book_explorer_raventure/bookmark_index';
 
+const ravenQuestBookmarkKeyPrefix =
+  '@book_explorer_raventure/bookmark_';
+
+const ravenQuestLegacySavedPrefix = 'ravenQuest_saved_';
+
 export const ravenQuestSavedKey = (ravenQuestId: string) =>
-  `@book_explorer_raventure/bookmark_${ravenQuestId}`;
+  `${ravenQuestBookmarkKeyPrefix}${ravenQuestId}`;
+
+const ravenQuestParseIndex = (
+  ravenQuestIndexRaw: string | null,
+): string[] => {
+  if (!ravenQuestIndexRaw) {
+    return [];
+  }
+  try {
+    const ravenQuestParsed = JSON.parse(ravenQuestIndexRaw);
+    if (!Array.isArray(ravenQuestParsed)) {
+      return [];
+    }
+    return ravenQuestParsed.filter(
+      (ravenQuestId): ravenQuestId is string =>
+        typeof ravenQuestId === 'string' && ravenQuestId.length > 0,
+    );
+  } catch {
+    return [];
+  }
+};
+
+const ravenQuestRebuildIndexFromKeys = async () => {
+  const ravenQuestAllKeys = await AsyncStorage.getAllKeys();
+  return ravenQuestAllKeys
+    .filter(key => {
+      if (key === ravenQuestSavedIndexKey) {
+        return false;
+      }
+      return (
+        key.startsWith(ravenQuestBookmarkKeyPrefix) ||
+        key.startsWith(ravenQuestLegacySavedPrefix)
+      );
+    })
+    .map(key => {
+      if (key.startsWith(ravenQuestBookmarkKeyPrefix)) {
+        return key.slice(ravenQuestBookmarkKeyPrefix.length);
+      }
+      return key.slice(ravenQuestLegacySavedPrefix.length);
+    });
+};
 
 const ravenQuestParseSaved = (
   ravenQuestId: string,
@@ -66,9 +111,9 @@ export const ravenQuestSaveTale = async (
   const ravenQuestIndexRaw = await AsyncStorage.getItem(
     ravenQuestSavedIndexKey,
   );
-  const ravenQuestIndex: string[] = ravenQuestIndexRaw
-    ? JSON.parse(ravenQuestIndexRaw)
-    : [];
+  const ravenQuestIndex = ravenQuestParseIndex(
+    ravenQuestIndexRaw,
+  );
 
   if (!ravenQuestIndex.includes(ravenQuestId)) {
     ravenQuestIndex.push(ravenQuestId);
@@ -80,22 +125,15 @@ export const ravenQuestSaveTale = async (
 };
 
 export const ravenQuestLoadSavedTales = async () => {
-  let ravenQuestIndexRaw = await AsyncStorage.getItem(
+  const ravenQuestIndexRaw = await AsyncStorage.getItem(
     ravenQuestSavedIndexKey,
   );
-  let ravenQuestIndex: string[] = ravenQuestIndexRaw
-    ? JSON.parse(ravenQuestIndexRaw)
-    : [];
+  let ravenQuestIndex = ravenQuestParseIndex(
+    ravenQuestIndexRaw,
+  );
 
   if (ravenQuestIndex.length === 0) {
-    const ravenQuestAllKeys = await AsyncStorage.getAllKeys();
-    ravenQuestIndex = ravenQuestAllKeys
-      .filter(
-        key =>
-          key.startsWith('ravenQuest_saved_') &&
-          key !== ravenQuestSavedIndexKey,
-      )
-      .map(key => key.replace('ravenQuest_saved_', ''));
+    ravenQuestIndex = await ravenQuestRebuildIndexFromKeys();
 
     if (ravenQuestIndex.length > 0) {
       await AsyncStorage.setItem(
@@ -142,9 +180,9 @@ export const ravenQuestRemoveSavedTale = async (
   const ravenQuestIndexRaw = await AsyncStorage.getItem(
     ravenQuestSavedIndexKey,
   );
-  const ravenQuestIndex: string[] = ravenQuestIndexRaw
-    ? JSON.parse(ravenQuestIndexRaw)
-    : [];
+  const ravenQuestIndex = ravenQuestParseIndex(
+    ravenQuestIndexRaw,
+  );
 
   await AsyncStorage.setItem(
     ravenQuestSavedIndexKey,
