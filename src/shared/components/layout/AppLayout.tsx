@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  ImageBackground,
   ScrollView,
   StyleSheet,
   View,
@@ -8,8 +7,8 @@ import {
   type ViewStyle,
 } from 'react-native';
 
-import {ravenQuestAssets} from '../../constants';
 import {colors, spacing} from '../../theme';
+import LinearGradient from 'react-native-linear-gradient';
 
 type AppLayoutProps = {
   children: React.ReactNode;
@@ -24,8 +23,8 @@ const AppLayout = ({
   contentStyle,
   tab = false,
 }: AppLayoutProps) => (
-  <ImageBackground
-    source={ravenQuestAssets.backgrounds.app}
+  <LinearGradient
+    colors={['rgb(153, 83, 3)', 'rgb(31, 17, 1)']}
     style={styles.bg}>
     <View style={styles.overlay} />
     <ScrollView
@@ -37,7 +36,7 @@ const AppLayout = ({
       showsVerticalScrollIndicator={false}>
       {children}
     </ScrollView>
-  </ImageBackground>
+  </LinearGradient>
 );
 
 const styles = StyleSheet.create({

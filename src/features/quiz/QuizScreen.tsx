@@ -6,6 +6,7 @@ import {
   BackHandler,
   Image,
   Modal,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -52,18 +53,14 @@ const RavenQuestGradientBtn = ({
     style={({pressed}) => [
       styles.ravenQuestGradientPress,
       ravenQuestDisabled && styles.ravenQuestDisabled,
-      pressed &&
-        !ravenQuestDisabled &&
-        styles.ravenQuestPressed,
+      pressed && !ravenQuestDisabled && styles.ravenQuestPressed,
     ]}>
     <LinearGradient
       colors={gradients.primary}
       start={gradientAxis.horizontal.start}
       end={gradientAxis.horizontal.end}
       style={[styles.ravenQuestGradientBtn, ravenQuestStyle]}>
-      <Text style={styles.ravenQuestGradientText}>
-        {ravenQuestLabel}
-      </Text>
+      <Text style={styles.ravenQuestGradientText}>{ravenQuestLabel}</Text>
     </LinearGradient>
   </Pressable>
 );
@@ -81,9 +78,7 @@ const RavenQuestOutlineBtn = ({
       styles.ravenQuestOutlineBtn,
       pressed && styles.ravenQuestPressed,
     ]}>
-    <Text style={styles.ravenQuestOutlineText}>
-      {ravenQuestLabel}
-    </Text>
+    <Text style={styles.ravenQuestOutlineText}>{ravenQuestLabel}</Text>
   </Pressable>
 );
 
@@ -100,6 +95,7 @@ const RavenQuestExitModal = ({
     visible={ravenQuestVisible}
     transparent
     animationType="fade"
+    statusBarTranslucent={Platform.OS === 'android'}
     onRequestClose={ravenQuestOnCancel}>
     <Pressable
       style={styles.ravenQuestModalOverlay}
@@ -138,28 +134,27 @@ const RavenQuestExitModal = ({
 
 const QuizScreen = () => {
   const ravenQuestNavigation =
-    useNavigation<BottomTabNavigationProp<MainTabParamList, typeof Routes.Quiz>>();
+    useNavigation<
+      BottomTabNavigationProp<MainTabParamList, typeof Routes.Quiz>
+    >();
   const [ravenQuestView, setRavenQuestView] =
     useState<RavenQuestTrialPhase>('intro');
-  const [ravenQuestQuestions, setRavenQuestQuestions] =
-    useState<RavenQuestQuizQuestion[]>([]);
+  const [ravenQuestQuestions, setRavenQuestQuestions] = useState<
+    RavenQuestQuizQuestion[]
+  >([]);
   const [ravenQuestIndex, setRavenQuestIndex] = useState(0);
   const [ravenQuestCorrect, setRavenQuestCorrect] = useState(0);
-  const [ravenQuestSelected, setRavenQuestSelected] = useState<
-    string | null
-  >(null);
-  const [ravenQuestRevealed, setRavenQuestRevealed] =
-    useState(false);
-  const [ravenQuestExitOpen, setRavenQuestExitOpen] =
-    useState(false);
+  const [ravenQuestSelected, setRavenQuestSelected] = useState<string | null>(
+    null,
+  );
+  const [ravenQuestRevealed, setRavenQuestRevealed] = useState(false);
+  const [ravenQuestExitOpen, setRavenQuestExitOpen] = useState(false);
 
-  const ravenQuestCurrent =
-    ravenQuestQuestions[ravenQuestIndex];
+  const ravenQuestCurrent = ravenQuestQuestions[ravenQuestIndex];
 
   const ravenQuestProgress =
     ravenQuestQuestions.length > 0
-      ? (ravenQuestIndex + (ravenQuestRevealed ? 1 : 0)) /
-        ravenQuestQuizTotal
+      ? (ravenQuestIndex + (ravenQuestRevealed ? 1 : 0)) / ravenQuestQuizTotal
       : 0;
 
   // const ravenQuestResetPlay = useCallback(() => {
@@ -209,10 +204,7 @@ const QuizScreen = () => {
       }
       setRavenQuestSelected(ravenQuestOption);
       setRavenQuestRevealed(true);
-      if (
-        ravenQuestOption ===
-        ravenQuestCurrent.ravenQuestCorrect
-      ) {
+      if (ravenQuestOption === ravenQuestCurrent.ravenQuestCorrect) {
         setRavenQuestCorrect(c => c + 1);
       }
     },
@@ -245,10 +237,7 @@ const QuizScreen = () => {
       if (!ravenQuestRevealed) {
         return styles.ravenQuestAnswerDefault;
       }
-      if (
-        ravenQuestOption ===
-        ravenQuestCurrent?.ravenQuestCorrect
-      ) {
+      if (ravenQuestOption === ravenQuestCurrent?.ravenQuestCorrect) {
         return styles.ravenQuestAnswerCorrect;
       }
       if (ravenQuestOption === ravenQuestSelected) {
@@ -256,11 +245,7 @@ const QuizScreen = () => {
       }
       return styles.ravenQuestAnswerDefault;
     },
-    [
-      ravenQuestCurrent,
-      ravenQuestRevealed,
-      ravenQuestSelected,
-    ],
+    [ravenQuestCurrent, ravenQuestRevealed, ravenQuestSelected],
   );
 
   const ravenQuestAnswerTextStyle = useCallback(
@@ -268,10 +253,7 @@ const QuizScreen = () => {
       if (!ravenQuestRevealed) {
         return styles.ravenQuestAnswerText;
       }
-      if (
-        ravenQuestOption ===
-        ravenQuestCurrent?.ravenQuestCorrect
-      ) {
+      if (ravenQuestOption === ravenQuestCurrent?.ravenQuestCorrect) {
         return styles.ravenQuestAnswerTextCorrect;
       }
       if (ravenQuestOption === ravenQuestSelected) {
@@ -279,11 +261,7 @@ const QuizScreen = () => {
       }
       return styles.ravenQuestAnswerText;
     },
-    [
-      ravenQuestCurrent,
-      ravenQuestRevealed,
-      ravenQuestSelected,
-    ],
+    [ravenQuestCurrent, ravenQuestRevealed, ravenQuestSelected],
   );
 
   React.useEffect(() => {
@@ -301,10 +279,7 @@ const QuizScreen = () => {
   }, [ravenQuestView]);
 
   const ravenQuestNextLabel = useMemo(
-    () =>
-      ravenQuestIndex >= ravenQuestQuizTotal - 1
-        ? 'Finish'
-        : 'Next',
+    () => (ravenQuestIndex >= ravenQuestQuizTotal - 1 ? 'Finish' : 'Next'),
     [ravenQuestIndex],
   );
 
@@ -317,16 +292,13 @@ const QuizScreen = () => {
             style={styles.ravenQuestCompleteImage}
             resizeMode="contain"
           />
-          <Text style={styles.ravenQuestCompleteTitle}>
-            Quiz Complete!
-          </Text>
+          <Text style={styles.ravenQuestCompleteTitle}>Quiz Complete!</Text>
           <Text style={styles.ravenQuestCompleteScore}>
-            You answered {ravenQuestCorrect} out of{' '}
-            {ravenQuestQuizTotal} correctly
+            You answered {ravenQuestCorrect} out of {ravenQuestQuizTotal}{' '}
+            correctly
           </Text>
           <Text style={styles.ravenQuestCompletePoints}>
-            +{ravenQuestCorrect * ravenQuestPointsPerCorrect}{' '}
-            Insights
+            +{ravenQuestCorrect * ravenQuestPointsPerCorrect} Insights
           </Text>
           <RavenQuestGradientBtn
             ravenQuestLabel="View Artifacts"
@@ -348,83 +320,73 @@ const QuizScreen = () => {
     return (
       <AppLayout tab contentStyle={styles.ravenQuestPlayScroll}>
         <FadeInView triggerKey={ravenQuestIndex}>
-        <View style={styles.ravenQuestPlayHeader}>
-          <Pressable
-            onPress={() => setRavenQuestExitOpen(true)}
-            style={({pressed}) => [
-              styles.ravenQuestBackBtn,
-              pressed && styles.ravenQuestPressed,
-            ]}>
-            <Image source={require('../../../assets/imgs/icons/backIcon.png')} />
-          </Pressable>
-          <View style={styles.ravenQuestPlayHeaderMeta}>
-            <Text style={styles.ravenQuestQuestionCount}>
-              Question {ravenQuestIndex + 1}/
-              {ravenQuestQuizTotal}
-            </Text>
-            <Text style={styles.ravenQuestCorrectCount}>
-              {ravenQuestCorrect} Correct
-            </Text>
+          <View style={styles.ravenQuestPlayHeader}>
+            <Pressable
+              onPress={() => setRavenQuestExitOpen(true)}
+              style={({pressed}) => [
+                styles.ravenQuestBackBtn,
+                pressed && styles.ravenQuestPressed,
+              ]}>
+              <Image
+                source={require('../../../assets/imgs/icons/backIcon.png')}
+              />
+            </Pressable>
+            <View style={styles.ravenQuestPlayHeaderMeta}>
+              <Text style={styles.ravenQuestQuestionCount}>
+                Question {ravenQuestIndex + 1}/{ravenQuestQuizTotal}
+              </Text>
+              <Text style={styles.ravenQuestCorrectCount}>
+                {ravenQuestCorrect} Correct
+              </Text>
+            </View>
           </View>
-        </View>
 
-        <AnimatedProgressBar progress={ravenQuestProgress} />
+          <AnimatedProgressBar progress={ravenQuestProgress} />
 
-        <Image
-          source={ravenQuestCurrent.ravenQuestImage}
-          style={styles.ravenQuestQuizImage}
-          resizeMode="cover"
-        />
-
-        <View style={styles.ravenQuestQuestionBox}>
-          <TypewriterText
-            text={ravenQuestCurrent.ravenQuestQuestion}
-            style={styles.ravenQuestQuestionText}
-            triggerKey={ravenQuestIndex}
+          <Image
+            source={ravenQuestCurrent.ravenQuestImage}
+            style={styles.ravenQuestQuizImage}
+            resizeMode="cover"
           />
-        </View>
 
-        <View style={styles.ravenQuestAnswersGrid}>
-          {ravenQuestCurrent.ravenQuestOptions.map(
-            ravenQuestOption => (
+          <View style={styles.ravenQuestQuestionBox}>
+            <TypewriterText
+              text={ravenQuestCurrent.ravenQuestQuestion}
+              style={styles.ravenQuestQuestionText}
+              triggerKey={ravenQuestIndex}
+            />
+          </View>
+
+          <View style={styles.ravenQuestAnswersGrid}>
+            {ravenQuestCurrent.ravenQuestOptions.map(ravenQuestOption => (
               <Pressable
                 key={ravenQuestOption}
                 disabled={ravenQuestRevealed}
-                onPress={() =>
-                  ravenQuestOnSelectAnswer(ravenQuestOption)
-                }
+                onPress={() => ravenQuestOnSelectAnswer(ravenQuestOption)}
                 style={({pressed}) => [
                   styles.ravenQuestAnswerBtn,
                   ravenQuestAnswerStyle(ravenQuestOption),
-                  pressed &&
-                    !ravenQuestRevealed &&
-                    styles.ravenQuestPressed,
+                  pressed && !ravenQuestRevealed && styles.ravenQuestPressed,
                 ]}>
-                <Text
-                  style={ravenQuestAnswerTextStyle(
-                    ravenQuestOption,
-                  )}>
+                <Text style={ravenQuestAnswerTextStyle(ravenQuestOption)}>
                   {ravenQuestOption}
                 </Text>
               </Pressable>
-            ),
-          )}
-        </View>
+            ))}
+          </View>
 
-        <RavenQuestGradientBtn
-          ravenQuestLabel={ravenQuestNextLabel}
-          ravenQuestOnPress={ravenQuestOnNext}
-          ravenQuestDisabled={!ravenQuestRevealed}
-          ravenQuestStyle={styles.ravenQuestNextBtn}
-        />
+          <RavenQuestGradientBtn
+            ravenQuestLabel={ravenQuestNextLabel}
+            ravenQuestOnPress={ravenQuestOnNext}
+            ravenQuestDisabled={!ravenQuestRevealed}
+            ravenQuestStyle={styles.ravenQuestNextBtn}
+          />
 
-        <RavenQuestExitModal
-          ravenQuestVisible={ravenQuestExitOpen}
-          ravenQuestOnExit={ravenQuestExitToHome}
-          ravenQuestOnCancel={() =>
-            setRavenQuestExitOpen(false)
-          }
-        />
+          <RavenQuestExitModal
+            ravenQuestVisible={ravenQuestExitOpen}
+            ravenQuestOnExit={ravenQuestExitToHome}
+            ravenQuestOnCancel={() => setRavenQuestExitOpen(false)}
+          />
         </FadeInView>
       </AppLayout>
     );
@@ -433,31 +395,31 @@ const QuizScreen = () => {
   return (
     <AppLayout tab>
       <FadeInView>
-      <Text style={styles.ravenQuestTitle}>Quiz</Text>
-      <Text style={styles.ravenQuestSubtitle}>
-        Test your mythology knowledge
-      </Text>
-
-      <Image
-        source={require('../../../assets/imgs/quiz/quizHero.png')}
-        style={styles.ravenQuestHeroImage}
-        resizeMode="contain"
-      />
-
-      <View style={styles.ravenQuestInfoCard}>
-        <Text style={styles.ravenQuestInfoTitle}>Mythology Quiz</Text>
-        <Text style={styles.ravenQuestInfoBody}>
-          Answer 10 questions based on the tales and mythology from the app.
-          Each correct answer adds 50 insights toward unlocking ancient
-          artifacts.
+        <Text style={styles.ravenQuestTitle}>Quiz</Text>
+        <Text style={styles.ravenQuestSubtitle}>
+          Test your mythology knowledge
         </Text>
-      </View>
 
-      <RavenQuestGradientBtn
-        ravenQuestLabel="Start Quiz"
-        ravenQuestOnPress={ravenQuestStartQuiz}
-        ravenQuestStyle={styles.ravenQuestStartBtn}
-      />
+        <Image
+          source={require('../../../assets/imgs/quiz/quizHero.png')}
+          style={styles.ravenQuestHeroImage}
+          resizeMode="contain"
+        />
+
+        <View style={styles.ravenQuestInfoCard}>
+          <Text style={styles.ravenQuestInfoTitle}>Mythology Quiz</Text>
+          <Text style={styles.ravenQuestInfoBody}>
+            Answer 10 questions based on the tales and mythology from the app.
+            Each correct answer adds 50 insights toward unlocking ancient
+            artifacts.
+          </Text>
+        </View>
+
+        <RavenQuestGradientBtn
+          ravenQuestLabel="Start Quiz"
+          ravenQuestOnPress={ravenQuestStartQuiz}
+          ravenQuestStyle={styles.ravenQuestStartBtn}
+        />
       </FadeInView>
     </AppLayout>
   );

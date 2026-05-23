@@ -1,4 +1,4 @@
-package com.raventurebookofquests
+package com.bookquestraventure
 
 import android.app.Application
 import com.facebook.react.PackageList
