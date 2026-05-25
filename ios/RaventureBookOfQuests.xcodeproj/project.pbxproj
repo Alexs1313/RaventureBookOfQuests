@@ -281,7 +281,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.slslsownw.dflkalkf.ddlkf;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fjfjue.amdnasmdk;
 				PRODUCT_NAME = RaventureBookOfQuests;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -313,7 +313,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.slslsownw.dflkalkf.ddlkf;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fjfjue.amdnasmdk;
 				PRODUCT_NAME = RaventureBookOfQuests;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

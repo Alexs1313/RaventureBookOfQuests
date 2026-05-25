@@ -1,1 +1,0 @@
-export {ravenQuestAssets} from './assets';
