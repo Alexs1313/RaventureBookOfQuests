@@ -3,14 +3,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@navigation/*": ["src/navigation/*"],
-      "@screens/*": ["src/screens/*"],
-      "@components/*": ["src/components/*"],
-      "@data/*": ["src/data/*"],
-      "@palette/*": ["src/palette/*"],
-      "@types/*": ["src/types/*"],
-      "@loungeKit/*": ["src/loungeKit/*"],
-      "@assets/*": ["src/assets/*"]
+      "@navigation/*": ["ExplorerMytthofSrc/ExplorerMytthofNavigation/*"],
+      "@screens/*": ["ExplorerMytthofSrc/ExplorerMytthofScreens/*"],
+      "@components/*": ["ExplorerMytthofSrc/ExplorerMytthofComponents/*"],
+      "@data/*": ["ExplorerMytthofSrc/ExplorerMytthofData/*"],
+      "@palette/*": ["ExplorerMytthofSrc/ExplorerMytthofPalette/*"],
+      "@types/*": ["ExplorerMytthofSrc/ExplorerMytthofTypes/*"],
+      "@loungeKit/*": ["ExplorerMytthofSrc/ExplorerMytthofLoungeKit/*"],
+      "@assets/*": ["ExplorerMytthofSrc/ExplorerMytthofAssets/*"]
     }
   }
 }

@@ -1,8 +1,12 @@
 const path = require('path');
 
+const isProduction =
+  process.env.BABEL_ENV === 'production' || process.env.NODE_ENV === 'production';
+
 module.exports = {
   presets: ['module:@react-native/babel-preset'],
   plugins: [
+    ...(isProduction ? ['transform-remove-console'] : []),
     [
       'module-resolver',
       {
@@ -17,14 +21,14 @@ module.exports = {
           '.json',
         ],
         alias: {
-          '@navigation': path.resolve(__dirname, 'src/navigation'),
-          '@screens': path.resolve(__dirname, 'src/screens'),
-          '@components': path.resolve(__dirname, 'src/components'),
-          '@data': path.resolve(__dirname, 'src/data'),
-          '@palette': path.resolve(__dirname, 'src/palette'),
-          '@types': path.resolve(__dirname, 'src/types'),
-          '@loungeKit': path.resolve(__dirname, 'src/loungeKit'),
-          '@assets': path.resolve(__dirname, 'src/assets'),
+          '@navigation': path.resolve(__dirname, 'ExplorerMytthofSrc/ExplorerMytthofNavigation'),
+          '@screens': path.resolve(__dirname, 'ExplorerMytthofSrc/ExplorerMytthofScreens'),
+          '@components': path.resolve(__dirname, 'ExplorerMytthofSrc/ExplorerMytthofComponents'),
+          '@data': path.resolve(__dirname, 'ExplorerMytthofSrc/ExplorerMytthofData'),
+          '@palette': path.resolve(__dirname, 'ExplorerMytthofSrc/ExplorerMytthofPalette'),
+          '@types': path.resolve(__dirname, 'ExplorerMytthofSrc/ExplorerMytthofTypes'),
+          '@loungeKit': path.resolve(__dirname, 'ExplorerMytthofSrc/ExplorerMytthofLoungeKit'),
+          '@assets': path.resolve(__dirname, 'ExplorerMytthofSrc/ExplorerMytthofAssets'),
         },
       },
     ],

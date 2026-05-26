@@ -1,20 +1,20 @@
 workflows:
   ios-workflow:
-    name: 'Book Quest Raventure'
+    name: 'Book Of Explorer Myths'
     max_build_duration: 120
     instance_type: mac_mini_m2
     integrations:
-      app_store_connect: MythsAncientAPIKey
+      app_store_connect: MythsAncienttAPIKey
     environment:
       xcode: '26.0'
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.fjfjue.amdnasmdk
+        bundle_identifier: com.sdfsdf.dsjsdfja
       vars:
-        BUNDLE_ID: com.fjfjue.amdnasmdk
+        BUNDLE_ID: com.sdfsdf.dsjsdfja
         XCODE_WORKSPACE: RaventureBookOfQuests.xcworkspace
         XCODE_SCHEME: RaventureBookOfQuests
-        APP_STORE_APPLE_ID: 6772978307
+        APP_STORE_APPLE_ID: 6773278482
     scripts:
       - name: Install npm dependencies
         script: |
