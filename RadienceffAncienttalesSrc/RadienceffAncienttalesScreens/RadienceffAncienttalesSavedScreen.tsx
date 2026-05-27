@@ -14,9 +14,17 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {RadienceffAncienttalesRoutes} from '../RadienceffAncienttalesNavigation/RadienceffAncienttalesRoutes';
 import type {RadienceffAncienttalesMainTabParamList} from '../RadienceffAncienttalesNavigation/RadienceffAncienttalesTypes';
-import {RadienceffAncienttalesAppLayout, RadienceffAncienttalesConfirmModal, RadienceffAncienttalesStaggerItem} from '../RadienceffAncienttalesComponents';
+import {
+  RadienceffAncienttalesAppLayout,
+  RadienceffAncienttalesConfirmModal,
+  RadienceffAncienttalesStaggerItem,
+} from '../RadienceffAncienttalesComponents';
 import {radienceffAncienttalesMediaRegistry} from '../RadienceffAncienttalesComponents/RadienceffAncienttalesCore/RadienceffAncienttalesAssets';
-import {radienceffAncienttalesColors, radienceffAncienttalesGradients, radienceffAncienttalesGradientAxis} from '../RadienceffAncienttalesComponents/RadienceffAncienttalesCore/RadienceffAncienttalesPalette';
+import {
+  radienceffAncienttalesColors,
+  radienceffAncienttalesGradients,
+  radienceffAncienttalesGradientAxis,
+} from '../RadienceffAncienttalesComponents/RadienceffAncienttalesCore/RadienceffAncienttalesPalette';
 
 import {radienceffAncienttalesResolveChronicle} from '../RadienceffAncienttalesComponents/RadienceffAncienttalesCore/RadienceffAncienttalesData/RadienceffAncienttalesStories';
 import type {
@@ -51,7 +59,8 @@ const FilledActionControl = ({
     onPress={onActivate}
     style={({pressed}) => [
       radienceffAncienttalesStyles.radienceffAncienttalesFilledPressable,
-      pressed && radienceffAncienttalesStyles.radienceffAncienttalesPressedState,
+      pressed &&
+        radienceffAncienttalesStyles.radienceffAncienttalesPressedState,
     ]}>
     <LinearGradient
       colors={radienceffAncienttalesGradients.primary}
@@ -62,14 +71,21 @@ const FilledActionControl = ({
         surfaceExtra,
       ]}>
       {glyphSource ? (
-        <View style={radienceffAncienttalesStyles.radienceffAncienttalesFilledRow}>
+        <View
+          style={radienceffAncienttalesStyles.radienceffAncienttalesFilledRow}>
           <Image source={glyphSource} />
-          <Text style={radienceffAncienttalesStyles.radienceffAncienttalesFilledLabel}>
+          <Text
+            style={
+              radienceffAncienttalesStyles.radienceffAncienttalesFilledLabel
+            }>
             {optionCaption}
           </Text>
         </View>
       ) : (
-        <Text style={radienceffAncienttalesStyles.radienceffAncienttalesFilledLabel}>
+        <Text
+          style={
+            radienceffAncienttalesStyles.radienceffAncienttalesFilledLabel
+          }>
           {optionCaption}
         </Text>
       )}
@@ -92,19 +108,26 @@ const GlyphActionControl = ({
       glyphVariant === 'delete'
         ? radienceffAncienttalesStyles.radienceffAncienttalesRemoveSurface
         : radienceffAncienttalesStyles.radienceffAncienttalesEmitSurface,
-      pressed && radienceffAncienttalesStyles.radienceffAncienttalesPressedState,
+      pressed &&
+        radienceffAncienttalesStyles.radienceffAncienttalesPressedState,
     ]}>
     <Image source={optionCaption} />
   </Pressable>
 );
 
-type PendingDiscard =
-  | {kind: 'tale'; key: string}
-  | {kind: 'joke'; key: string};
+type PendingDiscard = {kind: 'tale'; key: string} | {kind: 'joke'; key: string};
 
 type ShelfRow =
-  | {kind: 'tale'; storedAt: number; entry: RadienceffAncienttalesBookmarkDisplay}
-  | {kind: 'joke'; storedAt: number; entry: RadienceffAncienttalesSavedJokeDisplay};
+  | {
+      kind: 'tale';
+      storedAt: number;
+      entry: RadienceffAncienttalesBookmarkDisplay;
+    }
+  | {
+      kind: 'joke';
+      storedAt: number;
+      entry: RadienceffAncienttalesSavedJokeDisplay;
+    };
 
 const JokeListPanel = ({
   shelfEntry,
@@ -117,14 +140,20 @@ const JokeListPanel = ({
   onDiscard: () => void;
   onEmitShare: () => void;
 }) => (
-  <View style={radienceffAncienttalesStyles.radienceffAncienttalesJokeItemPanel}>
-    <View style={radienceffAncienttalesStyles.radienceffAncienttalesJokePanelHeader}>
+  <View
+    style={radienceffAncienttalesStyles.radienceffAncienttalesJokeItemPanel}>
+    <View
+      style={
+        radienceffAncienttalesStyles.radienceffAncienttalesJokePanelHeader
+      }>
       <View style={radienceffAncienttalesStyles.radienceffAncienttalesTagChip}>
-        <Text style={radienceffAncienttalesStyles.radienceffAncienttalesTagLabel}>
+        <Text
+          style={radienceffAncienttalesStyles.radienceffAncienttalesTagLabel}>
           {shelfEntry.localeTag}
         </Text>
       </View>
-      <Text style={radienceffAncienttalesStyles.radienceffAncienttalesItemTitle}>
+      <Text
+        style={radienceffAncienttalesStyles.radienceffAncienttalesItemTitle}>
         {shelfEntry.headline}
       </Text>
     </View>
@@ -133,11 +162,14 @@ const JokeListPanel = ({
       numberOfLines={3}>
       {radienceffAncienttalesExcerptFromJoke(shelfEntry.body)}
     </Text>
-    <View style={radienceffAncienttalesStyles.radienceffAncienttalesItemToolbar}>
+    <View
+      style={radienceffAncienttalesStyles.radienceffAncienttalesItemToolbar}>
       <FilledActionControl
         optionCaption="Open"
         onActivate={onRevealJoke}
-        surfaceExtra={radienceffAncienttalesStyles.radienceffAncienttalesItemPrimaryAction}
+        surfaceExtra={
+          radienceffAncienttalesStyles.radienceffAncienttalesItemPrimaryAction
+        }
       />
       <GlyphActionControl
         optionCaption={radienceffAncienttalesMediaRegistry.icons.delete}
@@ -177,13 +209,15 @@ const BookmarkListPanel = ({
         style={StyleSheet.absoluteFill}
       />
       <View style={radienceffAncienttalesStyles.radienceffAncienttalesTagChip}>
-        <Text style={radienceffAncienttalesStyles.radienceffAncienttalesTagLabel}>
+        <Text
+          style={radienceffAncienttalesStyles.radienceffAncienttalesTagLabel}>
           {shelfEntry.localeTag}
         </Text>
       </View>
     </View>
     <View style={radienceffAncienttalesStyles.radienceffAncienttalesPanelBody}>
-      <Text style={radienceffAncienttalesStyles.radienceffAncienttalesItemTitle}>
+      <Text
+        style={radienceffAncienttalesStyles.radienceffAncienttalesItemTitle}>
         {shelfEntry.headline}
       </Text>
       <Text
@@ -191,11 +225,14 @@ const BookmarkListPanel = ({
         numberOfLines={2}>
         {radienceffAncienttalesExcerptFromTrail(shelfEntry.passageTrail)}
       </Text>
-      <View style={radienceffAncienttalesStyles.radienceffAncienttalesItemToolbar}>
+      <View
+        style={radienceffAncienttalesStyles.radienceffAncienttalesItemToolbar}>
         <FilledActionControl
           optionCaption="Open"
           onActivate={onRevealPassage}
-          surfaceExtra={radienceffAncienttalesStyles.radienceffAncienttalesItemPrimaryAction}
+          surfaceExtra={
+            radienceffAncienttalesStyles.radienceffAncienttalesItemPrimaryAction
+          }
         />
         <GlyphActionControl
           optionCaption={radienceffAncienttalesMediaRegistry.icons.delete}
@@ -215,21 +252,35 @@ const BookmarkListPanel = ({
 const RadienceffAncienttalesSavedScreen = () => {
   const tabNavigation =
     useNavigation<
-      BottomTabNavigationProp<RadienceffAncienttalesMainTabParamList, typeof RadienceffAncienttalesRoutes.Saved>
+      BottomTabNavigationProp<
+        RadienceffAncienttalesMainTabParamList,
+        typeof RadienceffAncienttalesRoutes.Saved
+      >
     >();
-  const [radienceffAncienttalesScreenPhase, setRadienceffAncienttalesScreenPhase] =
-    useState<RadienceffAncienttalesBookmarkPhase>('shelf');
-  const [radienceffAncienttalesShelfEntries, setRadienceffAncienttalesShelfEntries] =
-    useState<RadienceffAncienttalesBookmarkDisplay[]>([]);
-  const [radienceffAncienttalesSavedJokes, setRadienceffAncienttalesSavedJokes] = useState<
-    RadienceffAncienttalesSavedJokeDisplay[]
-  >([]);
-  const [radienceffAncienttalesActiveEntryKey, setRadienceffAncienttalesActiveEntryKey] =
-    useState<string | null>(null);
-  const [radienceffAncienttalesActiveJokeKey, setRadienceffAncienttalesActiveJokeKey] =
-    useState<string | null>(null);
-  const [radienceffAncienttalesPendingDiscard, setRadienceffAncienttalesPendingDiscard] =
-    useState<PendingDiscard | null>(null);
+  const [
+    radienceffAncienttalesScreenPhase,
+    setRadienceffAncienttalesScreenPhase,
+  ] = useState<RadienceffAncienttalesBookmarkPhase>('shelf');
+  const [
+    radienceffAncienttalesShelfEntries,
+    setRadienceffAncienttalesShelfEntries,
+  ] = useState<RadienceffAncienttalesBookmarkDisplay[]>([]);
+  const [
+    radienceffAncienttalesSavedJokes,
+    setRadienceffAncienttalesSavedJokes,
+  ] = useState<RadienceffAncienttalesSavedJokeDisplay[]>([]);
+  const [
+    radienceffAncienttalesActiveEntryKey,
+    setRadienceffAncienttalesActiveEntryKey,
+  ] = useState<string | null>(null);
+  const [
+    radienceffAncienttalesActiveJokeKey,
+    setRadienceffAncienttalesActiveJokeKey,
+  ] = useState<string | null>(null);
+  const [
+    radienceffAncienttalesPendingDiscard,
+    setRadienceffAncienttalesPendingDiscard,
+  ] = useState<PendingDiscard | null>(null);
 
   const refreshSnapshot = useCallback(async () => {
     const [storedPayloads, storedJokes] = await Promise.all([
@@ -238,7 +289,9 @@ const RadienceffAncienttalesSavedScreen = () => {
     ]);
     const enrichedEntries = storedPayloads
       .map(bookmarkPayload => {
-        const chronicle = radienceffAncienttalesResolveChronicle(bookmarkPayload.entryKey);
+        const chronicle = radienceffAncienttalesResolveChronicle(
+          bookmarkPayload.entryKey,
+        );
         if (!chronicle) {
           return null;
         }
@@ -250,7 +303,8 @@ const RadienceffAncienttalesSavedScreen = () => {
         } as RadienceffAncienttalesBookmarkDisplay;
       })
       .filter(
-        (shelfEntry): shelfEntry is RadienceffAncienttalesBookmarkDisplay => shelfEntry != null,
+        (shelfEntry): shelfEntry is RadienceffAncienttalesBookmarkDisplay =>
+          shelfEntry != null,
       );
     setRadienceffAncienttalesShelfEntries(enrichedEntries);
     setRadienceffAncienttalesSavedJokes(storedJokes);
@@ -272,7 +326,8 @@ const RadienceffAncienttalesSavedScreen = () => {
     return rows.sort((a, b) => b.storedAt - a.storedAt);
   }, [radienceffAncienttalesSavedJokes, radienceffAncienttalesShelfEntries]);
 
-  const radienceffAncienttalesHasSavedItems = radienceffAncienttalesShelfRows.length > 0;
+  const radienceffAncienttalesHasSavedItems =
+    radienceffAncienttalesShelfRows.length > 0;
 
   useFocusEffect(
     useCallback(() => {
@@ -287,20 +342,29 @@ const RadienceffAncienttalesSavedScreen = () => {
     j => j.jokeKey === radienceffAncienttalesActiveJokeKey,
   );
 
-  const emitJokeShare = useCallback(async (shelfEntry: RadienceffAncienttalesSavedJokeDisplay) => {
-    await Share.share({
-      message: radienceffAncienttalesComposeJokeShare(shelfEntry.localeTag, shelfEntry.body),
-    });
-  }, []);
+  const emitJokeShare = useCallback(
+    async (shelfEntry: RadienceffAncienttalesSavedJokeDisplay) => {
+      await Share.share({
+        message: radienceffAncienttalesComposeJokeShare(
+          shelfEntry.localeTag,
+          shelfEntry.body,
+        ),
+      });
+    },
+    [],
+  );
 
-  const emitBookmarkShare = useCallback(async (shelfEntry: RadienceffAncienttalesBookmarkDisplay) => {
-    await Share.share({
-      message: radienceffAncienttalesComposeBookmarkShare(
-        shelfEntry.headline,
-        shelfEntry.passageTrail,
-      ),
-    });
-  }, []);
+  const emitBookmarkShare = useCallback(
+    async (shelfEntry: RadienceffAncienttalesBookmarkDisplay) => {
+      await Share.share({
+        message: radienceffAncienttalesComposeBookmarkShare(
+          shelfEntry.headline,
+          shelfEntry.passageTrail,
+        ),
+      });
+    },
+    [],
+  );
 
   useFocusEffect(
     useCallback(() => {
@@ -316,14 +380,24 @@ const RadienceffAncienttalesSavedScreen = () => {
       return;
     }
     if (radienceffAncienttalesPendingDiscard.kind === 'tale') {
-      await radienceffAncienttalesDiscardBookmark(radienceffAncienttalesPendingDiscard.key);
-      if (radienceffAncienttalesActiveEntryKey === radienceffAncienttalesPendingDiscard.key) {
+      await radienceffAncienttalesDiscardBookmark(
+        radienceffAncienttalesPendingDiscard.key,
+      );
+      if (
+        radienceffAncienttalesActiveEntryKey ===
+        radienceffAncienttalesPendingDiscard.key
+      ) {
         setRadienceffAncienttalesScreenPhase('shelf');
         setRadienceffAncienttalesActiveEntryKey(null);
       }
     } else {
-      await radienceffAncienttalesDiscardJoke(radienceffAncienttalesPendingDiscard.key);
-      if (radienceffAncienttalesActiveJokeKey === radienceffAncienttalesPendingDiscard.key) {
+      await radienceffAncienttalesDiscardJoke(
+        radienceffAncienttalesPendingDiscard.key,
+      );
+      if (
+        radienceffAncienttalesActiveJokeKey ===
+        radienceffAncienttalesPendingDiscard.key
+      ) {
         setRadienceffAncienttalesScreenPhase('shelf');
         setRadienceffAncienttalesActiveJokeKey(null);
       }
@@ -362,8 +436,13 @@ const RadienceffAncienttalesSavedScreen = () => {
       <>
         <RadienceffAncienttalesAppLayout
           tab
-          contentStyle={radienceffAncienttalesStyles.radienceffAncienttalesPassageScroll}>
-          <View style={radienceffAncienttalesStyles.radienceffAncienttalesPassageHeader}>
+          contentStyle={
+            radienceffAncienttalesStyles.radienceffAncienttalesPassageScroll
+          }>
+          <View
+            style={
+              radienceffAncienttalesStyles.radienceffAncienttalesPassageHeader
+            }>
             <Pressable
               onPress={() => {
                 setRadienceffAncienttalesScreenPhase('shelf');
@@ -371,7 +450,8 @@ const RadienceffAncienttalesSavedScreen = () => {
               }}
               style={({pressed}) => [
                 radienceffAncienttalesStyles.radienceffAncienttalesPassageNavControl,
-                pressed && radienceffAncienttalesStyles.radienceffAncienttalesPressedState,
+                pressed &&
+                  radienceffAncienttalesStyles.radienceffAncienttalesPressedState,
               ]}>
               <Image source={radienceffAncienttalesMediaRegistry.icons.back} />
             </Pressable>
@@ -379,28 +459,52 @@ const RadienceffAncienttalesSavedScreen = () => {
               onPress={() => emitJokeShare(activeJoke)}
               style={({pressed}) => [
                 radienceffAncienttalesStyles.radienceffAncienttalesPassageEmitControl,
-                pressed && radienceffAncienttalesStyles.radienceffAncienttalesPressedState,
+                pressed &&
+                  radienceffAncienttalesStyles.radienceffAncienttalesPressedState,
               ]}>
-              <Image source={radienceffAncienttalesMediaRegistry.icons.shareButton} />
+              <Image
+                source={radienceffAncienttalesMediaRegistry.icons.shareButton}
+              />
             </Pressable>
           </View>
 
-          <View style={radienceffAncienttalesStyles.radienceffAncienttalesJokeDetailTag}>
-            <Text style={radienceffAncienttalesStyles.radienceffAncienttalesTagLabel}>
+          <View
+            style={
+              radienceffAncienttalesStyles.radienceffAncienttalesJokeDetailTag
+            }>
+            <Text
+              style={
+                radienceffAncienttalesStyles.radienceffAncienttalesTagLabel
+              }>
               {activeJoke.localeTag}
             </Text>
           </View>
 
-          <View style={radienceffAncienttalesStyles.radienceffAncienttalesProseStack}>
-            <View style={radienceffAncienttalesStyles.radienceffAncienttalesProsePanel}>
-              <Text style={radienceffAncienttalesStyles.radienceffAncienttalesProseCopy}>
+          <View
+            style={
+              radienceffAncienttalesStyles.radienceffAncienttalesProseStack
+            }>
+            <View
+              style={
+                radienceffAncienttalesStyles.radienceffAncienttalesProsePanel
+              }>
+              <Text
+                style={
+                  radienceffAncienttalesStyles.radienceffAncienttalesProseCopy
+                }>
                 {activeJoke.body}
               </Text>
             </View>
           </View>
 
-          <View style={radienceffAncienttalesStyles.radienceffAncienttalesOutcomeTagPanel}>
-            <Text style={radienceffAncienttalesStyles.radienceffAncienttalesOutcomeTagLabel}>
+          <View
+            style={
+              radienceffAncienttalesStyles.radienceffAncienttalesOutcomeTagPanel
+            }>
+            <Text
+              style={
+                radienceffAncienttalesStyles.radienceffAncienttalesOutcomeTagLabel
+              }>
               Saved Joke
             </Text>
           </View>
@@ -409,7 +513,9 @@ const RadienceffAncienttalesSavedScreen = () => {
             optionCaption="Share"
             glyphSource={radienceffAncienttalesMediaRegistry.icons.share}
             onActivate={() => emitJokeShare(activeJoke)}
-            surfaceExtra={radienceffAncienttalesStyles.radienceffAncienttalesPassageEmitAction}
+            surfaceExtra={
+              radienceffAncienttalesStyles.radienceffAncienttalesPassageEmitAction
+            }
           />
         </RadienceffAncienttalesAppLayout>
         {discardModal}
@@ -421,8 +527,13 @@ const RadienceffAncienttalesSavedScreen = () => {
     return (
       <RadienceffAncienttalesAppLayout
         tab
-        contentStyle={radienceffAncienttalesStyles.radienceffAncienttalesPassageScroll}>
-        <View style={radienceffAncienttalesStyles.radienceffAncienttalesPassageHeader}>
+        contentStyle={
+          radienceffAncienttalesStyles.radienceffAncienttalesPassageScroll
+        }>
+        <View
+          style={
+            radienceffAncienttalesStyles.radienceffAncienttalesPassageHeader
+          }>
           <Pressable
             onPress={() => {
               setRadienceffAncienttalesScreenPhase('shelf');
@@ -430,7 +541,8 @@ const RadienceffAncienttalesSavedScreen = () => {
             }}
             style={({pressed}) => [
               radienceffAncienttalesStyles.radienceffAncienttalesPassageNavControl,
-              pressed && radienceffAncienttalesStyles.radienceffAncienttalesPressedState,
+              pressed &&
+                radienceffAncienttalesStyles.radienceffAncienttalesPressedState,
             ]}>
             <Image source={radienceffAncienttalesMediaRegistry.icons.back} />
           </Pressable>
@@ -438,34 +550,54 @@ const RadienceffAncienttalesSavedScreen = () => {
             onPress={() => emitBookmarkShare(activeEntry)}
             style={({pressed}) => [
               radienceffAncienttalesStyles.radienceffAncienttalesPassageEmitControl,
-              pressed && radienceffAncienttalesStyles.radienceffAncienttalesPressedState,
+              pressed &&
+                radienceffAncienttalesStyles.radienceffAncienttalesPressedState,
             ]}>
-            <Image source={radienceffAncienttalesMediaRegistry.icons.shareButton} />
+            <Image
+              source={radienceffAncienttalesMediaRegistry.icons.shareButton}
+            />
           </Pressable>
         </View>
 
-        <View style={radienceffAncienttalesStyles.radienceffAncienttalesPassageMediaFrame}>
+        <View
+          style={
+            radienceffAncienttalesStyles.radienceffAncienttalesPassageMediaFrame
+          }>
           <Image
             source={activeEntry.coverVisual}
-            style={radienceffAncienttalesStyles.radienceffAncienttalesPassageMedia}
+            style={
+              radienceffAncienttalesStyles.radienceffAncienttalesPassageMedia
+            }
             resizeMode="cover"
           />
         </View>
 
-        <View style={radienceffAncienttalesStyles.radienceffAncienttalesProseStack}>
+        <View
+          style={radienceffAncienttalesStyles.radienceffAncienttalesProseStack}>
           {activeEntry.passageTrail.map((proseBlock, i) => (
             <View
               key={`${i}-${proseBlock.slice(0, 12)}`}
-              style={radienceffAncienttalesStyles.radienceffAncienttalesProsePanel}>
-              <Text style={radienceffAncienttalesStyles.radienceffAncienttalesProseCopy}>
+              style={
+                radienceffAncienttalesStyles.radienceffAncienttalesProsePanel
+              }>
+              <Text
+                style={
+                  radienceffAncienttalesStyles.radienceffAncienttalesProseCopy
+                }>
                 {proseBlock}
               </Text>
             </View>
           ))}
         </View>
 
-        <View style={radienceffAncienttalesStyles.radienceffAncienttalesOutcomeTagPanel}>
-          <Text style={radienceffAncienttalesStyles.radienceffAncienttalesOutcomeTagLabel}>
+        <View
+          style={
+            radienceffAncienttalesStyles.radienceffAncienttalesOutcomeTagPanel
+          }>
+          <Text
+            style={
+              radienceffAncienttalesStyles.radienceffAncienttalesOutcomeTagLabel
+            }>
             Journey Complete
           </Text>
         </View>
@@ -474,7 +606,9 @@ const RadienceffAncienttalesSavedScreen = () => {
           optionCaption="Share"
           glyphSource={radienceffAncienttalesMediaRegistry.icons.share}
           onActivate={() => emitBookmarkShare(activeEntry)}
-          surfaceExtra={radienceffAncienttalesStyles.radienceffAncienttalesPassageEmitAction}
+          surfaceExtra={
+            radienceffAncienttalesStyles.radienceffAncienttalesPassageEmitAction
+          }
         />
       </RadienceffAncienttalesAppLayout>
     );
@@ -482,80 +616,107 @@ const RadienceffAncienttalesSavedScreen = () => {
 
   return (
     <>
-    <RadienceffAncienttalesAppLayout tab>
-      <Text style={radienceffAncienttalesStyles.radienceffAncienttalesScreenHeading}>
-        Saved
-      </Text>
-      <Text style={radienceffAncienttalesStyles.radienceffAncienttalesScreenSubheading}>
-        Your saved tales and jokes
-      </Text>
+      <RadienceffAncienttalesAppLayout tab>
+        <Text
+          style={
+            radienceffAncienttalesStyles.radienceffAncienttalesScreenHeading
+          }>
+          Saved
+        </Text>
+        <Text
+          style={
+            radienceffAncienttalesStyles.radienceffAncienttalesScreenSubheading
+          }>
+          Your saved tales and jokes
+        </Text>
 
-      {!radienceffAncienttalesHasSavedItems ? (
-        <View style={radienceffAncienttalesStyles.radienceffAncienttalesVacantState}>
-          <Image
-            source={radienceffAncienttalesMediaRegistry.saved.empty}
-            style={radienceffAncienttalesStyles.radienceffAncienttalesVacantVisual}
-            resizeMode="contain"
-          />
-          <Text style={radienceffAncienttalesStyles.radienceffAncienttalesVacantCopy}>
-            Nothing saved yet
-          </Text>
-          <FilledActionControl
-            optionCaption="Explore Tales"
-            onActivate={() => tabNavigation.navigate(RadienceffAncienttalesRoutes.Tales)}
-            surfaceExtra={radienceffAncienttalesStyles.radienceffAncienttalesVacantAction}
-          />
-          <FilledActionControl
-            optionCaption="Browse Jokes"
-            onActivate={() => tabNavigation.navigate(RadienceffAncienttalesRoutes.Jokes)}
-            surfaceExtra={radienceffAncienttalesStyles.radienceffAncienttalesVacantAction}
-          />
-        </View>
-      ) : (
-        <View style={radienceffAncienttalesStyles.radienceffAncienttalesItemStack}>
-          {radienceffAncienttalesShelfRows.map((row, index) => (
-            <RadienceffAncienttalesStaggerItem
-              key={
-                row.kind === 'tale' ? row.entry.entryKey : row.entry.jokeKey
+        {!radienceffAncienttalesHasSavedItems ? (
+          <View
+            style={
+              radienceffAncienttalesStyles.radienceffAncienttalesVacantState
+            }>
+            <Image
+              source={radienceffAncienttalesMediaRegistry.saved.empty}
+              style={
+                radienceffAncienttalesStyles.radienceffAncienttalesVacantVisual
               }
-              index={index}>
-              {row.kind === 'tale' ? (
-                <BookmarkListPanel
-                  shelfEntry={row.entry}
-                  onRevealPassage={() => {
-                    setRadienceffAncienttalesActiveEntryKey(row.entry.entryKey);
-                    setRadienceffAncienttalesScreenPhase('passage');
-                  }}
-                  onDiscard={() =>
-                    setRadienceffAncienttalesPendingDiscard({
-                      kind: 'tale',
-                      key: row.entry.entryKey,
-                    })
-                  }
-                  onEmitShare={() => emitBookmarkShare(row.entry)}
-                />
-              ) : (
-                <JokeListPanel
-                  shelfEntry={row.entry}
-                  onRevealJoke={() => {
-                    setRadienceffAncienttalesActiveJokeKey(row.entry.jokeKey);
-                    setRadienceffAncienttalesScreenPhase('joke');
-                  }}
-                  onDiscard={() =>
-                    setRadienceffAncienttalesPendingDiscard({
-                      kind: 'joke',
-                      key: row.entry.jokeKey,
-                    })
-                  }
-                  onEmitShare={() => emitJokeShare(row.entry)}
-                />
-              )}
-            </RadienceffAncienttalesStaggerItem>
-          ))}
-        </View>
-      )}
-    </RadienceffAncienttalesAppLayout>
-    {discardModal}
+              resizeMode="contain"
+            />
+            <Text
+              style={
+                radienceffAncienttalesStyles.radienceffAncienttalesVacantCopy
+              }>
+              Nothing saved yet
+            </Text>
+            <FilledActionControl
+              optionCaption="Explore Tales"
+              onActivate={() =>
+                tabNavigation.navigate(RadienceffAncienttalesRoutes.Tales)
+              }
+              surfaceExtra={
+                radienceffAncienttalesStyles.radienceffAncienttalesVacantAction
+              }
+            />
+            <FilledActionControl
+              optionCaption="Browse Jokes"
+              onActivate={() =>
+                tabNavigation.navigate(RadienceffAncienttalesRoutes.Jokes)
+              }
+              surfaceExtra={
+                radienceffAncienttalesStyles.radienceffAncienttalesVacantAction
+              }
+            />
+          </View>
+        ) : (
+          <View
+            style={
+              radienceffAncienttalesStyles.radienceffAncienttalesItemStack
+            }>
+            {radienceffAncienttalesShelfRows.map((row, index) => (
+              <RadienceffAncienttalesStaggerItem
+                key={
+                  row.kind === 'tale' ? row.entry.entryKey : row.entry.jokeKey
+                }
+                index={index}>
+                {row.kind === 'tale' ? (
+                  <BookmarkListPanel
+                    shelfEntry={row.entry}
+                    onRevealPassage={() => {
+                      setRadienceffAncienttalesActiveEntryKey(
+                        row.entry.entryKey,
+                      );
+                      setRadienceffAncienttalesScreenPhase('passage');
+                    }}
+                    onDiscard={() =>
+                      setRadienceffAncienttalesPendingDiscard({
+                        kind: 'tale',
+                        key: row.entry.entryKey,
+                      })
+                    }
+                    onEmitShare={() => emitBookmarkShare(row.entry)}
+                  />
+                ) : (
+                  <JokeListPanel
+                    shelfEntry={row.entry}
+                    onRevealJoke={() => {
+                      setRadienceffAncienttalesActiveJokeKey(row.entry.jokeKey);
+                      setRadienceffAncienttalesScreenPhase('joke');
+                    }}
+                    onDiscard={() =>
+                      setRadienceffAncienttalesPendingDiscard({
+                        kind: 'joke',
+                        key: row.entry.jokeKey,
+                      })
+                    }
+                    onEmitShare={() => emitJokeShare(row.entry)}
+                  />
+                )}
+              </RadienceffAncienttalesStaggerItem>
+            ))}
+          </View>
+        )}
+      </RadienceffAncienttalesAppLayout>
+      {discardModal}
     </>
   );
 };
@@ -619,12 +780,12 @@ const radienceffAncienttalesStyles = StyleSheet.create({
     alignSelf: 'flex-start',
     backgroundColor: radienceffAncienttalesColors.badge,
     paddingHorizontal: 12.3,
-    paddingVertical: 4.4,
+    paddingVertical: 4,
     borderRadius: 20.5,
-    marginBottom: 16.4,
+    marginBottom: 16,
   },
   radienceffAncienttalesMediaFrame: {
-    height: 160.5,
+    height: 160,
     position: 'relative',
   },
   radienceffAncienttalesTagChip: {
@@ -659,10 +820,12 @@ const radienceffAncienttalesStyles = StyleSheet.create({
   radienceffAncienttalesItemToolbar: {
     flexDirection: 'row',
     alignItems: 'center',
+
     gap: 12.4,
   },
   radienceffAncienttalesItemPrimaryAction: {
     flex: 1,
+
     minHeight: 48.5,
   },
   radienceffAncienttalesFilledPressable: {
