@@ -1,16 +1,11 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import {LogBox} from 'react-native';
 
-if (!__DEV__) {
-  LogBox.ignoreAllLogs();
-}
-
-import ExplorerMytthofRootNavigator from './ExplorerMytthofSrc/ExplorerMytthofNavigation/ExplorerMytthofRootNavigator';
+import RadienceffAncienttalesRootNavigator from './RadienceffAncienttalesSrc/RadienceffAncienttalesNavigation/RadienceffAncienttalesRootNavigator';
 
 const App = () => (
   <NavigationContainer>
-    <ExplorerMytthofRootNavigator />
+    <RadienceffAncienttalesRootNavigator />
   </NavigationContainer>
 );
 

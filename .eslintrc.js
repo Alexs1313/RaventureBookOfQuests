@@ -6,7 +6,7 @@ module.exports = {
       files: [
         'App.tsx',
         'index.js',
-        'ExplorerMytthofSrc/**/*.{js,jsx,ts,tsx}',
+        'RadienceffAncienttalesSrc/**/*.{js,jsx,ts,tsx}',
       ],
       rules: {
         'no-console': 'error',

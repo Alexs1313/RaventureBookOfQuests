@@ -3,14 +3,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@navigation/*": ["ExplorerMytthofSrc/ExplorerMytthofNavigation/*"],
-      "@screens/*": ["ExplorerMytthofSrc/ExplorerMytthofScreens/*"],
-      "@components/*": ["ExplorerMytthofSrc/ExplorerMytthofComponents/*"],
-      "@data/*": ["ExplorerMytthofSrc/ExplorerMytthofData/*"],
-      "@palette/*": ["ExplorerMytthofSrc/ExplorerMytthofPalette/*"],
-      "@types/*": ["ExplorerMytthofSrc/ExplorerMytthofTypes/*"],
-      "@loungeKit/*": ["ExplorerMytthofSrc/ExplorerMytthofLoungeKit/*"],
-      "@assets/*": ["ExplorerMytthofSrc/ExplorerMytthofAssets/*"]
+      "@navigation/*": ["RadienceffAncienttalesSrc/RadienceffAncienttalesNavigation/*"],
+      "@screens/*": ["RadienceffAncienttalesSrc/RadienceffAncienttalesScreens/*"],
+      "@components/*": ["RadienceffAncienttalesSrc/RadienceffAncienttalesComponents/*"],
+      "@data/*": ["RadienceffAncienttalesSrc/RadienceffAncienttalesComponents/RadienceffAncienttalesCore/RadienceffAncienttalesData/*"],
+      "@palette/*": ["RadienceffAncienttalesSrc/RadienceffAncienttalesComponents/RadienceffAncienttalesCore/RadienceffAncienttalesPalette/*"],
+      "@types/*": ["RadienceffAncienttalesSrc/RadienceffAncienttalesComponents/RadienceffAncienttalesCore/RadienceffAncienttalesTypes/*"],
+      "@loungeKit/*": ["RadienceffAncienttalesSrc/RadienceffAncienttalesComponents/RadienceffAncienttalesCore/RadienceffAncienttalesLoungeKit/*"],
+      "@assets/*": ["RadienceffAncienttalesSrc/RadienceffAncienttalesComponents/RadienceffAncienttalesCore/RadienceffAncienttalesAssets/*"]
     }
   }
 }

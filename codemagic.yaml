@@ -1,17 +1,17 @@
 workflows:
   ios-workflow:
-    name: 'Book Of Explorer Myths'
+    name: 'Radience of Ancient Tales'
     max_build_duration: 120
     instance_type: mac_mini_m2
     integrations:
-      app_store_connect: MythsAncienttAPIKey
+      app_store_connect: RadienceofAncientTalesAPI
     environment:
       xcode: '26.0'
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.sdfsdf.dsjsdfja
+        bundle_identifier: com.djjdjkd.llllkdsd
       vars:
-        BUNDLE_ID: com.sdfsdf.dsjsdfja
+        BUNDLE_ID: com.djjdjkd.llllkdsd
         XCODE_WORKSPACE: RaventureBookOfQuests.xcworkspace
         XCODE_SCHEME: RaventureBookOfQuests
         APP_STORE_APPLE_ID: 6773278482
