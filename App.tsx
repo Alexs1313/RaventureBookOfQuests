@@ -1,11 +1,11 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 
-import RadienceffAncienttalesRootNavigator from './RadienceffAncienttalesSrc/RadienceffAncienttalesNavigation/RadienceffAncienttalesRootNavigator';
+import AnncintTlllsmythhhsRootNavigator from './AnncintTlllsmythhhsSrc/routes/AnncintTlllsmythhhsRootNavigator';
 
 const App = () => (
   <NavigationContainer>
-    <RadienceffAncienttalesRootNavigator />
+    <AnncintTlllsmythhhsRootNavigator />
   </NavigationContainer>
 );
 

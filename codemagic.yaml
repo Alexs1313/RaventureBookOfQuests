@@ -4,17 +4,17 @@ workflows:
     max_build_duration: 120
     instance_type: mac_mini_m2
     integrations:
-      app_store_connect: RadienceofAncientTalesAPI Key
+      app_store_connect: RadienceAncientTalesAPIKey
     environment:
       xcode: '26.0'
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.djjdjkd.llllkdsd
+        bundle_identifier: com.radienceof.ancient.tales
       vars:
-        BUNDLE_ID: com.djjdjkd.llllkdsd
+        BUNDLE_ID: com.radienceof.ancient.tales
         XCODE_WORKSPACE: RaventureBookOfQuests.xcworkspace
         XCODE_SCHEME: RaventureBookOfQuests
-        APP_STORE_APPLE_ID: 6773278482
+        APP_STORE_APPLE_ID: 6773836490
     scripts:
       - name: Install npm dependencies
         script: |

@@ -1,1 +1,0 @@
-export {radienceffAncienttalesMediaRegistry} from './RadienceffAncienttalesAssets';

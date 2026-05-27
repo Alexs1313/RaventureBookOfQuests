@@ -3,14 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@navigation/*": ["RadienceffAncienttalesSrc/RadienceffAncienttalesNavigation/*"],
-      "@screens/*": ["RadienceffAncienttalesSrc/RadienceffAncienttalesScreens/*"],
-      "@components/*": ["RadienceffAncienttalesSrc/RadienceffAncienttalesComponents/*"],
-      "@data/*": ["RadienceffAncienttalesSrc/RadienceffAncienttalesComponents/RadienceffAncienttalesCore/RadienceffAncienttalesData/*"],
-      "@palette/*": ["RadienceffAncienttalesSrc/RadienceffAncienttalesComponents/RadienceffAncienttalesCore/RadienceffAncienttalesPalette/*"],
-      "@types/*": ["RadienceffAncienttalesSrc/RadienceffAncienttalesComponents/RadienceffAncienttalesCore/RadienceffAncienttalesTypes/*"],
-      "@loungeKit/*": ["RadienceffAncienttalesSrc/RadienceffAncienttalesComponents/RadienceffAncienttalesCore/RadienceffAncienttalesLoungeKit/*"],
-      "@assets/*": ["RadienceffAncienttalesSrc/RadienceffAncienttalesComponents/RadienceffAncienttalesCore/RadienceffAncienttalesAssets/*"]
+      "@src/*": ["AnncintTlllsmythhhsSrc/*"]
     }
   }
 }
