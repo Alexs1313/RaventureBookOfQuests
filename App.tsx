@@ -1,12 +1,11 @@
 import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
+import StakkNavyy from './appsrCc/[navvyRoutes]/RootNavigator';
 
-import RootNavigator from './src/navigation/RootNavigator';
-
-const App = () => (
+const InntlaPP = () => (
   <NavigationContainer>
-    <RootNavigator />
+    <StakkNavyy />
   </NavigationContainer>
 );
 
-export default App;
+export default InntlaPP;

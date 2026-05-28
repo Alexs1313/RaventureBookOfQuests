@@ -3,14 +3,14 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@navigation/*": ["src/navigation/*"],
-      "@screens/*": ["src/screens/*"],
-      "@components/*": ["src/components/*"],
-      "@data/*": ["src/data/*"],
-      "@palette/*": ["src/palette/*"],
-      "@types/*": ["src/types/*"],
-      "@loungeKit/*": ["src/loungeKit/*"],
-      "@assets/*": ["src/assets/*"]
+      "@navigation/*": ["appsrCc/[navvyRoutes]/*"],
+      "@screens/*": ["appsrCc/ancpaggEs/*"],
+      "@components/*": ["appsrCc/cpnnts/*"],
+      "@data/*": ["appsrCc/anccdatta/*"],
+      "@palette/*": ["appsrCc/anccpalEEtr/*"],
+      "@types/*": ["appsrCc/annccTyppes/*"],
+      "@loungeKit/*": ["appsrCc/lnggkiiT/*"],
+      "@assets/*": ["appsrCc/assets/*"]
     }
   }
 }
